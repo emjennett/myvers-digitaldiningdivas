@@ -6,9 +6,9 @@ import java.util.Objects;
 
 public class Account {
     //Abstract class which functions as the base for all account types.
-    protected String UserName; //The username associated with the account.
+    private String UserName; //The username associated with the account.
     private final String password; //The password associated with the account.
-    protected Date createdOn; //Date of the accounts' creation.
+    private Date createdOn; //Date of the accounts' creation.
 
     public Account(String name, String pass){
         //Constructor for the account class.

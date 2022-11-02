@@ -5,22 +5,31 @@ import java.util.Date;
 
 public class Review{
     //*A review of a restaurant or dish
-    protected boolean flagged = false; //Variable which shows if the review has been flagged for review.
-    protected String review; //The string which contains the review.
-    protected AccountUser author; //The user account which posted the review.
-    protected Date createdOn; //Date of the reviews' creation.
-    protected int upVotes = 0; //Number of up votes given to the review.
+    private boolean flagged = false; //Variable which shows if the review has been flagged for review.
+    private String review; //The string which contains the review.
+    private AccountUser author; //The user account which posted the review.
+    private Date createdOn; //Date of the reviews' creation.
+    private int upVotes = 0; //Number of up votes given to the review.
+    private int rating; //User given rating.
+    private Dish dishReviewed; //The dish reviewed.
 
-    public Review(AccountUser author, String review){
+    public Review(AccountUser author, String review, Dish dish, int rating){
         //The constructor for the review class
         this.author = author;
         this.review = review;
         this.createdOn = new Date();
+        this.rating = rating;
+        this.dishReviewed = dish;
     }
 
     public String getAuthor(){
         //Returns the authors' username.
         return this.author.getUserName();
+    }
+
+    public int getRating() {
+        //returns the review rating.
+        return rating;
     }
 
     public void flagReview(){
@@ -36,5 +45,15 @@ public class Review{
         //Returns the date which the review was created on in string form.
         SimpleDateFormat formatted = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         return formatted.format(this.createdOn);
+    }
+
+    public void setReview(String newReview){
+        //A setter for the review variable used for editing of a review.
+        this.review = newReview;
+    }
+
+    public void addVote(){
+        //Adds a vote to upVotes.
+        this.upVotes += 1;
     }
 }
