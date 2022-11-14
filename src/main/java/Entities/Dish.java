@@ -50,4 +50,8 @@ public class Dish {
         }
         this.rating = total/reviews.size();
     }
+
+    public void removeReview(Review review){
+        reviews.remove(review);
+    }
 }

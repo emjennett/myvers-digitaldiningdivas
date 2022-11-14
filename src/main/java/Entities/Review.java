@@ -56,4 +56,8 @@ public class Review{
         //Adds a vote to upVotes.
         this.upVotes += 1;
     }
+
+    public Dish getDishReviewed() {
+        return dishReviewed;
+    }
 }
