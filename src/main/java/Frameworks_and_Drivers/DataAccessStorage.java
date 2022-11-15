@@ -4,11 +4,17 @@ import APP_Business_Rules.DataAccessStorageInterface;
 import java.io.*;
 
 public class DataAccessStorage implements DataAccessStorageInterface {
-    //Class for accessing data from a file.
+    /**
+     * Class for accessing data from a file.
+     * @param fileName
+     * @return
+     */
 
     @Override
     public Object accessData(String fileName){
-        //The method for accessing data.
+        /**
+         * The method for accessing data. Returns an object from a given file.
+         */
 
         try {
             FileInputStream file = new FileInputStream(fileName);
@@ -32,6 +38,9 @@ public class DataAccessStorage implements DataAccessStorageInterface {
 
     @Override
     public void storeData(String fileName, Object inputData){
+        /**
+         * Stores a given object to a given file.
+         */
 
         try {
             FileOutputStream file = new FileOutputStream(fileName);

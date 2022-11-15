@@ -28,6 +28,13 @@ public class Review implements Serializable {
         return this.author.getUserName();
     }
 
+    public AccountUser getAuthorAccount(){
+        /**
+         * Return Account of the author
+         */
+        return author;
+    }
+
     public int getRating() {
         //returns the review rating.
         return rating;
