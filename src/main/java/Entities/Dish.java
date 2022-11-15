@@ -1,11 +1,12 @@
 package Entities;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Dish {
+public class Dish implements Serializable {
     //A class that holds all the information for a particular dish at a restaurant.
 
     private String name; //Name of the dish.

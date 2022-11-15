@@ -1,9 +1,10 @@
 package Entities;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FlaggedReview {
+public class FlaggedReview implements Serializable {
     //A class meant primarily for the storage of a flagged review for the purpose of later review by administrator
     // and eventual archiving.
     private Review flagged; //The review which needs addressing.

@@ -1,10 +1,11 @@
 package Entities;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public abstract class Account {
+public abstract class Account implements Serializable {
     //Abstract class which functions as the base for all account types.
     private String UserName; //The username associated with the account.
     private final String password; //The password associated with the account.

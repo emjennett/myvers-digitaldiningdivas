@@ -1,9 +1,9 @@
-
-
 package Entities;
 
+import java.io.Serializable;
 import java.util.HashMap;
-public class Menu {
+
+public class Menu implements Serializable {
     private Dish dish;
     //A class that holds and organizes dish information
     private String title;

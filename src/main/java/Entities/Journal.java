@@ -1,4 +1,6 @@
 package Entities;
 
-public class Journal {
+import java.io.Serializable;
+
+public class Journal implements Serializable {
 }
