@@ -31,6 +31,11 @@ public class Dish implements Serializable {
         return category;
     }
 
+    public Double getRating(){
+        return rating;
+    }
+
+
     public String getCreatedOn() {
         //returns date of creation in string form
         SimpleDateFormat formatted = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
