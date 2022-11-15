@@ -1,9 +1,10 @@
 package Entities;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Review{
+public class Review implements Serializable {
     //*A review of a restaurant or dish
     private boolean flagged = false; //Variable which shows if the review has been flagged for review.
     private String review; //The string which contains the review.
