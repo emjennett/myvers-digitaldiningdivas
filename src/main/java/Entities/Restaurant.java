@@ -2,8 +2,9 @@ package Entities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.Serializable;
 
-public class Restaurant {
+public class Restaurant implements Serializable {
     private String resCategory; //Category of the restaurant
     private String location; //Location of the restaurant
     private Double rating; //Average rating of the restaurant from its corresponding dish ratings

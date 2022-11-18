@@ -1,5 +1,6 @@
 package Entities;
 
+// 7-Journal-Creation
 import APP_Business_Rules.UserDataGrabber;
 
 import java.util.Date;
@@ -57,4 +58,9 @@ public class Journal {
 
 
 
+
+import java.io.Serializable;
+
+public class Journal implements Serializable {
+ main
 }
