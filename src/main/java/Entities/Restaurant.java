@@ -5,16 +5,14 @@ import java.util.HashMap;
 import java.io.Serializable;
 
 public class Restaurant implements Serializable {
-    private String name;
     private String resCategory; //Category of the restaurant
     private String location; //Location of the restaurant
     private Double rating; //Average rating of the restaurant from its corresponding dish ratings
     private ArrayList<Dish> dishRatings = new ArrayList<Dish>();
     private Menu menu;
-    public Restaurant(Menu menu, String resCategory, String name){
+    public Restaurant(Menu menu, String resCategory){
         this.menu = menu;
         this.resCategory = resCategory;
-        this.name = name;
 
     }
     public void storeMenu(Menu menu){
@@ -31,10 +29,6 @@ public class Restaurant implements Serializable {
     public double getRating(){
         return rating;
     }
-
-    public String getName() {return name;}
-
-    public String getLocation() {return location;}
 
     public void restaurantRating(){
         //Evaluates average rating of restaurant from its dish ratings.
