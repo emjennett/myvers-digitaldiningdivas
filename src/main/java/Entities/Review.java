@@ -28,6 +28,13 @@ public class Review implements Serializable {
         return this.author.getUserName();
     }
 
+    public AccountUser getAuthorAccount(){
+        /**
+         * Return Account of the author
+         */
+        return author;
+    }
+
     public int getRating() {
         //returns the review rating.
         return rating;
@@ -60,5 +67,9 @@ public class Review implements Serializable {
     public void addVote(){
         //Adds a vote to upVotes.
         this.upVotes += 1;
+    }
+
+    public Dish getDishReviewed() {
+        return dishReviewed;
     }
 }
