@@ -18,7 +18,9 @@ public class SearchUserUseCase {
         ArrayList<AccountUser> data = (ArrayList<AccountUser>) this.dataAccess.accessData(type + ".txt"); //Might need to change the return type of accessData() to Arraylist<Object>
         ArrayList<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
         for (AccountUser a: data){
+        if(a.getUserName().contains(search)){
 
+        }
         }
 
         return null;
