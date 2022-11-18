@@ -40,14 +40,14 @@ public class Journal {
         return formatted.format(this.createdOn);
 
     }
-    public List<Review> pullInformation(){
-        // returns all of the reviews corresponding to account
-        // this is a work in progress as user data grabber is nodefined yet
-        // I'm assuming that user data grabber returns a arraylist of reviews
-
-        List<Review> allreviews = UserDataGrabber(this.userAccount);
-        return allreviews;
-    }
+//    public List<Review> pullInformation(){
+//        // returns all of the reviews corresponding to account
+//        // this is a work in progress as user data grabber is nodefined yet
+//        // I'm assuming that user data grabber returns a arraylist of reviews
+//
+//        // List<Review> allreviews = UserDataGrabber();
+//        // return allreviews;
+//    }
 
 
 
