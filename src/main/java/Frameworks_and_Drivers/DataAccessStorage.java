@@ -1,7 +1,9 @@
 package Frameworks_and_Drivers;
 import APP_Business_Rules.DataAccessStorageInterface;
+import Entities.*;
 
 import java.io.*;
+import java.util.HashMap;
 
 public class DataAccessStorage implements DataAccessStorageInterface {
     //Class for accessing data from a file.
@@ -46,5 +48,4 @@ public class DataAccessStorage implements DataAccessStorageInterface {
             System.out.println("IOException is caught");
         }
     }
-
 }

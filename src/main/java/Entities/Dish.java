@@ -11,9 +11,10 @@ public class Dish implements Serializable {
 
     private String name; //Name of the dish.
     private String category; //The category of the dish.
-    private List<Review> reviews = new ArrayList<>(); //List of reviews of the dish.
+    private ArrayList<Review> reviews = new ArrayList<>(); //List of reviews of the dish.
     private Double rating; //average rating of the dish.
     private Date createdOn; //Date dish object was created.
+
 
     public Dish(String name, String category){
         this.name = name;
@@ -35,6 +36,9 @@ public class Dish implements Serializable {
         return rating;
     }
 
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
 
     public String getCreatedOn() {
         //returns date of creation in string form

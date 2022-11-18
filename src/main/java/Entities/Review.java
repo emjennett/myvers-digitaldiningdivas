@@ -33,6 +33,10 @@ public class Review implements Serializable {
         return rating;
     }
 
+    public String getReview() {
+        return review;
+    }
+
     public void flagReview(){
         //Marks the review as flagged for further review.
         this.flagged = true;
