@@ -1,4 +1,7 @@
 package Interface_and_Adapters;
 
-public class RestaurantPresenter {
+import APP_Business_Rules.RestaurantUseCase.RestaurantResponseModel;
+
+public interface RestaurantPresenter {
+    RestaurantResponseModel RestaurantView(RestaurantResponseModel restaurant);
 }
