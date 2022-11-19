@@ -2,7 +2,7 @@ package Entities;
 
 // 7-Journal-Creation
 import APP_Business_Rules.UserDataGrabber;
-
+import java.io.Serializable;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
