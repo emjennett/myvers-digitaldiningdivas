@@ -3,12 +3,13 @@ package Entities;
 // 7-Journal-Creation
 import APP_Business_Rules.UserDataGrabber;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Journal {
+public class Journal implements Serializable {
     private String name; // Name of Journal Owner
 
     private Account userAccount; // account of Journal Owner
