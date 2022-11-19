@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Journal {
+public class Journal implements Serializable{
     private String name; // Name of Journal Owner
 
     private Account userAccount; // account of Journal Owner
@@ -51,16 +51,5 @@ public class Journal {
 //    }
 
 
-
-
-
-
-
-
-
-
-import java.io.Serializable;
-
-public class Journal implements Serializable {
- main
+    
 }
