@@ -1,5 +1,4 @@
 package Entities;
-
 import java.util.ArrayList;
 
 public class AccountUser extends Account implements Comparable<AccountUser>{
@@ -16,7 +15,7 @@ public class AccountUser extends Account implements Comparable<AccountUser>{
         super(name, pass);
         this.score = 0;
     }
-
+    
     public void removeReview(Review review){
         /**
          * Removes a user review from the user list of reviews
