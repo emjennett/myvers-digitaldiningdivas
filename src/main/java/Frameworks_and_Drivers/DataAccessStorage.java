@@ -1,20 +1,16 @@
 package Frameworks_and_Drivers;
 import APP_Business_Rules.DataAccessStorageInterface;
+import Entities.*;
 
 import java.io.*;
+import java.util.HashMap;
 
 public class DataAccessStorage implements DataAccessStorageInterface {
-    /**
-     * Class for accessing data from a file.
-     * @param fileName
-     * @return
-     */
+    //Class for accessing data from a file.
 
     @Override
     public Object accessData(String fileName){
-        /**
-         * The method for accessing data. Returns an object from a given file.
-         */
+        //The method for accessing data.
 
         try {
             FileInputStream file = new FileInputStream(fileName);
@@ -38,9 +34,6 @@ public class DataAccessStorage implements DataAccessStorageInterface {
 
     @Override
     public void storeData(String fileName, Object inputData){
-        /**
-         * Stores a given object to a given file.
-         */
 
         try {
             FileOutputStream file = new FileOutputStream(fileName);
@@ -55,5 +48,4 @@ public class DataAccessStorage implements DataAccessStorageInterface {
             System.out.println("IOException is caught");
         }
     }
-
 }
