@@ -3,13 +3,12 @@ package Entities;
 // 7-Journal-Creation
 import APP_Business_Rules.UserDataGrabber;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Journal implements Serializable {
+public class Journal implements Serializable{
     private String name; // Name of Journal Owner
 
     private Account userAccount; // account of Journal Owner
@@ -19,7 +18,8 @@ public class Journal implements Serializable {
     private Date createdOn; // Date that the Journal was created on.
 
 
-    public Journal(String name, Account Account) {
+
+    public Journal(String name, Account Account){
         this.name = name;
         this.userAccount = Account;
         this.createdOn = new Date();
@@ -32,8 +32,8 @@ public class Journal implements Serializable {
     }
 
     public Account pullAccount(String name) {
-        return this.userAccount;
-    }
+            return this.userAccount;
+        }
 
     public String getCreatedOn() {
         //Returns the date which the Journal was created on in string form.
@@ -51,4 +51,5 @@ public class Journal implements Serializable {
 //    }
 
 
+    
 }
