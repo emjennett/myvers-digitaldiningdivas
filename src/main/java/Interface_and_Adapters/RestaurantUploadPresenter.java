@@ -5,7 +5,7 @@ import Entities.Restaurant;
 
 import java.util.HashMap;
 import APP_Business_Rules.RestaurantUseCase.RestaurantResponseModel;
-public class RestaurantPresenter {
+public class RestaurantUploadPresenter {
     public HashMap<String, String> presentRestaurant(Restaurant restaurant){
         return null;
     }
