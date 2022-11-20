@@ -38,7 +38,6 @@ public class Ranking implements RankingPresenter {
         return rankedUsers;
     }
 
-    @Override
     public Account[] returnUsersSorted(Account[] list) {
         return list;
     }

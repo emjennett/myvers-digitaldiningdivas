@@ -13,12 +13,10 @@ public class RankingController implements RankingInputBoundary{
         this.rankingPresenter = rankingPresenter;
     }
 
-    @Override
     public void globalRanking(){
         rankingPresenter.returnUsersSorted(Ranking.rankGlobal());
     }
 
-    @Override
     public void communityRanking(){
         rankingPresenter.returnUsersSorted(Ranking.rankCommunity());
     }
