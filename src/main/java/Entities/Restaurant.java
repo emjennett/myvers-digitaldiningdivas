@@ -19,11 +19,13 @@ public class Restaurant implements Serializable {
     private String name;
     private String location;
     private Double rating;
+    private Menu menu = null;
     private ArrayList<Dish> dishRatings = new ArrayList<Dish>();
-    public Restaurant(String name, String resCategory){
+    public Restaurant(String name, String resCategory, Menu menu){
         this.name = name;
         this.resCategory = resCategory;
         this.name = name;
+        this.menu = menu;
 
     }
     public void storeMenu(Menu menu){
