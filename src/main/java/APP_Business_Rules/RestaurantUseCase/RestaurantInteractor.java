@@ -1,10 +1,10 @@
 package APP_Business_Rules.RestaurantUseCase;
 
-import Interface_and_Adapters.RestaurantPresenter;
+import Interface_and_Adapters.RestaurantUploadPresenter;
 
 public class RestaurantInteractor implements RestaurantInputBoundary{
-    final RestaurantPresenter restaurantPresenter;
-    public RestaurantInteractor(RestaurantPresenter restaurantPresenter){
+    final RestaurantUploadPresenter restaurantPresenter;
+    public RestaurantInteractor(RestaurantUploadPresenter restaurantPresenter){
         this.restaurantPresenter = restaurantPresenter;
     }
     @Override
