@@ -59,8 +59,8 @@ public class Journal {
 
 
 
-import java.io.Serializable;
+//import java.io.Serializable;
 
-public class Journal implements Serializable {
- main
+//public class Journal implements Serializable {
+ //main
 }
