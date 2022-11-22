@@ -9,13 +9,14 @@ public class AccountUser extends Account implements Comparable<AccountUser>, Use
      * userReviews: List of reviews written by the user.
      */
 
-    private ArrayList<Review> userReviews = new ArrayList<>();
+    private ArrayList<Review> userReviews;
     private int score;
 
 
     public AccountUser(String name, String pass) {
         super(name, pass);
         this.score = 0;
+        this.userReviews = new ArrayList<>();
     }
     
     public void removeReview(Review review){
@@ -27,6 +28,10 @@ public class AccountUser extends Account implements Comparable<AccountUser>, Use
 
     public int getScore(){
         return this.score;
+    }
+
+    public ArrayList<Review> getUserReviews() {
+        return userReviews;
     }
 
     @Override

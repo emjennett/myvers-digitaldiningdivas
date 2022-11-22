@@ -1,6 +1,7 @@
 package Interface_and_Adapters;
 
 import APP_Business_Rules.OutputBoundary;
+import APP_Business_Rules.SearchUseCase.SearchResponseModel;
 import Entities.Dish;
 
 import java.util.ArrayList;
@@ -12,7 +13,15 @@ public class SearchPresenter implements OutputBoundary {
     }
 
     @Override
-    public void update(ArrayList<HashMap<String, Object>> result) {
-        //Need to complete this
+    public void update(SearchResponseModel searchResponseModel) {
+        ArrayList<HashMap<String,Object>> sortedResult = new ArrayList<>();
+        for(HashMap<String,Object> r : searchResponseModel.getResult()){
+            for(int i = 0; i < sortedResult.size(); i++){
+                if((Integer) sortedResult.get(i).get("Rating") >= (Integer) r.get("Rating")){
+                    sortedResult.add(i,r);
+                }
+            }
+        }
+        //Do something with the sorted list
     }
 }
