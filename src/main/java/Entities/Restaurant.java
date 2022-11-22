@@ -5,16 +5,27 @@ import java.util.HashMap;
 import java.io.Serializable;
 
 public class Restaurant implements Serializable {
+
+    /**
+     * A class that represents a specific restaurant.
+     *
+     * resCategory: Category of the restaurant
+     * location: Location of the restaurant
+     * rating: Average rating of the restaurant from its corresponding dish ratings
+     * dishRatings:
+     * menu: The restaurant menu.
+     */
+    private String resCategory;
     private String name;
-    private String resCategory; //Category of the restaurant
-    private String location; //Location of the restaurant
-    private Double rating; //Average rating of the restaurant from its corresponding dish ratings
+    private String location;
+    private Double rating;
+    private Menu menu = null;
     private ArrayList<Dish> dishRatings = new ArrayList<Dish>();
-    private Menu menu;
-    public Restaurant(Menu menu, String resCategory, String name){
-        this.menu = menu;
+    public Restaurant(String name, String resCategory, Menu menu){
+        this.name = name;
         this.resCategory = resCategory;
         this.name = name;
+        this.menu = menu;
 
     }
     public void storeMenu(Menu menu){

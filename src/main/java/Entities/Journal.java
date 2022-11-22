@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 
 public class Journal implements Serializable {
+
     private String name; // Name of Journal Owner
 
     private Account userAccount; // account of Journal Owner
