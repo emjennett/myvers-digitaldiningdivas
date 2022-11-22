@@ -1,7 +1,8 @@
 package Entities;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class AccountUser extends Account implements Comparable<AccountUser>{
+public class AccountUser extends Account implements Comparable<AccountUser>, User{
     /**
      * Account meant for an average user.
      *
@@ -10,6 +11,7 @@ public class AccountUser extends Account implements Comparable<AccountUser>{
 
     private ArrayList<Review> userReviews = new ArrayList<>();
     private int score;
+
 
     public AccountUser(String name, String pass) {
         super(name, pass);
@@ -37,5 +39,10 @@ public class AccountUser extends Account implements Comparable<AccountUser>{
         else {
             return 0;
         }
+    }
+
+    @Override
+    public boolean validPassword() {
+        return this.getPassword().length() >= 6;
     }
 }

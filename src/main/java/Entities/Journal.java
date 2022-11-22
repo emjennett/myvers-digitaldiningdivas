@@ -51,10 +51,4 @@ public class Journal implements Serializable {
 //        // List<Review> allreviews = UserDataGrabber();
 //        // return allreviews;
 //    }
-
-
-    
 }
-
-
-
