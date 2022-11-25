@@ -1,24 +1,15 @@
 package APP_Business_Rules.RestaurantUseCase;
 
-import Entities.Restaurant;
-import Interface_and_Adapters.RestaurantPresenter;
+import Interface_and_Adapters.RestaurantUploadPresenter;
 
 public class RestaurantInteractor implements RestaurantInputBoundary{
-    final RestaurantPresenter restaurantPresenter;
-    final RestaurantFactory restaurantFactory;
-    final RestaurantDataAccess gateway;
-
-    public RestaurantInteractor(RestaurantDataAccess gateway, RestaurantPresenter restaurantPresenter, RestaurantFactory restaurantFactory
-    ){
+    final RestaurantUploadPresenter restaurantPresenter;
+    public RestaurantInteractor(RestaurantUploadPresenter restaurantPresenter){
         this.restaurantPresenter = restaurantPresenter;
-        this.restaurantFactory = restaurantFactory;
-        this.gateway = gateway;
     }
     @Override
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
-        Restaurant restaurant = restaurantFactory.create(requestModel.getResName(), requestModel.getResCategory());
-        RestaurantResponseModel restaurantResponseModel = new RestaurantResponseModel(restaurant.getName());
-        return restaurantPresenter.prepareSuccessView(restaurantResponseModel);
+        return null;
     }
 
 }
