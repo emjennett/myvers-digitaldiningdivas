@@ -10,6 +10,7 @@ public class RestaurantInteractor implements RestaurantInputBoundary{
 
     public RestaurantInteractor(RestaurantDataAccess gateway, RestaurantPresenter restaurantPresenter, RestaurantFactory restaurantFactory
     ){
+
         this.restaurantPresenter = restaurantPresenter;
         this.restaurantFactory = restaurantFactory;
         this.gateway = gateway;

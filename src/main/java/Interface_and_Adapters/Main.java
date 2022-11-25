@@ -1,6 +1,7 @@
 package Interface_and_Adapters;
 
 import APP_Business_Rules.RestaurantUseCase.*;
+import APP_Business_Rules.RestaurantUseCase.RestaurantFormatted;
 
 import javax.swing.*;
 import java.io.IOException;
