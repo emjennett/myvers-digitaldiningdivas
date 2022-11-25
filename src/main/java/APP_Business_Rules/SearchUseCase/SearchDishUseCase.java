@@ -1,14 +1,17 @@
-package APP_Business_Rules;
+package APP_Business_Rules.SearchUseCase;
 
+import APP_Business_Rules.DataAccessStorageInterface;
+import APP_Business_Rules.OutputBoundary;
 import Entities.Dish;
 import Entities.Review;
+import Interface_and_Adapters.SearchPresenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static java.lang.Double.compare;
 
-public class SearchDishUseCase {
+public class SearchDishUseCase implements SearchInputBoundary{
     private OutputBoundary searchPresenter;
     private DataAccessStorageInterface dataAccess;
 
@@ -17,12 +20,12 @@ public class SearchDishUseCase {
         this.dataAccess = dataAccess;
     }
 
-    public void Search(String search, String type, HashMap<String, Object> filter){
-        ArrayList<Dish> data = (ArrayList<Dish>) this.dataAccess.accessData(type + ".txt"); //Might need to change the return type of accessData() to Arraylist<Object>
-        ArrayList<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
+    public void Search(SearchRequestModel searchRequestModel){
+        ArrayList<Dish> data = (ArrayList<Dish>) this.dataAccess.accessData(searchRequestModel.getType() + ".txt"); //Might need to change the return type of accessData() to Arraylist<Object>
+        SearchResponseModel searchResponseModel = new SearchResponseModel(new ArrayList<>());
         for (Dish d: data){
-            if(d.getName().contains(search)||d.getCategory().contains(search)){
-                if (compare(d.getRating(), (Double) filter.get("minRating")) >= 0 && filter.get("Category") == d.getCategory()){
+            if(d.getName().contains(searchRequestModel.getSearch())||d.getCategory().contains(searchRequestModel.getSearch())){
+                if (compare(d.getRating(), (Double) searchRequestModel.getFilter().get("minRating")) >= 0 && searchRequestModel.getFilter().get("Category") == d.getCategory()){
                     HashMap<String, Object> dishAsAHashMap = new HashMap<>();
                     dishAsAHashMap.put("Name", d.getName());
                     dishAsAHashMap.put("Dish Category", d.getCategory());
@@ -38,11 +41,10 @@ public class SearchDishUseCase {
                         formatedReviews.add(formattedReview);
                     }
                     dishAsAHashMap.put("Reviews", formatedReviews);
-                    result.add(dishAsAHashMap);
+                    searchResponseModel.add(dishAsAHashMap);
                 }
             }
         }
-        // I should sort this too
-        searchPresenter.update(result);
+        searchPresenter.update(searchResponseModel);
     }
 }
