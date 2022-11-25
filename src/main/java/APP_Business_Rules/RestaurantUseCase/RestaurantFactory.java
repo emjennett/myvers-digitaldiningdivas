@@ -7,9 +7,8 @@ import Frameworks_and_Drivers.DataAccessStorage;
 public class RestaurantFactory {
     /* Creates and stores Restaurant upon request from Account Owner
      */
-    public void newRestaurant(Restaurant restaurant, AccountOwner owner){
-
-
+    public Restaurant create(String resName, String resCategory){
+        return new Restaurant(resName, resCategory);
     }
 
 }
