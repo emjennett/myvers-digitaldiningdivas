@@ -1,14 +1,18 @@
 package APP_Business_Rules.RestaurantUseCase;
 
 public class RestaurantRequestModel {
-    private String nameOfRes;
+    private String resName;
     private String resCategory;
-    private String location;
-    public RestaurantRequestModel(String nameOfRes, String resCategory, String location){
-        this.nameOfRes = nameOfRes;
+    public RestaurantRequestModel(String resName, String resCategory){
+        this.resName = resName;
         this.resCategory = resCategory;
-        this.location = location;
-
     }
 
+    public String getResCategory(){
+        return resCategory;
+    }
+
+    public String getResName(){
+        return resName;
+    }
 }
