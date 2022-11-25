@@ -18,7 +18,7 @@ public class Main {
         JTabbedPane tabs = new JTabbedPane();
 
         RestaurantDataAccess res;
-        res = new RestaurantFileReader("C:\\Users\\Emily\\IdeaProjects\\course-project-digitaldiningdivas\\src\\main\\java\\Frameworks_and_Drivers\\Restaurant.csv");
+        res = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
 
 
         RestaurantPresenter presenter = new RestaurantFormatted();
