@@ -30,9 +30,9 @@ public class RestaurantScreen extends JPanel implements ActionListener {
         this.restaurantController = restaurantController;
 
         RestaurantDataAccess restaurants;
-        restaurants = new RestaurantFileReader("C:\\Users\\Emily\\IdeaProjects\\course-project-digitaldiningdivas\\src\\main\\java\\Frameworks_and_Drivers\\Restaurant.csv");
+        restaurants = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
 
-        for(List<String> element: restaurants.getRes("C:\\Users\\Emily\\IdeaProjects\\course-project-digitaldiningdivas\\src\\main\\java\\Frameworks_and_Drivers\\Restaurant.csv")){
+        for(List<String> element: restaurants.getRes("src/main/java/Frameworks_and_Drivers/Restaurant.csv")){
             JButton button = new JButton(element.get(0));
             button.setBorderPainted(false);
             subPanel.add(button, c);
