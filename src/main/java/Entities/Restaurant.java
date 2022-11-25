@@ -16,14 +16,15 @@ public class Restaurant implements Serializable {
      * menu: The restaurant menu.
      */
     private String resCategory;
+    private Menu menu = null;
     private String name;
     private String location;
     private Double rating;
     private ArrayList<Dish> dishRatings = new ArrayList<Dish>();
     public Restaurant(String name, String resCategory){
-        this.name = name;
         this.resCategory = resCategory;
         this.name = name;
+
 
     }
     public void storeMenu(Menu menu){
@@ -41,7 +42,8 @@ public class Restaurant implements Serializable {
         return rating;
     }
 
-    public String getName() {return name;}
+    public String getName() {
+        return name;}
 
     public String getLocation() {return location;}
 
