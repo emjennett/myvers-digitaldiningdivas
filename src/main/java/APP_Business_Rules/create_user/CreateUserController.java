@@ -1,8 +1,5 @@
 package APP_Business_Rules.create_user;
 
-import APP_Business_Rules.create_user.CreateUserInputBoundary;
-import APP_Business_Rules.create_user.CreateUserRequestModel;
-import APP_Business_Rules.create_user.CreateUserResponseModel;
 
 
 public class CreateUserController {
@@ -13,7 +10,7 @@ public class CreateUserController {
 
         this.userInput = userGateway;
     }
-    CreateUserResponseModel create(String username, String password, String dup_password) {
+    public CreateUserResponseModel create(String username, String password, String dup_password) {
         CreateUserRequestModel model = new CreateUserRequestModel(
                 username, password, dup_password);
 
