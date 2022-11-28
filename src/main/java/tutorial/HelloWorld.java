@@ -1,23 +1,27 @@
 package tutorial;
 
+import Interface_and_Adapters.StartUpScreens.StartUpScreen;
+
+import javax.swing.*;
+
 public class HelloWorld {
 
     public static void main(String[] args) {
-        for (int i = 1; i <= 100; i++) {
-            System.out.println(convert(i));
-        }
+
+        StartUpScreen start = new StartUpScreen();
+
+        JFrame frame = new JFrame("Digital Dining Divas");
+
+        frame.setSize(500, 180);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+
+        frame.add(start);
+        frame.setVisible(true);
+
+
+
     }
 
-    public static String convert(int decide) {
-        if (decide % 15 == 0) {
-            return "tutorial.HelloWorld";
-        }
-        if (decide % 3 == 0) {
-            return "Hello";
-        }
-        if (decide % 5 == 0) {
-            return "World";
-        }
-        return String.valueOf(decide);
-    }
+
 }

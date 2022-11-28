@@ -2,7 +2,7 @@ package Entities;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AccountUser extends Account implements Comparable<AccountUser>, User{
+public class AccountUser extends Account implements Comparable<AccountUser>, User, Loggable{
     /**
      * Account meant for an average user.
      *
@@ -18,6 +18,7 @@ public class AccountUser extends Account implements Comparable<AccountUser>, Use
         this.score = 0;
         this.userReviews = new ArrayList<>();
     }
+
     
     public void removeReview(Review review){
         /**
