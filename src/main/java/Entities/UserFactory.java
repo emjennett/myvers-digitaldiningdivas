@@ -1,5 +1,7 @@
 package Entities;
 
 public interface UserFactory {
-    public User createUser(String username, String password);
+     User createUser(String username, String password);
+
+     Loggable loginUser(String username, String password);
 }

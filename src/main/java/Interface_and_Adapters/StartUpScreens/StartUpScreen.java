@@ -1,8 +1,10 @@
 package Interface_and_Adapters.StartUpScreens;
 
 import APP_Business_Rules.create_user.*;
+import APP_Business_Rules.login_user.*;
 import Entities.AccountFactory;
 import Entities.UserFactory;
+import Frameworks_and_Drivers.AccountUserFile;
 import Frameworks_and_Drivers.UserFile;
 
 import javax.swing.*;
@@ -51,7 +53,16 @@ public class StartUpScreen extends JPanel{
             frame.setSize(500, 200);
             frame.setResizable(false);
             frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            LoginScreen screen = new LoginScreen();
+            LoginUserGateway user;
+            user = new UserFile("./users.txt");
+            AccountUserGateway account;
+            account = new AccountUserFile("./accounts.txt");
+            LoginUserPresenter presenter = new LoginUserResponse();
+            UserFactory userFactory = new AccountFactory();
+            LoginUserInputBoundary interactor = new LoginUserInteractor(
+                    user, account, userFactory, presenter);
+            LoginUserController controller = new LoginUserController(interactor);
+            LoginScreen screen = new LoginScreen(controller);
             frame.add(screen);
             frame.setVisible(true);
         });

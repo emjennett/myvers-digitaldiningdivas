@@ -9,11 +9,5 @@ public class CreateUserResponseModel {
         this.login = loginmsg;
     }
 
-    public String getLogin() {
-        return login;
-    }
 
-    public void setLogin(String loginmsg) {
-        this.login = loginmsg;
-    }
 }
