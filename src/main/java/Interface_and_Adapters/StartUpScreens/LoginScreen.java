@@ -2,6 +2,7 @@ package Interface_and_Adapters.StartUpScreens;
 
 import APP_Business_Rules.login_user.LoginUserController;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
+import Interface_and_Adapters.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,63 +10,69 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class LoginScreen extends JPanel implements ActionListener {
+public class LoginScreen extends JPanel {
+    private final JPanel mainPanel;
+    private JButton cancel;
+    private JButton login;
     JTextField username = new JTextField(15);
     JPasswordField password = new JPasswordField(15);
 
     LoginUserController controller;
-    public LoginScreen(LoginUserController controller) {
+
+    public LoginScreen(LoginUserController controller, JPanel mainPanel) {
         this.controller = controller;
+        this.mainPanel = mainPanel;
 
         JLabel title = new JLabel("Login");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         LabelHelper usernameBox = new LabelHelper(new JLabel("Username"), username);
         LabelHelper passwordBox = new LabelHelper(new JLabel("Password"), password);
-        JButton login = new JButton("Login");
-        JButton cancel = new JButton("Cancel");
 
         JPanel buttons = new JPanel();
-        buttons.add(login);
-        buttons.add(cancel);
+        buttons.add(createLoginButton());
+        buttons.add(createCancelButton());
 
-        login.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(usernameBox);
         this.add(passwordBox);
         this.add(buttons);
+    }
 
-        cancel.addActionListener(e -> {
-
-            ((Window) getRootPane().getParent()).dispose();
-            JFrame frame = new JFrame("Digital Dining Divas");
-            frame.setSize(500, 180);
-            frame.setResizable(false);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            StartUpScreen screen = new StartUpScreen();
-            frame.add(screen);
-            frame.setVisible(true);
+    private JButton createCancelButton() {
+        cancel = new JButton("Cancel");
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main main = new Main();
+                main.switchPanel(mainPanel, "FIRST");
+            }
 
         });
+        return cancel;
+
     }
 
-    @Override
-    public void actionPerformed(ActionEvent i) {
+    private JButton createLoginButton() {
+        login = new JButton("Login");
+        login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    LoginUserResponseModel account = controller.login(
+                            username.getText(), String.valueOf(password.getPassword()));
+                    Main main = new Main();
+                    main.switchPanel(mainPanel, "FOURTH");
 
-        try {
-            LoginUserResponseModel account = controller.login(
-                    username.getText(), String.valueOf(password.getPassword()));
-            ((Window) getRootPane().getParent()).dispose();
-            JFrame frame = new JFrame("Digital Dining Divas");
-            frame.setSize(500, 180);
-            frame.setResizable(false);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            WelcomeScreen screen = new WelcomeScreen(account);
-            frame.add(screen);
-            frame.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(LoginScreen.this, ex.getMessage());
+                }
+            }
+
+        });
+        return login;
+
     }
 }
+

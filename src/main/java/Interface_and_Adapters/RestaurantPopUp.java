@@ -6,7 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RestaurantPopUp extends JPanel implements ActionListener {
-    RestaurantPopUp(String resName, String resCategory, String address, String starRating){
+    RestaurantController restaurantController;
+    RestaurantPopUp(String resName, String resCategory, String address, String starRating, RestaurantController restaurantController, JPanel mainPanel){
+        this.restaurantController = restaurantController;
+
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         JLabel name = new JLabel(resName);
@@ -19,10 +22,21 @@ public class RestaurantPopUp extends JPanel implements ActionListener {
             c.gridx = 3;
             c.gridy = 1;
             JLabel imageLabel = new JLabel();
-            ImageIcon imageIcon = new ImageIcon(new ImageIcon("C:\\Users\\Emily\\IdeaProjects\\course-project-digitaldiningdivas\\src\\main\\java\\Frameworks_and_Drivers\\19-star-png-image.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/java/Frameworks_and_Drivers/19-star-png-image.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
             imageLabel.setIcon(imageIcon);
             this.add(imageLabel, c);
         }
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RestaurantScreen resScreen = new RestaurantScreen(restaurantController);
+                resScreen.switchPanel(mainPanel, "one"); //returns to first screen by button click
+            }
+
+        });
+        this.add(backButton);
+
 
         name.setFont(new Font("Sans Serif", Font.BOLD, 20));
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -47,6 +61,7 @@ public class RestaurantPopUp extends JPanel implements ActionListener {
         c.gridx = 1;
         c.gridy = 1;
         this.add(addressLabel, c);
+        this.setPreferredSize(new Dimension(200, 300));
 
         this.setVisible(true);
     }
