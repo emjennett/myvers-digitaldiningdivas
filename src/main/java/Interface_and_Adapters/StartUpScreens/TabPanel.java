@@ -2,18 +2,22 @@ package Interface_and_Adapters.StartUpScreens;
 
 import APP_Business_Rules.RestaurantUseCase.*;
 import APP_Business_Rules.RestaurantUseCase.RestaurantFormatted;
+import APP_Business_Rules.login_user.LoginUserResponseModel;
 import Interface_and_Adapters.*;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
+
 
 
 public class TabPanel extends JPanel{
     private JPanel mainPanel;
 
-    public TabPanel(JPanel mainPanel) {
+    private LoginUserResponseModel account;
+
+
+    public TabPanel(JPanel mainPanel, LoginUserResponseModel account) {
         this.mainPanel = mainPanel;
+        this.account = account;
 
         JTabbedPane tabs = new JTabbedPane();
 
@@ -40,5 +44,6 @@ public class TabPanel extends JPanel{
         tabs.addTab("Analytics", analyticsScreen);
 
         this.add(tabs);
+        JOptionPane.showMessageDialog(this, "Welcome " + account.getUsername() + "!");
     }
 }

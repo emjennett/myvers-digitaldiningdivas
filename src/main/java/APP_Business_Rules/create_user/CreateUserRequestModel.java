@@ -10,7 +10,7 @@ public class CreateUserRequestModel {
 
     public CreateUserRequestModel(String username, String password, String dup_password){
 
-        this.username = username ;
+        this.username = username.strip() ;
         this.password = password;
         this.dup_password = dup_password;
     }
