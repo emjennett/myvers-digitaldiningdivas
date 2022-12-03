@@ -1,4 +1,5 @@
 package Interface_and_Adapters.StartUpScreens;
+import APP_Business_Rules.login_user.*;
 import Entities.AccountFactory;
 import Entities.UserFactory;
 import Frameworks_and_Drivers.AccountUserFile;
@@ -50,7 +51,17 @@ public class StartUpScreen extends JPanel {
         createLoginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                LoginUserGateway user;
+                user = new UserFile("./users.csv");
+                AccountUserGateway account;
+                account = new AccountUserFile("./accounts.csv");
+                LoginUserPresenter presenter = new LoginUserResponse();
+                UserFactory userFactory = new AccountFactory();
+                LoginUserInputBoundary interactor = new LoginUserInteractor(
+                        user, account, userFactory, presenter);
+                LoginUserController controller = new LoginUserController(interactor);
                 Main main = new Main();
+                mainPanel.add(new LoginScreen(controller, mainPanel), "THIRD");
                 main.switchPanel(mainPanel, "THIRD");
 
             }
