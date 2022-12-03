@@ -66,6 +66,7 @@ public class LoginScreen extends JPanel {
                     mainPanel.add(new TabPanel(mainPanel, account), "FOURTH");
                     main.switchPanel(mainPanel, "FOURTH");
 
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(LoginScreen.this, ex.getMessage());
                 }

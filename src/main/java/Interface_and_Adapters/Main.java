@@ -1,7 +1,6 @@
 package Interface_and_Adapters;
 
-import APP_Business_Rules.RestaurantUseCase.*;
-import APP_Business_Rules.RestaurantUseCase.RestaurantFormatted;
+
 import APP_Business_Rules.create_user.*;
 import APP_Business_Rules.login_user.*;
 import Entities.AccountFactory;
@@ -12,7 +11,7 @@ import Interface_and_Adapters.StartUpScreens.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+
 
 public class Main extends JFrame{
 
@@ -47,8 +46,6 @@ public class Main extends JFrame{
         mainPanel.add(new StartUpScreen(mainPanel), "FIRST");
         mainPanel.add(new SignUpScreen(controller, mainPanel), "SECOND");
         mainPanel.add(new LoginScreen(controller2, mainPanel), "THIRD");
-
-
         this.setContentPane(mainPanel);
 
     }

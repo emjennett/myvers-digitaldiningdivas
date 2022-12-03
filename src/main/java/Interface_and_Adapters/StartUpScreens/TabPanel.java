@@ -2,14 +2,15 @@ package Interface_and_Adapters.StartUpScreens;
 
 import APP_Business_Rules.RestaurantUseCase.*;
 import APP_Business_Rules.RestaurantUseCase.RestaurantFormatted;
+
 import APP_Business_Rules.login_user.AccountUserGateway;
 import APP_Business_Rules.login_user.LoginUserGatewayModel;
+
 import APP_Business_Rules.login_user.LoginUserResponseModel;
 import Interface_and_Adapters.*;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
+
 
 
 public class TabPanel extends JPanel{
@@ -46,5 +47,6 @@ public class TabPanel extends JPanel{
         tabs.addTab("Analytics", analyticsScreen);
 
         this.add(tabs);
+        //JOptionPane.showMessageDialog(this, "Welcome " + account.getUsername() + "!");
     }
 }
