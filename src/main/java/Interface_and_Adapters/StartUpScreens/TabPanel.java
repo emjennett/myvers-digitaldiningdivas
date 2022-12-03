@@ -44,6 +44,6 @@ public class TabPanel extends JPanel{
         tabs.addTab("Analytics", analyticsScreen);
 
         this.add(tabs);
-        JOptionPane.showMessageDialog(this, "Welcome " + account.getUsername() + "!");
+        //JOptionPane.showMessageDialog(this, "Welcome " + account.getUsername() + "!");
     }
 }
