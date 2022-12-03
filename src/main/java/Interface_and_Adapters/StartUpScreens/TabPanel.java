@@ -34,7 +34,8 @@ public class TabPanel extends JPanel{
         RestaurantController restaurantController = new RestaurantController(
                 interactor);
 
-        WelcomeScreen welcomeScreen = new WelcomeScreen(account);
+        ProfileScreen welcomeScreen = new ProfileScreen(account);
+        // will add new ProfileScreen(Account)
         RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController);
 
         AnalyticsScreen analyticsScreen = new AnalyticsScreen();

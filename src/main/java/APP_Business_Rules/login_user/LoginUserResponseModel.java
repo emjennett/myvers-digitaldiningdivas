@@ -12,4 +12,8 @@ public class LoginUserResponseModel {
     public String getUsername(){
         return this.model.getUsername();
     }
+
+    public LoginUserGatewayModel getModel(){
+        return this.model;
+    }
 }
