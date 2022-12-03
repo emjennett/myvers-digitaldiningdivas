@@ -4,21 +4,28 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Dish implements Serializable {
     //A class that holds all the information for a particular dish at a restaurant.
 
     private String name; //Name of the dish.
     private String category; //The category of the dish.
+    private String restaurant; //The restaurant the dish belongs to
+    private String description; //The description of the dish.
+    private double price; //The price of the dish
+
+
     private ArrayList<Review> reviews = new ArrayList<>(); //List of reviews of the dish.
     private Double rating; //average rating of the dish.
     private Date createdOn; //Date dish object was created.
 
 
-    public Dish(String name, String category){
+    public Dish(String name, String category, String restaurant, String description, double price){
         this.name = name;
         this.category = category;
+        this.restaurant = restaurant;
+        this.description = description;
+        this.price = price;
         this.createdOn = new Date();
     }
 
@@ -30,6 +37,11 @@ public class Dish implements Serializable {
     public String getCategory() {
         //Returns category of the dish.
         return category;
+    }
+
+    public String getRestaurant(){
+        //Returns the restaurant the dish belongs to
+        return restaurant;
     }
 
     public Double getRating(){
