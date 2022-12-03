@@ -1,23 +1,25 @@
 package Interface_and_Adapters.StartUpScreens;
 
+import APP_Business_Rules.DishMenu.*;
 import APP_Business_Rules.RestaurantUseCase.*;
 import APP_Business_Rules.RestaurantUseCase.RestaurantFormatted;
 
-import APP_Business_Rules.login_user.AccountUserGateway;
-import APP_Business_Rules.login_user.LoginUserGatewayModel;
-
 import APP_Business_Rules.login_user.LoginUserResponseModel;
 import Interface_and_Adapters.*;
+import Interface_and_Adapters.DishMenuScreens.DishController;
+import Interface_and_Adapters.DishMenuScreens.DishFormatted;
+import Interface_and_Adapters.DishMenuScreens.DishPresenter;
+import Interface_and_Adapters.DishMenuScreens.DishScreen;
 
 import javax.swing.*;
-
+import java.io.IOException;
 
 
 public class TabPanel extends JPanel{
     private JPanel mainPanel;
     private LoginUserResponseModel account;
 
-    public TabPanel(JPanel mainPanel, LoginUserResponseModel account) {
+    public TabPanel(JPanel mainPanel, LoginUserResponseModel account) throws IOException {
         this.mainPanel = mainPanel;
         this.account = account;
 
@@ -25,6 +27,8 @@ public class TabPanel extends JPanel{
 
         RestaurantDataAccess res;
         res = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
+
+        DishDataAccess dish = new DishFileReader("src/main/java/Frameworks_and_Drivers/Dishes.csv");
 
 
         RestaurantPresenter presenter = new RestaurantFormatted();
@@ -34,8 +38,14 @@ public class TabPanel extends JPanel{
         RestaurantController restaurantController = new RestaurantController(
                 interactor);
 
+        DishPresenter dishPresenter = new DishFormatted();
+        DishFactory dishFactory = new DishFactory();
+        DishInputBoundary dishInteractor = new DishInteractor(dish, dishPresenter, dishFactory);
+        DishController dishController = new DishController(dishInteractor);
+
         WelcomeScreen welcomeScreen = new WelcomeScreen(account);
         RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController);
+        DishScreen dishScreen = new DishScreen(dishController);
 
         AnalyticsScreen analyticsScreen = new AnalyticsScreen();
         RankingScreen rankingScreen = new RankingScreen();
@@ -45,6 +55,7 @@ public class TabPanel extends JPanel{
         tabs.addTab("Restaurant", restaurantScreen);
         tabs.addTab("Rankings", rankingScreen);
         tabs.addTab("Analytics", analyticsScreen);
+        tabs.addTab("Dishes", dishScreen);
 
         this.add(tabs);
         //JOptionPane.showMessageDialog(this, "Welcome " + account.getUsername() + "!");
