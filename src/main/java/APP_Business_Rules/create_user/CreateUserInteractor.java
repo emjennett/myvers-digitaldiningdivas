@@ -1,6 +1,6 @@
 package APP_Business_Rules.create_user;
 
-import APP_Business_Rules.create_user.CreateUserInputBoundary;
+
 import Entities.User;
 import Entities.UserFactory;
 
@@ -29,6 +29,8 @@ public class CreateUserInteractor implements CreateUserInputBoundary {
             return presenter.userCreatedFail("The passwords do not match.");
         } else if (!model.validPassword()) {
             return presenter.userCreatedFail("Your password must be at least 6 characters long.");
+        } else if (model.getUsername().length() == 0 || model.getUsername().contains(" ")){
+            return presenter.userCreatedFail("A Username must not contain the space character.");
         }
         User newUser = factory.createUser(model.getUsername(), model.getPassword());
         CreateUserGatewayModel userDataModel = new CreateUserGatewayModel(newUser.getUserName(), newUser.getPassword());

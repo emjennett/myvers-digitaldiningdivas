@@ -10,18 +10,18 @@ import java.util.Objects;
 
 public class UserFile implements CreateUserGateway, LoginUserGateway {
 
-    private final File txtFile;
+    private final File csvFile;
 
 
-    public UserFile(String txtpath) {
+    public UserFile(String csvpath) {
 
-        this.txtFile = new File(txtpath);
+        this.csvFile = new File(csvpath);
         List<CreateUserGatewayModel> users = new ArrayList<>();
 
-        if (txtFile.length() == 0){
+        if (csvFile.length() == 0){
 
             try{
-                FileOutputStream file = new FileOutputStream(txtFile);
+                FileOutputStream file = new FileOutputStream(csvFile);
                 ObjectOutputStream writer = new ObjectOutputStream(file);
                 writer.writeObject(users);
                 file.close();
@@ -39,7 +39,7 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
         List<CreateUserGatewayModel> users;
 
         try{
-            FileInputStream file = new FileInputStream(this.txtFile);
+            FileInputStream file = new FileInputStream(this.csvFile);
             ObjectInputStream reader = new ObjectInputStream(file);
             users = (List) reader.readObject();
             reader.close();
@@ -61,7 +61,7 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
         List<CreateUserGatewayModel> users;
 
         try{
-            FileInputStream file = new FileInputStream(this.txtFile);
+            FileInputStream file = new FileInputStream(this.csvFile);
             ObjectInputStream reader = new ObjectInputStream(file);
             users = (List) reader.readObject();
             reader.close();
@@ -85,7 +85,7 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
         List<CreateUserGatewayModel> users;
 
         try{
-            FileInputStream file = new FileInputStream(this.txtFile);
+            FileInputStream file = new FileInputStream(this.csvFile);
             ObjectInputStream reader = new ObjectInputStream(file);
             users = (List) reader.readObject();
             reader.close();
@@ -96,7 +96,7 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
         }
 
         try{
-            FileOutputStream file = new FileOutputStream(txtFile);
+            FileOutputStream file = new FileOutputStream(csvFile);
             ObjectOutputStream writer = new ObjectOutputStream(file);
             writer.writeObject(users);
             file.close();

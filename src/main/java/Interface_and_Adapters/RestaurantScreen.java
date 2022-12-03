@@ -11,65 +11,57 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
-public class RestaurantScreen extends JPanel implements ActionListener {
+public class RestaurantScreen extends JPanel {
     /* Displays Restaurant information to the user.
      */
     RestaurantController restaurantController;
 
-    public RestaurantScreen(RestaurantController restaurantController) throws IOException {
-        CardLayout cards = new CardLayout();
-        this.setLayout(cards);
+    public RestaurantScreen(RestaurantController restaurantController) {
+        this.restaurantController = restaurantController;
+        JPanel outerPanel = new JPanel();
+        outerPanel.setLayout(new CardLayout());
         JPanel subPanel = new JPanel(); //panel for button grid
 
         subPanel.setLayout(new GridLayout(0, 1, 10, 10));
-        subPanel.setBorder(new EmptyBorder(20,50,40,50));
+        subPanel.setBorder(new EmptyBorder(20, 50, 40, 50));
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
 
-        this.restaurantController = restaurantController;
-
         RestaurantDataAccess restaurants;
-        restaurants = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
+        restaurants = new RestaurantFileReader();
 
-        for(List<String> element: restaurants.getRes("src/main/java/Frameworks_and_Drivers/Restaurant.csv")){
+        for (List<String> element : restaurants.getRes("src/main/java/Frameworks_and_Drivers/Restaurant.csv")) {
             JButton button = new JButton(element.get(0));
             button.setBorderPainted(false);
             subPanel.add(button, c);
 
-            button.addActionListener( new ActionListener()
-            {
+            button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e)
-                        //opens restaurant window with jbuttons from "home" screen
+                //opens restaurant window with jbuttons from "home" screen
                 {
-                    RestaurantPopUp popUp = new RestaurantPopUp(element.get(0), element.get(1), element.get(2), element.get(3));
-                    RestaurantScreen.this.add(popUp, "card1");
-                    GridBagConstraints c = new GridBagConstraints();
-                    JButton backButton = new JButton("Back");
-                    popUp.add(backButton);
-                    backButton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            CardLayout cardLayout = (CardLayout) RestaurantScreen.this.getLayout();
-                            cardLayout.first(RestaurantScreen.this); //returns to first screen by button click
-                        }
-
-                    });
-                    cards.show(RestaurantScreen.this, "card1");
+                    RestaurantPopUp popUp = new RestaurantPopUp(element.get(0), element.get(1),
+                            element.get(2), element.get(3), restaurantController, outerPanel);
+                    outerPanel.add(popUp, "card1");
+                    switchPanel(outerPanel, "card1");
 
                 }
             });
-            c.gridy+=1;
+            c.gridy += 1;
         }
         JScrollPane scroller = new JScrollPane(subPanel);
+        scroller.setPreferredSize(new Dimension(300, 300));
         scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        this.add(scroller);
+        outerPanel.add(scroller, "one");
+        this.add(outerPanel);
 
 
     }
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
+
+    public void switchPanel(Container container, String panelName) {
+        CardLayout card = (CardLayout) (container.getLayout());
+        card.show(container, panelName);
     }
+
 }
