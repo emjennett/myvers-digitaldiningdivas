@@ -19,11 +19,14 @@ public class Restaurant implements Serializable {
     private Menu menu = null;
     private String name;
     private String location;
+    private int stars;
     private Double rating;
     private ArrayList<Dish> dishRatings = new ArrayList<Dish>();
-    public Restaurant(String name, String resCategory){
+    public Restaurant(String name, String resCategory, String location, int stars){
         this.resCategory = resCategory;
         this.name = name;
+        this.location = location;
+        this.stars = stars;
 
 
     }
@@ -44,6 +47,10 @@ public class Restaurant implements Serializable {
 
     public String getName() {
         return name;}
+
+    public int getStars(){
+        return stars;
+    }
 
     public String getLocation() {return location;}
 
