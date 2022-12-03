@@ -10,17 +10,17 @@ import java.util.Map;
 
 public class AccountUserFile implements AccountUserGateway {
 
-    private final File txtFile;
+    private final File csvFile;
 
-    public AccountUserFile(String txtpath) {
+    public AccountUserFile(String csvpath) {
 
-        this.txtFile = new File(txtpath);
+        this.csvFile = new File(csvpath);
         Map<String, LoginUserGatewayModel> accounts = new HashMap<>();
 
-        if (txtFile.length() == 0) {
+        if (csvFile.length() == 0) {
 
             try {
-                FileOutputStream file = new FileOutputStream(txtFile);
+                FileOutputStream file = new FileOutputStream(csvFile);
                 ObjectOutputStream writer = new ObjectOutputStream(file);
                 writer.writeObject(accounts);
                 file.close();
@@ -37,7 +37,7 @@ public class AccountUserFile implements AccountUserGateway {
         Map<String, LoginUserGatewayModel> accounts;
 
         try{
-            FileInputStream file = new FileInputStream(this.txtFile);
+            FileInputStream file = new FileInputStream(this.csvFile);
             ObjectInputStream reader = new ObjectInputStream(file);
             accounts = (Map) reader.readObject();
             reader.close();
@@ -51,7 +51,7 @@ public class AccountUserFile implements AccountUserGateway {
         }
         accounts.put(model.getUsername(), model);
         try{
-            FileOutputStream file = new FileOutputStream(txtFile);
+            FileOutputStream file = new FileOutputStream(csvFile);
             ObjectOutputStream writer = new ObjectOutputStream(file);
             writer.writeObject(accounts);
             file.close();

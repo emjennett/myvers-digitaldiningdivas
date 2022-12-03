@@ -18,7 +18,7 @@ public class Main extends JFrame{
 
     public Main() {
         CreateUserGateway user;
-        user = new UserFile("./users.txt");
+        user = new UserFile("./users.csv");
         CreateUserPresenter presenter = new CreateUserResponse();
         UserFactory userFactory = new AccountFactory();
         CreateUserInputBoundary interactor = new CreateUserInteractor(
@@ -26,9 +26,9 @@ public class Main extends JFrame{
         CreateUserController controller = new CreateUserController(interactor);
         //
         LoginUserGateway user2;
-        user2 = new UserFile("./users.txt");
+        user2 = new UserFile("./users.csv");
         AccountUserGateway account2;
-        account2 = new AccountUserFile("./accounts.txt");
+        account2 = new AccountUserFile("./accounts.csv");
         LoginUserPresenter presenter2 = new LoginUserResponse();
         UserFactory userFactory2 = new AccountFactory();
         LoginUserInputBoundary interactor2 = new LoginUserInteractor(
@@ -47,7 +47,7 @@ public class Main extends JFrame{
         mainPanel.add(new StartUpScreen(mainPanel), "FIRST");
         mainPanel.add(new SignUpScreen(controller, mainPanel), "SECOND");
         mainPanel.add(new LoginScreen(controller2, mainPanel), "THIRD");
-        mainPanel.add(new TabPanel(mainPanel), "FOURTH");
+
 
         this.setContentPane(mainPanel);
 

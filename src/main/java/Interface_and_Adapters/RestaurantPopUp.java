@@ -60,6 +60,8 @@ public class RestaurantPopUp extends JPanel implements ActionListener {
         c.weighty = 1.0;
         c.gridx = 1;
         c.gridy = 1;
+
+        JButton reviewResButton = new JButton("Add Your Review");
         this.add(addressLabel, c);
         this.setPreferredSize(new Dimension(200, 300));
 

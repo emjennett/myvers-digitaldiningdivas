@@ -29,9 +29,9 @@ public class RestaurantScreen extends JPanel {
         c.gridy = 0;
 
         RestaurantDataAccess restaurants;
-        restaurants = new RestaurantFileReader();
+        restaurants = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
 
-        for (List<String> element : restaurants.getRes("src/main/java/Frameworks_and_Drivers/Restaurant.csv")) {
+        for (List<String> element : restaurants.getRes()) {
             JButton button = new JButton(element.get(0));
             button.setBorderPainted(false);
             subPanel.add(button, c);

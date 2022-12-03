@@ -58,9 +58,9 @@ public class SignUpScreen extends JPanel {
                     JOptionPane.showMessageDialog(SignUpScreen.this,
                             "You have successfully created your account " + username.getText() + "!");
                     LoginUserGateway user;
-                    user = new UserFile("./users.txt");
+                    user = new UserFile("./users.csv");
                     AccountUserGateway account;
-                    account = new AccountUserFile("./accounts.txt");
+                    account = new AccountUserFile("./accounts.csv");
                     LoginUserPresenter presenter = new LoginUserResponse();
                     UserFactory userFactory = new AccountFactory();
                     LoginUserInputBoundary interactor = new LoginUserInteractor(

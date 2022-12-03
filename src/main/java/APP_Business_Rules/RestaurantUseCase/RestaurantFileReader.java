@@ -1,19 +1,23 @@
 package APP_Business_Rules.RestaurantUseCase;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import APP_Business_Rules.create_user.CreateUserGatewayModel;
+import APP_Business_Rules.login_user.LoginUserGatewayModel;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class RestaurantFileReader implements RestaurantDataAccess{
+public class RestaurantFileReader implements RestaurantDataAccess {
     /*
     Reads from Restaurants.csv file and returns a formatted list to retrieve information
     effectively by outside classes.
      */
-
+    private String file;
     List<List<String>> restaurants = new ArrayList<List<String>>();
-    public RestaurantFileReader(){
+
+    public RestaurantFileReader(String file) {
+        this.file = file;
 
     }
 
@@ -30,8 +34,7 @@ public class RestaurantFileReader implements RestaurantDataAccess{
             {
                 String[] restaurant = line.split(splitBy);
                 List<String> listPiece = new ArrayList<>(restaurant.length);
-                for(String element : restaurant)
-                {
+                for (String element : restaurant) {
                     listPiece.add(element);
                 }
                 restaurants.add(listPiece);
@@ -41,15 +44,45 @@ public class RestaurantFileReader implements RestaurantDataAccess{
         }
         return restaurants;
     }
+
+
     @Override
-    public List<List<String>> getRes(String file){
-        RestaurantFileReader fileReader = new RestaurantFileReader();
+    public List<List<String>> getRes() {
+        RestaurantFileReader fileReader = new RestaurantFileReader(file);
         return fileReader.createList(file);
     }
 
 
     @Override
-    public boolean existsByName(String identifier){
+    public boolean existsByName(String identifier) {
         return restaurants.equals(identifier);
+    }
+@Override
+    public RestaurantGatewayModel loadRestaurant(RestaurantGatewayModel model) {
+        List<String> restaurantInfo = new ArrayList<>();
+        String resName = model.getResName();
+        String resCategory = model.getResCategory();
+        String resLocation = model.getResLocation();
+        int stars = model.getStars();
+        restaurantInfo.add(resName);
+        restaurantInfo.add(resCategory);
+        restaurantInfo.add(resLocation);
+        restaurantInfo.add(Integer.toString(stars));
+
+        try {
+            String filename = file;
+            BufferedWriter output = new BufferedWriter(new FileWriter(filename, true)); //the true will append the new data
+            for (String x : restaurantInfo) {
+                output.append(x);
+                output.append(",");
+                output.newLine();
+            }
+            output.close();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return new RestaurantGatewayModel(resName, resCategory, resLocation, stars);
     }
 }
