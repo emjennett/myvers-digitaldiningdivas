@@ -6,6 +6,12 @@ public class LoginUserRequestModel {
 
     private String password;
 
+    /**
+     * The model needed from the user input to attempt a login.
+     * @param username chosen account to access.
+     * @param password chosen password to access the account.
+     */
+
     public LoginUserRequestModel(String username, String password){
 
         this.username = username;

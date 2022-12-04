@@ -1,8 +1,8 @@
-package Interface_and_Adapters.StartUpScreens;
+package Interface_and_Adapters.start_up_screens;
 
-import APP_Business_Rules.login_user.LoginUserController;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
 import Interface_and_Adapters.Main;
+import Interface_and_Adapters.TabPanel;
 
 import javax.swing.*;
 import java.awt.*;

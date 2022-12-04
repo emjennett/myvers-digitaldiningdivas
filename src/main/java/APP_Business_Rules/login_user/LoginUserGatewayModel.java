@@ -6,6 +6,10 @@ public class LoginUserGatewayModel implements Serializable {
 
     private final String username;
 
+    /**
+     * The model stored and withdrawn for a user if the password matches the account.
+     * @param username the user who logged in.
+     */
     LoginUserGatewayModel(String username){
 
         this.username = username;
@@ -13,4 +17,6 @@ public class LoginUserGatewayModel implements Serializable {
     }
 
     public String getUsername() {return username;}
+
+
 }

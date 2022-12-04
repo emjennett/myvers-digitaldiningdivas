@@ -46,7 +46,10 @@ public class AccountUser extends Account implements Comparable<AccountUser>, Use
             return 0;
         }
     }
-
+    /**
+     * A method to check if a password achieves the required security measure
+     * return true otherwise false.
+     */
     @Override
     public boolean validPassword() {
         return this.getPassword().length() >= 6;

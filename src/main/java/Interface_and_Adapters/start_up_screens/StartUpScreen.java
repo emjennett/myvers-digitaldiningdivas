@@ -1,4 +1,4 @@
-package Interface_and_Adapters.StartUpScreens;
+package Interface_and_Adapters.start_up_screens;
 import APP_Business_Rules.login_user.*;
 import Entities.AccountFactory;
 import Entities.UserFactory;

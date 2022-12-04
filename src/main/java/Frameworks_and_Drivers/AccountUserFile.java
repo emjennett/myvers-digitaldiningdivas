@@ -8,10 +8,15 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+
 public class AccountUserFile implements AccountUserGateway {
 
     private final File csvFile;
 
+    /**
+     * Initiate a AccountUserFile.
+     * @param csvpath the file to be created or opened.
+     */
     public AccountUserFile(String csvpath) {
 
         this.csvFile = new File(csvpath);
@@ -30,7 +35,10 @@ public class AccountUserFile implements AccountUserGateway {
             }
         }
     }
-
+    /**
+     * A request to find a user in the file and return it or add the user to the file and return it.
+     * @param model to be optionally saved to the file but always returned.
+     */
     @Override
     public LoginUserGatewayModel loadAccount(LoginUserGatewayModel model) {
 

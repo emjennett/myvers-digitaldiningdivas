@@ -6,7 +6,7 @@ import APP_Business_Rules.create_user.*;
 import Entities.AccountFactory;
 import Entities.UserFactory;
 import Frameworks_and_Drivers.UserFile;
-import Interface_and_Adapters.StartUpScreens.*;
+import Interface_and_Adapters.start_up_screens.*;
 
 import javax.swing.*;
 import java.awt.*;
