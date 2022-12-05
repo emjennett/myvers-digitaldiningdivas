@@ -37,7 +37,7 @@ public class StartUpScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main main = new Main();
-                main.switchPanel(mainPanel, "SECOND");
+                //main.switchPanel(mainPanel, "SECOND"); generates error
 
             }
 
@@ -51,7 +51,7 @@ public class StartUpScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main main = new Main();
-                main.switchPanel(mainPanel, "THIRD");
+                //main.switchPanel(mainPanel, "THIRD"); generates error
 
             }
 

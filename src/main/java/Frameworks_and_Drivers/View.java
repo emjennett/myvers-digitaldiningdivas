@@ -219,30 +219,7 @@ public class View implements UI {
         }
     }
 
-    public static void main(String[] args){
-        UserFile userFile = new UserFile("users.csv"); //User file instance
-        AccountUserFile accountUserFile = new AccountUserFile("accounts.csv"); // Account user file instance
-        AccountFactory accountFactory = new AccountFactory(); // Account factory instance
-        LoginUserResponse loginUserResponse = new LoginUserResponse(); // Login user response instance
-        LoginUserInteractor loginUserInteractor = new LoginUserInteractor(userFile, accountUserFile, accountFactory, loginUserResponse); // Login user interactor instance
-        LoginUserController loginUserController = new LoginUserController(loginUserInteractor); // Login user controller instance
-        CreateUserResponse createUserResponse = new CreateUserResponse();
-        CreateUserInteractor createUserInteractor = new CreateUserInteractor(userFile, accountFactory, createUserResponse);
-        CreateUserController createUserController = new CreateUserController(createUserInteractor);
-        RestaurantFileReader restaurantFileReader = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
-        DishFileReader dishFileReader = new DishFileReader("src/main/java/Frameworks_and_Drivers/Dishes.csv");
-        SearchPresenter searchPresenter = new SearchPresenter();
-        SearchRestaurantUseCase searchRestaurantUseCase = new SearchRestaurantUseCase(searchPresenter,restaurantFileReader);
-        SearchDishUseCase searchDishUseCase = new SearchDishUseCase(searchPresenter, dishFileReader);
-        SearchController searchController = new SearchController(searchDishUseCase, searchRestaurantUseCase);
-        View view = new View(loginUserController, createUserController, searchController);
-        searchPresenter.setView(view);
-        view.searchController = searchController;
-        view.searchController.Search("", "Restaurant", "All", 0);
-        JFrame frame = new JFrame("view");
-        frame.setContentPane(view.mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 }

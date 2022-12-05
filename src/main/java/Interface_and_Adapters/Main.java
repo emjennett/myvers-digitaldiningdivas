@@ -1,12 +1,17 @@
 package Interface_and_Adapters;
 
 
+import APP_Business_Rules.DishMenu.DishFileReader;
+import APP_Business_Rules.RestaurantUseCase.RestaurantFileReader;
+import APP_Business_Rules.SearchUseCase.SearchDishUseCase;
+import APP_Business_Rules.SearchUseCase.SearchRestaurantUseCase;
 import APP_Business_Rules.create_user.*;
 import APP_Business_Rules.login_user.*;
 import Entities.AccountFactory;
 import Entities.UserFactory;
 import Frameworks_and_Drivers.AccountUserFile;
 import Frameworks_and_Drivers.UserFile;
+import Frameworks_and_Drivers.View;
 import Interface_and_Adapters.StartUpScreens.*;
 
 import javax.swing.*;
@@ -15,48 +20,28 @@ import java.awt.*;
 
 public class Main extends JFrame{
 
-    public Main() {
-        CreateUserGateway user;
-        user = new UserFile("./users.csv");
-        CreateUserPresenter presenter = new CreateUserResponse();
-        UserFactory userFactory = new AccountFactory();
-        CreateUserInputBoundary interactor = new CreateUserInteractor(
-                user, userFactory, presenter);
-        CreateUserController controller = new CreateUserController(interactor);
-        //
-        LoginUserGateway user2;
-        user2 = new UserFile("./users.csv");
-        AccountUserGateway account2;
-        account2 = new AccountUserFile("./accounts.csv");
-        LoginUserPresenter presenter2 = new LoginUserResponse();
-        UserFactory userFactory2 = new AccountFactory();
-        LoginUserInputBoundary interactor2 = new LoginUserInteractor(
-                user2, account2, userFactory2, presenter2);
-        LoginUserController controller2 = new LoginUserController(interactor2);
-        //
-
-        this.setTitle("Digital Dining Divas");
-        this.setResizable(false);
-        this.setSize(new Dimension(400, 400));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new CardLayout());
-        mainPanel.add(new StartUpScreen(mainPanel), "FIRST");
-        mainPanel.add(new SignUpScreen(controller, mainPanel), "SECOND");
-        mainPanel.add(new LoginScreen(controller2, mainPanel), "THIRD");
-        this.setContentPane(mainPanel);
-
-    }
-
-    public void switchPanel(Container container, String panelName) {
-        CardLayout card = (CardLayout) (container.getLayout());
-        card.show(container, panelName);
-    }
-
-    public static void main(String[] args) {
-        new Main().setVisible(true);
-
+    public static void main(String[] args){
+        UserFile userFile = new UserFile("users.csv"); //User file instance
+        AccountUserFile accountUserFile = new AccountUserFile("accounts.csv"); // Account user file instance
+        AccountFactory accountFactory = new AccountFactory(); // Account factory instance
+        LoginUserResponse loginUserResponse = new LoginUserResponse(); // Login user response instance
+        LoginUserInteractor loginUserInteractor = new LoginUserInteractor(userFile, accountUserFile, accountFactory, loginUserResponse); // Login user interactor instance
+        LoginUserController loginUserController = new LoginUserController(loginUserInteractor); // Login user controller instance
+        CreateUserResponse createUserResponse = new CreateUserResponse();
+        CreateUserInteractor createUserInteractor = new CreateUserInteractor(userFile, accountFactory, createUserResponse);
+        CreateUserController createUserController = new CreateUserController(createUserInteractor);
+        RestaurantFileReader restaurantFileReader = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
+        DishFileReader dishFileReader = new DishFileReader("src/main/java/Frameworks_and_Drivers/Dishes.csv");
+        SearchPresenter searchPresenter = new SearchPresenter();
+        SearchRestaurantUseCase searchRestaurantUseCase = new SearchRestaurantUseCase(searchPresenter,restaurantFileReader);
+        SearchDishUseCase searchDishUseCase = new SearchDishUseCase(searchPresenter, dishFileReader);
+        SearchController searchController = new SearchController(searchDishUseCase, searchRestaurantUseCase);
+        View view = new View(loginUserController, createUserController, searchController);
+        searchPresenter.setView(view);
+        JFrame frame = new JFrame("view");
+        frame.setContentPane(view.getMainPanel());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 }

@@ -66,7 +66,7 @@ public class SignUpScreen extends JPanel {
                     LoginUserInputBoundary interactor = new LoginUserInteractor(
                             user, account, userFactory, presenter);
                     Main main = new Main();
-                    main.switchPanel(mainPanel, "THIRD");
+                    //main.switchPanel(mainPanel, "THIRD"); generates error
                     LoginUserController controller = new LoginUserController(interactor);
 
                 } catch (Exception ex) {
@@ -86,7 +86,7 @@ public class SignUpScreen extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Main main = new Main();
-                    main.switchPanel(mainPanel, "FIRST");
+                    //main.switchPanel(mainPanel, "FIRST"); generates error
 
                 }
 
