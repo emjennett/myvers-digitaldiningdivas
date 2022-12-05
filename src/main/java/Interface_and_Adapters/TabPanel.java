@@ -1,11 +1,10 @@
-package Interface_and_Adapters.StartUpScreens;
+package Interface_and_Adapters;
 
 import APP_Business_Rules.DishMenu.*;
 import APP_Business_Rules.RestaurantUseCase.*;
 import APP_Business_Rules.RestaurantUseCase.RestaurantFormatted;
 
 import APP_Business_Rules.login_user.LoginUserResponseModel;
-import Interface_and_Adapters.*;
 import Interface_and_Adapters.DishMenuScreens.DishController;
 import Interface_and_Adapters.DishMenuScreens.DishFormatted;
 import Interface_and_Adapters.DishMenuScreens.DishPresenter;

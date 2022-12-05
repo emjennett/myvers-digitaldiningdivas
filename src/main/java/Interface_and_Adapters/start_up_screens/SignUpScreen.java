@@ -1,6 +1,5 @@
-package Interface_and_Adapters.StartUpScreens;
+package Interface_and_Adapters.start_up_screens;
 
-import APP_Business_Rules.create_user.CreateUserController;
 import APP_Business_Rules.login_user.*;
 import Entities.AccountFactory;
 import Entities.UserFactory;
@@ -65,9 +64,11 @@ public class SignUpScreen extends JPanel {
                     UserFactory userFactory = new AccountFactory();
                     LoginUserInputBoundary interactor = new LoginUserInteractor(
                             user, account, userFactory, presenter);
-                    Main main = new Main();
-                    main.switchPanel(mainPanel, "THIRD");
                     LoginUserController controller = new LoginUserController(interactor);
+                    Main main = new Main();
+                    mainPanel.add(new LoginScreen(controller, mainPanel), "THIRD");
+                    main.switchPanel(mainPanel, "THIRD");
+
 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(SignUpScreen.this, ex.getMessage());

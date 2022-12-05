@@ -8,6 +8,11 @@ public class CreateUserGatewayModel implements Serializable {
 
     private final String password;
 
+    /**
+     * The model representation to be stored for a created user
+     * @param username chosen username.
+     * @param password chosen password.
+     */
     CreateUserGatewayModel(String username, String password){
 
         this.username = username;

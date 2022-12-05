@@ -12,7 +12,12 @@ public class CreateUserInteractor implements CreateUserInputBoundary {
 
     final CreateUserPresenter presenter;
 
-
+    /**
+     * The Use case interactor called when a user wants to create a new account.
+     * @param gateway interface needed to save a new user.
+     * @param factory interface needed to create a new user.
+     * @param presenter interface needed to send creation results to the user.
+     */
     public CreateUserInteractor(CreateUserGateway gateway, UserFactory factory, CreateUserPresenter presenter){
 
         this.gateway = gateway;
@@ -20,7 +25,11 @@ public class CreateUserInteractor implements CreateUserInputBoundary {
         this.presenter= presenter;
     }
 
-
+    /**
+     * The method that will test if the user can be created and stored if successful.
+     * returns the response model for optional viewing via presenter to a screen.
+     * @param model The information stored about the new users input.
+     */
     @Override
     public CreateUserResponseModel create(CreateUserRequestModel model) {
         if (gateway.findAccountUser(model.getUsername())){
