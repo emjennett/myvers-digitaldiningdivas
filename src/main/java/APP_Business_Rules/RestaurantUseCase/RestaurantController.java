@@ -1,4 +1,4 @@
-package Interface_and_Adapters;
+package APP_Business_Rules.RestaurantUseCase;
 
 import APP_Business_Rules.RestaurantUseCase.RestaurantInputBoundary;
 import APP_Business_Rules.RestaurantUseCase.RestaurantRequestModel;

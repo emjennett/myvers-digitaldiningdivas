@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.io.IOException;
 import java.util.List;
 
 public class RestaurantScreen extends JPanel {
@@ -29,7 +28,7 @@ public class RestaurantScreen extends JPanel {
         c.gridy = 0;
 
         RestaurantDataAccess restaurants;
-        restaurants = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
+        restaurants = new RestaurantFileReader("./Restaurant.csv");
 
         for (List<String> element : restaurants.getRes()) {
             JButton button = new JButton(element.get(0));

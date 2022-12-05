@@ -1,5 +1,7 @@
 package Interface_and_Adapters;
 
+import APP_Business_Rules.RestaurantUseCase.RestaurantController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +24,7 @@ public class RestaurantPopUp extends JPanel implements ActionListener {
             c.gridx = 3;
             c.gridy = 1;
             JLabel imageLabel = new JLabel();
-            ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/java/Frameworks_and_Drivers/19-star-png-image.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon("./19-star-png-image.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
             imageLabel.setIcon(imageIcon);
             this.add(imageLabel, c);
         }
