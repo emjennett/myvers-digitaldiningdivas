@@ -46,7 +46,7 @@ public class RestaurantPopUp extends JPanel implements ActionListener {
         c.gridy = 0;
         this.add(name, c);
         c = new GridBagConstraints();
-        JLabel category = new JLabel(resCategory);
+        JLabel category = new JLabel("Category: " + resCategory);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.weighty = 1.0;
@@ -54,7 +54,7 @@ public class RestaurantPopUp extends JPanel implements ActionListener {
         c.gridy = 1;
         this.add(category, c);
         c = new GridBagConstraints();
-        JLabel addressLabel = new JLabel(address);
+        JLabel addressLabel = new JLabel("Address: " + address);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.weighty = 1.0;

@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import static java.lang.Double.compare;
 
+//Will delete if we don't have any use for it
 public class SearchUserUseCase implements SearchInputBoundary{
     private OutputBoundary searchPresenter;
     private DataAccessStorageInterface dataAccess;
@@ -21,10 +22,10 @@ public class SearchUserUseCase implements SearchInputBoundary{
 
     public void Search(SearchRequestModel searchRequestModel){
         ArrayList<AccountUser> data = (ArrayList<AccountUser>) this.dataAccess.accessData(searchRequestModel.getType() + ".txt"); //Might need to change the return type of accessData() to Arraylist<Object>
-        SearchResponseModel searchResponseModel = new SearchResponseModel(new ArrayList<>());
+        SearchResponseModel searchResponseModel = new SearchResponseModel(new ArrayList<>(), "User");
         for (AccountUser a: data){
         if(a.getUserName().contains(searchRequestModel.getSearch())){
-            if(compare(a.getScore(), (Double) searchRequestModel.getFilter().get("minScore")) >= 0) {
+            if(compare(a.getScore(), searchRequestModel.getMinRating()) >= 0) {
                 HashMap<String, Object> userAsAHashMap = new HashMap<>();
                 userAsAHashMap.put("Name", a.getUserName());
                 userAsAHashMap.put("Rating", a.getScore());
@@ -35,11 +36,9 @@ public class SearchUserUseCase implements SearchInputBoundary{
                     formattedReview.put("Author", r.getAuthor());
                     formattedReview.put("Created on", r.getCreatedOn());
                     formattedReview.put("Rating", r.getRating());
-                    //I did not put dishReviewed because I don't see why I would need it
                     formatedReviews.add(formattedReview);
                 }
                 userAsAHashMap.put("Reviews", formatedReviews);
-                searchResponseModel.add(userAsAHashMap);
             }
         }
         }
