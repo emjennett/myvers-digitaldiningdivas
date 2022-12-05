@@ -1,6 +1,4 @@
-package Interface_and_Adapters;
-
-import APP_Business_Rules.RestaurantUseCase.RestaurantController;
+package Interface_and_Adapters.restaurant_screens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RestaurantPopUp extends JPanel{
+    /*
+    Displays Restaurant information specific to the button previously clicked. Possessed ability
+    to create reviews based on this Restaurant.
+     */
     RestaurantController restaurantController;
     RestaurantPopUp(String resName, String resCategory, String address, String starRating,
                     RestaurantController restaurantController, JPanel mainPanel){
@@ -16,9 +18,9 @@ public class RestaurantPopUp extends JPanel{
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         JLabel name = new JLabel(resName);
-        int starCount = Integer.parseInt(starRating);
-        System.out.println(starCount);
-        for (int i = 0; i < starCount; i++) {
+        int starCount = Integer.parseInt(starRating); //turns star string into integer
+
+        for (int i = 0; i < starCount; i++) { //creates multiple stars according to starCount
             c.fill = GridBagConstraints.CENTER;
             c.weightx = 0.5;
             c.weighty = 1.0;
@@ -31,10 +33,9 @@ public class RestaurantPopUp extends JPanel{
             this.add(imageLabel, c);
             imageLabel.setText(imageLabel.getText()+ "Michelin Stars:");
 
-
         }
         JButton backButton = new JButton("Back");
-        backButton.addActionListener(new ActionListener() {
+        backButton.addActionListener(new ActionListener() { //button brings user back into RestaurantScreen
             @Override
             public void actionPerformed(ActionEvent e) {
                 RestaurantScreen resScreen = new RestaurantScreen(restaurantController);
@@ -43,7 +44,6 @@ public class RestaurantPopUp extends JPanel{
 
         });
         this.add(backButton);
-
 
         name.setFont(new Font("Sans Serif", Font.BOLD, 20));
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -69,7 +69,7 @@ public class RestaurantPopUp extends JPanel{
         c.gridy = 1;
         this.add(addressLabel, c);
 
-        JButton reviewResButton = new JButton("Add Your Review");
+        JButton reviewResButton = new JButton("Add Your Review"); //Allows user to add review for this Restaurant
         reviewResButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -77,8 +77,6 @@ public class RestaurantPopUp extends JPanel{
             }
         });
         this.add(reviewResButton);
-
-        this.setPreferredSize(new Dimension(200, 300));
         this.setVisible(true);
     }
 

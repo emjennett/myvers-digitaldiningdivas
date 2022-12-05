@@ -8,6 +8,10 @@ import Interface_and_Adapters.DishMenuScreens.DishController;
 import Interface_and_Adapters.DishMenuScreens.DishFormatted;
 import Interface_and_Adapters.DishMenuScreens.DishPresenter;
 import Interface_and_Adapters.DishMenuScreens.DishScreen;
+import Interface_and_Adapters.restaurant_screens.RestaurantController;
+import Interface_and_Adapters.restaurant_screens.RestaurantFormatted;
+import Interface_and_Adapters.restaurant_screens.RestaurantPresenter;
+import Interface_and_Adapters.restaurant_screens.RestaurantScreen;
 
 import javax.swing.*;
 import java.io.IOException;
