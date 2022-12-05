@@ -1,8 +1,7 @@
 package APP_Business_Rules.RestaurantUseCase;
 
-import APP_Business_Rules.login_user.LoginUserGatewayModel;
 import Entities.Restaurant;
-import Interface_and_Adapters.RestaurantPresenter;
+import Interface_and_Adapters.restaurant_screens.RestaurantPresenter;
 
 public class RestaurantInteractor implements RestaurantInputBoundary{
     final RestaurantPresenter restaurantPresenter;

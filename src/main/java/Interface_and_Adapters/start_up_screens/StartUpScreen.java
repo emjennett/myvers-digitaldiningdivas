@@ -18,6 +18,7 @@ public class StartUpScreen extends JPanel {
     private JButton createLoginButton;
 
     public StartUpScreen(JPanel mainPanel) {
+        this.add(Box.createVerticalGlue());
         this.mainPanel = mainPanel;
         JLabel title = new JLabel();
         title.setText("Digital Dining Divas");
@@ -28,8 +29,10 @@ public class StartUpScreen extends JPanel {
         buttons.add(createLoginButton());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
         this.add(buttons);
+        this.add(Box.createVerticalGlue());
     }
 
     private JButton createButton() {

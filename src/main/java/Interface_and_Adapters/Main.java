@@ -26,7 +26,7 @@ public class Main extends JFrame{
 
         this.setTitle("Digital Dining Divas");
         this.setResizable(false);
-        this.setSize(new Dimension(400, 400));
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 

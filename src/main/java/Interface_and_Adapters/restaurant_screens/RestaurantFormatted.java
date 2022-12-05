@@ -1,6 +1,6 @@
-package APP_Business_Rules.RestaurantUseCase;
+package Interface_and_Adapters.restaurant_screens;
 
-import Interface_and_Adapters.RestaurantPresenter;
+import APP_Business_Rules.RestaurantUseCase.RestaurantResponseModel;
 
 public class RestaurantFormatted implements RestaurantPresenter {
     @Override
