@@ -1,13 +1,17 @@
 package Interface_and_Adapters.StartUpScreens;
 
+
+import APP_Business_Rules.LoadAccountInfo.UserAccountInfoFile;
+import APP_Business_Rules.LoadAccountInfo.UserAccountInfoModel;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
+import Interface_and_Adapters.RestaurantPopUp;
 
 import javax.swing.*;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ProfileScreen extends JPanel implements ActionListener {
+public class ProfileScreen extends JPanel  {
 
     JButton btn;
 
@@ -15,47 +19,90 @@ public class ProfileScreen extends JPanel implements ActionListener {
 
     JLabel label;
 
+
     public ProfileScreen(LoginUserResponseModel account){
-//        this.setTitle("Profile");
         this.setSize(800, 600);
-//        this.setLocationRelativeTo(null);
-//        this.setResizable(false);
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel firstpanel  = new JPanel();
+
+        UserAccountInfoFile test = new UserAccountInfoFile("./AccountInfo.csv");
+
+        if (!test.findAccountUser(account.getUsername())){
+            test.save(new UserAccountInfoModel(account.getUsername()));
+        }
+
+        UserAccountInfoModel model = test.load(account.getUsername());
+        String bio = model.getBio();
+
         String user = account.getUsername();
-        this.setLayout(null);
+
+
         btn = new JButton("ChangeBio");
-        btn.setBounds(50, 130, 100, 50);
+
         label = new JLabel("Profile");
-        label.setBounds(75, 1, 50, 30);
+
+        label.setFont(new Font("Arial", Font.BOLD, 20));
+
+        JLabel message = new JLabel("please log out to view new Bio");
+
+
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            //opens restaurant window with jbuttons from "home" screen
+            {
+                JPanel newscreen = new ChangeBio(account, firstpanel);
+                firstpanel.add(newscreen);
+//                switchPanel(firstpanel, "Card 1");
+            }
+        });
+
 
 
 
 
         DefaultListModel<String> mylist = new DefaultListModel<>();
         mylist.addElement("Username: " + user);
-        mylist.addElement("Bio:");
-        mylist.addElement("Recent Restaurants: ");
-        mylist.addElement("Recent Dishes: ");
+        mylist.addElement("Bio:" + bio);
+
 
         JList<String> list = new JList<>(mylist);
-        list.setBounds(0, 25, 200, 100);
+        list.setFont(new Font("Arial", Font.BOLD,20));
+        list.setSize(100, 500);
 
-        this.add(list);
-        this.add(btn);
-        this.add(label);
-        this.setVisible(true);
+        firstpanel.setLayout(new BoxLayout(firstpanel, BoxLayout.Y_AXIS));
+        firstpanel.setSize(800, 600);
+        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        list.setAlignmentX(Component.CENTER_ALIGNMENT);
+        message.setAlignmentX(Component.CENTER_ALIGNMENT);
+        firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
+        firstpanel.add(Box.createVerticalGlue());
+        firstpanel.add(label);
+        firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
+        firstpanel.add(message);
+        firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
+        firstpanel.add(list);
+        firstpanel.add(Box.createRigidArea(new Dimension(0,30)));
+        firstpanel.add(btn);
+
+
+        this.add(firstpanel);
 
 
 
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String msg = "";
-
-        if (list.getSelectedIndex() != 1){
-            msg = "you selected :" + list.getSelectedValue();
-            label.setText(msg);
-        }
+    public void switchPanel(Container container, String panelName) {
+        CardLayout card = (CardLayout) (container.getLayout());
+        card.show(container, panelName);
     }
+
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        String msg = "";
+//
+//        if (list.getSelectedIndex() != 1){
+//            msg = "you selected :" + list.getSelectedValue();
+//            label.setText(msg);
+//        }
+//    }
 }

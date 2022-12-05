@@ -60,8 +60,7 @@ public class LoginScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    LoginUserResponseModel account = controller.login(
-                            username.getText(), String.valueOf(password.getPassword()));
+                    LoginUserResponseModel account = controller.login(username.getText(), String.valueOf(password.getPassword()));
                     Main main = new Main();
                     mainPanel.add(new TabPanel(mainPanel, account), "FOURTH");
                     main.switchPanel(mainPanel, "FOURTH");
