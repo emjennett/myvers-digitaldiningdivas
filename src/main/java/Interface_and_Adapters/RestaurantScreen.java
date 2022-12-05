@@ -51,7 +51,7 @@ public class RestaurantScreen extends JPanel {
             c.gridy += 1;
         }
         JScrollPane scroller = new JScrollPane(subPanel);
-        scroller.setPreferredSize(new Dimension(300, 300));
+        scroller.setPreferredSize(new Dimension(1200, 700));
         scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         outerPanel.add(scroller, "one");
         this.add(outerPanel);

@@ -23,9 +23,11 @@ public class SignUpScreen extends JPanel {
 
     CreateUserController controller;
     public SignUpScreen(CreateUserController controller, JPanel mainPanel) {
+
         this.controller = controller;
         this.mainPanel = mainPanel;
 
+        this.add(Box.createVerticalGlue());
         JLabel title = new JLabel("Sign-Up");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         LabelHelper usernameBox = new LabelHelper(new JLabel("Select Username"), username);
@@ -42,6 +44,7 @@ public class SignUpScreen extends JPanel {
         this.add(passwordBox);
         this.add(enterPasswordAgainBox);
         this.add(buttons);
+        this.add(Box.createVerticalGlue());
 
 
     }
