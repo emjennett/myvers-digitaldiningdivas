@@ -7,9 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RestaurantPopUp extends JPanel implements ActionListener {
+public class RestaurantPopUp extends JPanel{
     RestaurantController restaurantController;
-    RestaurantPopUp(String resName, String resCategory, String address, String starRating, RestaurantController restaurantController, JPanel mainPanel){
+    RestaurantPopUp(String resName, String resCategory, String address, String starRating,
+                    RestaurantController restaurantController, JPanel mainPanel){
         this.restaurantController = restaurantController;
 
         this.setLayout(new GridBagLayout());
@@ -18,7 +19,7 @@ public class RestaurantPopUp extends JPanel implements ActionListener {
         int starCount = Integer.parseInt(starRating);
         System.out.println(starCount);
         for (int i = 0; i < starCount; i++) {
-            c.fill = GridBagConstraints.HORIZONTAL;
+            c.fill = GridBagConstraints.CENTER;
             c.weightx = 0.5;
             c.weighty = 1.0;
             c.gridx = 3;
@@ -26,7 +27,11 @@ public class RestaurantPopUp extends JPanel implements ActionListener {
             JLabel imageLabel = new JLabel();
             ImageIcon imageIcon = new ImageIcon(new ImageIcon("./19-star-png-image.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
             imageLabel.setIcon(imageIcon);
+            imageLabel.setHorizontalTextPosition(SwingConstants.LEFT);
             this.add(imageLabel, c);
+            imageLabel.setText(imageLabel.getText()+ "Michelin Stars:");
+
+
         }
         JButton backButton = new JButton("Back");
         backButton.addActionListener(new ActionListener() {
@@ -62,16 +67,22 @@ public class RestaurantPopUp extends JPanel implements ActionListener {
         c.weighty = 1.0;
         c.gridx = 1;
         c.gridy = 1;
+        this.add(addressLabel, c);
 
         JButton reviewResButton = new JButton("Add Your Review");
-        this.add(addressLabel, c);
-        this.setPreferredSize(new Dimension(200, 300));
+        reviewResButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+        this.add(reviewResButton);
+
+        this.setPreferredSize(new Dimension(200, 300));
         this.setVisible(true);
     }
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
-    }
+
+
 
 
 }

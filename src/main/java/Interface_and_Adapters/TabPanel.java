@@ -2,7 +2,6 @@ package Interface_and_Adapters;
 
 import APP_Business_Rules.DishMenu.*;
 import APP_Business_Rules.RestaurantUseCase.*;
-import APP_Business_Rules.RestaurantUseCase.RestaurantFormatted;
 
 import APP_Business_Rules.login_user.LoginUserResponseModel;
 import Interface_and_Adapters.DishMenuScreens.DishController;
@@ -46,14 +45,9 @@ public class TabPanel extends JPanel{
         RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController);
         DishScreen dishScreen = new DishScreen(dishController);
 
-        AnalyticsScreen analyticsScreen = new AnalyticsScreen();
-        RankingScreen rankingScreen = new RankingScreen();
-
         //adds windows with labels to tab layout. This is an example of what a Restaurant Owner would see.
         tabs.addTab("Home", welcomeScreen);
         tabs.addTab("Restaurant", restaurantScreen);
-        tabs.addTab("Rankings", rankingScreen);
-        tabs.addTab("Analytics", analyticsScreen);
         tabs.addTab("Dishes", dishScreen);
 
         this.add(tabs);
