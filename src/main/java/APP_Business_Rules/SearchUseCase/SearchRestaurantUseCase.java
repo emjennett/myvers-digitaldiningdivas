@@ -1,12 +1,9 @@
 package APP_Business_Rules.SearchUseCase;
 
-import APP_Business_Rules.DataAccessStorageInterface;
-import APP_Business_Rules.OutputBoundary;
+import APP_Business_Rules.SearchOutputBoundary;
 import APP_Business_Rules.RestaurantUseCase.RestaurantDataAccess;
-import Entities.Restaurant;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,10 +11,10 @@ import static java.lang.Double.compare;
 import static java.lang.Double.parseDouble;
 
 public class SearchRestaurantUseCase implements SearchInputBoundary{
-    private OutputBoundary searchPresenter;
+    private SearchOutputBoundary searchPresenter;
     private RestaurantDataAccess dataAccess;
 
-    public SearchRestaurantUseCase(OutputBoundary searchPresenter, RestaurantDataAccess dataAccess){
+    public SearchRestaurantUseCase(SearchOutputBoundary searchPresenter, RestaurantDataAccess dataAccess){
         this.searchPresenter = searchPresenter;
         this.dataAccess = dataAccess;
     }

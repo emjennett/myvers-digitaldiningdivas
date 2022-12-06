@@ -1,17 +1,15 @@
 package Interface_and_Adapters;
 
-import APP_Business_Rules.OutputBoundary;
+import APP_Business_Rules.SearchOutputBoundary;
 import APP_Business_Rules.SearchUseCase.SearchResponseModel;
-import Entities.Dish;
 import Frameworks_and_Drivers.UI;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchPresenter implements OutputBoundary {
+public class SearchPresenter implements SearchOutputBoundary {
     private UI view;
 
     @Override
@@ -30,10 +28,16 @@ public class SearchPresenter implements OutputBoundary {
                             sortedResult.add(i, r);
                             break;
                         }
+                        else if(i == sortedResult.size()-1){
+                            sortedResult.add(r);
+                            break;
+                        }
                     }
                 }
             }
-            view.updateDishtTable(sortedResult);
+            Collections.reverse(sortedResult);
+            String[][] data = convertToArray((sortedResult));
+            view.updateDishTable(data);
         }
 
         //Sorting restaurants
@@ -48,11 +52,29 @@ public class SearchPresenter implements OutputBoundary {
                             sortedResult.add(i, r);
                             break;
                         }
+                        else if(i == sortedResult.size()-1){
+                            sortedResult.add(r);
+                            break;
+                        }
                     }
                 }
             }
-            view.updateRestaurantTable(sortedResult);
+            Collections.reverse(sortedResult);
+            String[][] data = convertToArray(sortedResult);
+            view.updateRestaurantTable(data);
         }
+    }
+
+    private String[][] convertToArray(List<List<String>> sortedResult) {
+        String[][] data = new String[sortedResult.size()][];
+        for(int i = 0; i < sortedResult.size(); i++){
+            String[] row = new String[sortedResult.get(i).size()];
+            for(int j = 0; j < sortedResult.get(i).size(); j++){
+                row[j] = sortedResult.get(i).get(j);
+            }
+            data[i] = row;
+        }
+        return data;
     }
 
     public void setView(UI view) {

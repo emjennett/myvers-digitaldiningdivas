@@ -1,22 +1,16 @@
 package Frameworks_and_Drivers;
 
-import APP_Business_Rules.DishMenu.DishFileReader;
 import APP_Business_Rules.RestaurantUseCase.RestaurantDataAccess;
 import APP_Business_Rules.RestaurantUseCase.RestaurantFileReader;
-import APP_Business_Rules.SearchUseCase.SearchDishUseCase;
-import APP_Business_Rules.SearchUseCase.SearchRestaurantUseCase;
 import APP_Business_Rules.create_user.CreateUserController;
-import APP_Business_Rules.create_user.CreateUserInteractor;
 import APP_Business_Rules.login_user.LoginUserController;
-import APP_Business_Rules.login_user.LoginUserInteractor;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
-import Entities.AccountFactory;
+import Interface_and_Adapters.MenuController;
 import Interface_and_Adapters.SearchController;
-import Interface_and_Adapters.SearchPresenter;
-import Interface_and_Adapters.StartUpScreens.CreateUserResponse;
-import Interface_and_Adapters.StartUpScreens.LoginUserResponse;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -68,7 +62,7 @@ public class View implements UI {
     private JLabel registerConfirmPasswordLabel;
     private JButton registerButton;
     private JPanel restaurantPanel;
-    private JTable restaurantDishTable;
+    private JTable menuTable;
     private JLabel restaurantNameLabel;
     private JPanel reviewDishPanel;
     private JTable reviewsTable;
@@ -79,12 +73,13 @@ public class View implements UI {
     private JLabel reviewLabel;
     private JLabel reviewsLabel;
     private JPanel addReviewPanel;
+    private JButton menuBackButton;
     private LoginUserResponseModel currentUser; //Variable that represents current user
     private LoginUserController loginUserController;
     private CreateUserController createUserController;
     private SearchController searchController;
 
-    public View(LoginUserController loginUserController, CreateUserController createUserController, SearchController searchController){
+    public View(LoginUserController loginUserController, CreateUserController createUserController, SearchController searchController, MenuController menuController){
         //Show the welcome panel first
         CardLayout card = (CardLayout) mainPanel.getLayout();
         card.show(mainPanel, "welcomeCard");
@@ -151,18 +146,28 @@ public class View implements UI {
 
         //Set up categories name
         setUpCategories();
-    }
 
-    public void defaultRestaurantList(){
-        DefaultTableModel model = new DefaultTableModel(header,0);
-        restaurantTable.setModel(model);
-        for(List<String> r : rec){
-            String[] data = new String[r.size()];
-            for(int i = 0; i < r.size(); i++){
-                data[i] = r.get(i);
+        //Add listener to rows of restauarant table to display restaurant menu
+        restaurantTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!(restaurantTable.getSelectedRow() == -1)){
+                    int rowIndex = restaurantTable.getSelectedRow();
+                    card.show(mainPanel, "restaurantCard");
+                    restaurantNameLabel.setText((String) restaurantTable.getModel().getValueAt(rowIndex, 0));
+                    menuController.generateMenu(restaurantNameLabel.getText());
+                    restaurantTable.getSelectionModel().clearSelection();
+                }
             }
-            model.addRow(data);
-        }
+        });
+
+        //Menu card back button
+        menuBackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                card.show(mainPanel, "appCard");
+            }
+        });
     }
 
     //Clear text fields in the welcome page
@@ -194,28 +199,30 @@ public class View implements UI {
     }
 
     //Change the Restaurant table
-    public void updateRestaurantTable(List<List<String>> data){
+    public void updateRestaurantTable(String[][] data){
         DefaultTableModel model = new DefaultTableModel(header,0);
         restaurantTable.setModel(model);
-        for(List<String> r : data){
-            String[] tableRow = new String[r.size()];
-            for(int i = 0; i < r.size(); i++){
-                tableRow[i] = r.get(i);
-            }
-            model.addRow(tableRow);
+        for(String[] d: data){
+            model.addRow(d);
         }
     }
 
+    //Change Dish table
     @Override
-    public void updateDishtTable(List<List<String>> data) {
+    public void updateDishTable(String[][] data) {
         DefaultTableModel model = new DefaultTableModel(header,0);
         dishTable.setModel(model);
-        for(List<String> r : data){
-            String[] tableRow = new String[r.size()];
-            for(int i = 0; i < r.size(); i++){
-                tableRow[i] = r.get(i);
-            }
-            model.addRow(tableRow);
+        for(String[] d: data){
+            model.addRow(d);
+        }
+    }
+    //Genereate restaurant menu
+    @Override
+    public void updateMenuTable(String[][] data) {
+        DefaultTableModel model = new DefaultTableModel(header,0);
+        menuTable.setModel(model);
+        for(String[] d: data){
+            model.addRow(d);
         }
     }
 

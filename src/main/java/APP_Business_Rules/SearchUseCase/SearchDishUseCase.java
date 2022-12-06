@@ -1,26 +1,20 @@
 package APP_Business_Rules.SearchUseCase;
 
-import APP_Business_Rules.DataAccessStorageInterface;
 import APP_Business_Rules.DishMenu.DishDataAccess;
-import APP_Business_Rules.OutputBoundary;
-import Entities.Dish;
-import Entities.Review;
-import Interface_and_Adapters.SearchPresenter;
+import APP_Business_Rules.SearchOutputBoundary;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
 import static java.lang.Double.compare;
-import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class SearchDishUseCase implements SearchInputBoundary{
-    private OutputBoundary searchPresenter;
+    private SearchOutputBoundary searchPresenter;
     private DishDataAccess dataAccess;
 
-    public SearchDishUseCase(OutputBoundary searchPresenter, DishDataAccess dataAccess){
+    public SearchDishUseCase(SearchOutputBoundary searchPresenter, DishDataAccess dataAccess){
         this.searchPresenter = searchPresenter;
         this.dataAccess = dataAccess;
     }

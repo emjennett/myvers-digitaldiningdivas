@@ -2,6 +2,7 @@ package Interface_and_Adapters;
 
 
 import APP_Business_Rules.DishMenu.DishFileReader;
+import APP_Business_Rules.MenuUseCase.MenuInteractor;
 import APP_Business_Rules.RestaurantUseCase.RestaurantFileReader;
 import APP_Business_Rules.SearchUseCase.SearchDishUseCase;
 import APP_Business_Rules.SearchUseCase.SearchRestaurantUseCase;
@@ -36,7 +37,11 @@ public class Main extends JFrame{
         SearchRestaurantUseCase searchRestaurantUseCase = new SearchRestaurantUseCase(searchPresenter,restaurantFileReader);
         SearchDishUseCase searchDishUseCase = new SearchDishUseCase(searchPresenter, dishFileReader);
         SearchController searchController = new SearchController(searchDishUseCase, searchRestaurantUseCase);
-        View view = new View(loginUserController, createUserController, searchController);
+        MenuPresenter menuPresenter = new MenuPresenter();
+        MenuInteractor menuInteractor = new MenuInteractor(dishFileReader, menuPresenter);
+        MenuController menuController = new MenuController(menuInteractor);
+        View view = new View(loginUserController, createUserController, searchController, menuController);
+        menuPresenter.setView(view);
         searchPresenter.setView(view);
         JFrame frame = new JFrame("view");
         frame.setContentPane(view.getMainPanel());

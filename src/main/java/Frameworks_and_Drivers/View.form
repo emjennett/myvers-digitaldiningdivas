@@ -370,7 +370,7 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="27e78" class="javax.swing.JTable" binding="restaurantDishTable">
+          <component id="27e78" class="javax.swing.JTable" binding="menuTable">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
@@ -378,6 +378,15 @@
               <gridbag weightx="1.0" weighty="1.0"/>
             </constraints>
             <properties/>
+          </component>
+          <component id="69c09" class="javax.swing.JButton" binding="menuBackButton">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Back"/>
+            </properties>
           </component>
         </children>
       </grid>

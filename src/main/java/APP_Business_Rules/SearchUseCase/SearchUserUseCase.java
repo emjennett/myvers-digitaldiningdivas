@@ -1,7 +1,7 @@
 package APP_Business_Rules.SearchUseCase;
 
 import APP_Business_Rules.DataAccessStorageInterface;
-import APP_Business_Rules.OutputBoundary;
+import APP_Business_Rules.SearchOutputBoundary;
 import Entities.AccountUser;
 import Entities.Review;
 
@@ -12,10 +12,10 @@ import static java.lang.Double.compare;
 
 //Will delete if we don't have any use for it
 public class SearchUserUseCase implements SearchInputBoundary{
-    private OutputBoundary searchPresenter;
+    private SearchOutputBoundary searchPresenter;
     private DataAccessStorageInterface dataAccess;
 
-    public SearchUserUseCase(OutputBoundary searchPresenter, DataAccessStorageInterface dataAccess){
+    public SearchUserUseCase(SearchOutputBoundary searchPresenter, DataAccessStorageInterface dataAccess){
         this.searchPresenter = searchPresenter;
         this.dataAccess = dataAccess;
     }
