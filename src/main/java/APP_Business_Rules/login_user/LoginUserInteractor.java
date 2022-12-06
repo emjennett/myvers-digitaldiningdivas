@@ -13,6 +13,15 @@ public class LoginUserInteractor implements LoginUserInputBoundary {
 
     final LoginUserPresenter presenter;
 
+    /**
+     * The Use case interactor called when a user wants to log in with a created account.
+     * @param loginGateway interface needed to see if the account exists and
+     *                     if the password matches the username.
+     * @param accountGateway interface gateway need to log in for the first time or grab the user's username.
+     * @param factory interface needed to create a loggable user.
+     * @param presenter interface needed to send log in results to the user.
+     */
+
     public LoginUserInteractor(LoginUserGateway loginGateway, AccountUserGateway accountGateway,
                                UserFactory factory, LoginUserPresenter presenter) {
 
@@ -21,7 +30,11 @@ public class LoginUserInteractor implements LoginUserInputBoundary {
         this.factory = factory;
         this.presenter = presenter;
     }
-
+    /**
+     * The use case login method starts the process to return a result response to the presenter.
+     * @param model the request model that encompasses information to request an account log
+     *              in.
+     */
     @Override
     public LoginUserResponseModel login(LoginUserRequestModel model) {
         if (!loginGateway.confirmAccountUser(model.getUsername(), model.getPassword())) {
