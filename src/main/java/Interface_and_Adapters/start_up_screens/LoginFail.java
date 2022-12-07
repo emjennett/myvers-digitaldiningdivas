@@ -1,4 +1,4 @@
-package Interface_and_Adapters.StartUpScreens;
+package Interface_and_Adapters.start_up_screens;
 
 public class LoginFail extends RuntimeException{
 

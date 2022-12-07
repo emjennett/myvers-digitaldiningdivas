@@ -1,4 +1,4 @@
-package Interface_and_Adapters.StartUpScreens;
+package Interface_and_Adapters.start_up_screens;
 
 
 import APP_Business_Rules.LoadAccountInfo.PullAccountInfoController;
@@ -6,6 +6,7 @@ import APP_Business_Rules.LoadAccountInfo.UserAccountInfoFile;
 import APP_Business_Rules.LoadAccountInfo.UserAccountInfoModel;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
 import Interface_and_Adapters.Main;
+
 
 import javax.swing.*;
 import java.awt.*;

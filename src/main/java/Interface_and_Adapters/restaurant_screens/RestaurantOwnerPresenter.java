@@ -1,4 +1,4 @@
-package Interface_and_Adapters;
+package Interface_and_Adapters.restaurant_screens;
 
 import Entities.AccountOwner;
 

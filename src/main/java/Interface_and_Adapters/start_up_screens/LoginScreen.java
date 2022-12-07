@@ -1,8 +1,8 @@
-package Interface_and_Adapters.StartUpScreens;
+package Interface_and_Adapters.start_up_screens;
 
-import APP_Business_Rules.login_user.LoginUserController;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
 import Interface_and_Adapters.Main;
+import Interface_and_Adapters.TabPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +23,7 @@ public class LoginScreen extends JPanel {
         this.controller = controller;
         this.mainPanel = mainPanel;
 
+        this.add(Box.createVerticalGlue());
         JLabel title = new JLabel("Login");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         LabelHelper usernameBox = new LabelHelper(new JLabel("Username"), username);
@@ -38,6 +39,7 @@ public class LoginScreen extends JPanel {
         this.add(usernameBox);
         this.add(passwordBox);
         this.add(buttons);
+        this.add(Box.createVerticalGlue());
     }
 
     private JButton createCancelButton() {

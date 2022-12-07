@@ -12,7 +12,10 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
 
     private final File csvFile;
 
-
+    /**
+     * Initiate a UserFile.
+     * @param csvpath the file to be created or opened.
+     */
     public UserFile(String csvpath) {
 
         this.csvFile = new File(csvpath);
@@ -32,7 +35,10 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
         }
     }
 
-
+    /**
+     * A find request for a specific user.
+     * @param username if found in the file return true otherwise return false.
+     */
     @Override
     public boolean findAccountUser(String username) {
 
@@ -55,6 +61,12 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
         }
         return false;
     }
+
+    /**
+     * A security check to log in a user.
+     * @param username to be found in the file if not found return false.
+     * @param password if password is linked to the username found return true otherwise false.
+     */
     @Override
     public boolean confirmAccountUser(String username, String password){
 
@@ -78,7 +90,10 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
         }
         return false;
     }
-
+    /**
+     * A request to create a new user in the file.
+     * @param model to be stored away in the file.
+     */
     @Override
     public void save(CreateUserGatewayModel model) {
 

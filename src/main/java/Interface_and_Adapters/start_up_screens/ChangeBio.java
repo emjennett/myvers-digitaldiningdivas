@@ -1,4 +1,4 @@
-package Interface_and_Adapters.StartUpScreens;
+package Interface_and_Adapters.start_up_screens;
 
 import APP_Business_Rules.LoadAccountInfo.ChangeBioController;
 import APP_Business_Rules.LoadAccountInfo.PullAccountInfoController;

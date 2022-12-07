@@ -8,6 +8,12 @@ public class CreateUserRequestModel {
 
     private String dup_password;
 
+    /**
+     * The model that will take the necessary information to create a user.
+     * @param username chosen from input.
+     * @param password chosen from input.
+     * @param dup_password chosen from input.
+     */
     public CreateUserRequestModel(String username, String password, String dup_password){
 
         this.username = username.strip() ;
