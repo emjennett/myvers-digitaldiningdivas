@@ -4,10 +4,7 @@ public class LoginUserResponseModel {
 
     LoginUserGatewayModel model;
 
-    /**
-     * The result for when a user has attempted a login.
-     * @param model the information found from a login.
-     */
+
     public LoginUserResponseModel(LoginUserGatewayModel model) {
         this.model = model;
     }
@@ -18,6 +15,5 @@ public class LoginUserResponseModel {
     public String getType(){
         return this.model.getType();
     }
-
 
 }
