@@ -8,6 +8,13 @@ public class PullAccountInfoController {
         this.username = username;
     }
 
+    /**
+     * GetBio:
+     * methold that allows the user to change to access their bio by accessing the UserAccountInfomodel in the csv file.
+     *
+     * @return whether the user exists
+     */
+
     public String GetBio(){
         PullAccountInputBoundary User = new PullAcountInteractor(username);
         return User.PullAccount(username);

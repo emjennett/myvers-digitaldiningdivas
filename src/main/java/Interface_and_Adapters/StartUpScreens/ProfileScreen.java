@@ -48,7 +48,7 @@ public class ProfileScreen extends JPanel  {
 
         label.setFont(new Font("Arial", Font.BOLD, 20));
 
-        JLabel message = new JLabel("please log out to view new Bio");
+        JLabel message = new JLabel("Please log out to view new Bio");
 
 
         btn.addActionListener(new ActionListener() {
@@ -116,12 +116,17 @@ public class ProfileScreen extends JPanel  {
         this.add(cont);
 
 
-
-
-
-
-
     }
+
+    /**
+     * switchPanel:
+     * method that changes the current Jpanel
+     *
+     * @param container the current JPanel
+     *
+     * @param panelName the string corresponding to the Panel.
+     *
+     */
     public void switchPanel(Container container, String panelName) {
         CardLayout card = (CardLayout) (container.getLayout());
         card.show(container, panelName);
