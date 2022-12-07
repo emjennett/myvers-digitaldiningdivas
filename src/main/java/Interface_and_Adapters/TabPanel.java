@@ -52,7 +52,6 @@ public class TabPanel extends JPanel{
 
       
         ProfileScreen welcomeScreen = new ProfileScreen(account, mainPanel);
-        RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController);
 
        
         RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController, account.getUsername());
