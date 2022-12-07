@@ -1,6 +1,7 @@
 package Interface_and_Adapters.restaurant_screens;
 
 import APP_Business_Rules.RestaurantUseCase.*;
+import Entities.Account;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,9 +15,11 @@ public class RestaurantScreen extends JPanel {
     /* Displays Restaurant information to the user.
      */
     RestaurantController restaurantController;
+    String account;
 
-    public RestaurantScreen(RestaurantController restaurantController) {
+    public RestaurantScreen(RestaurantController restaurantController, String account) {
         this.restaurantController = restaurantController;
+        this.account = account;
         JPanel outerPanel = new JPanel();
         outerPanel.setLayout(new CardLayout());
         JPanel subPanel = new JPanel(); //panel for button grid
@@ -41,7 +44,7 @@ public class RestaurantScreen extends JPanel {
                 //opens restaurant window with jbuttons from "home" screen
                 {
                     RestaurantPopUp popUp = new RestaurantPopUp(element.get(0), element.get(1),
-                            element.get(2), element.get(3), restaurantController, outerPanel);
+                            element.get(2), element.get(3), account, restaurantController, outerPanel);
                     outerPanel.add(popUp, "card1");
                     switchPanel(outerPanel, "card1");
 
