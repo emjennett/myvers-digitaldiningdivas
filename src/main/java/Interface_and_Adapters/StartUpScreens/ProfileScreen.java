@@ -1,10 +1,11 @@
 package Interface_and_Adapters.StartUpScreens;
 
 
+import APP_Business_Rules.LoadAccountInfo.PullAccountInfoController;
 import APP_Business_Rules.LoadAccountInfo.UserAccountInfoFile;
 import APP_Business_Rules.LoadAccountInfo.UserAccountInfoModel;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
-import Interface_and_Adapters.RestaurantPopUp;
+import Interface_and_Adapters.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,28 +16,33 @@ public class ProfileScreen extends JPanel  {
 
     JButton btn;
 
-    JList<String> list;
+    JButton backbtn;
 
     JLabel label;
 
+    JPanel firstpanel = new JPanel();
 
-    public ProfileScreen(LoginUserResponseModel account){
-        this.setSize(800, 600);
-        JPanel firstpanel  = new JPanel();
 
-        UserAccountInfoFile test = new UserAccountInfoFile("./AccountInfo.csv");
+    JPanel cont = new JPanel();
 
-        if (!test.findAccountUser(account.getUsername())){
-            test.save(new UserAccountInfoModel(account.getUsername()));
-        }
+    CardLayout layout = new CardLayout();
 
-        UserAccountInfoModel model = test.load(account.getUsername());
-        String bio = model.getBio();
 
+
+
+
+
+    public ProfileScreen(LoginUserResponseModel account, JPanel mainscreen){
+
+
+        PullAccountInfoController controller = new PullAccountInfoController(account.getUsername());
+        String bio = controller.GetBio();
         String user = account.getUsername();
 
 
         btn = new JButton("ChangeBio");
+
+        backbtn = new JButton("Log Out");
 
         label = new JLabel("Profile");
 
@@ -50,9 +56,22 @@ public class ProfileScreen extends JPanel  {
             public void actionPerformed(ActionEvent e)
             //opens restaurant window with jbuttons from "home" screen
             {
-                JPanel newscreen = new ChangeBio(account, firstpanel);
-                firstpanel.add(newscreen);
-//                switchPanel(firstpanel, "Card 1");
+                ChangeBio newscreen = new ChangeBio(account, cont, mainscreen);
+                cont.add(newscreen, "C1");
+                switchPanel(cont, "C1");
+
+
+            }
+        });
+
+        backbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            //opens restaurant window with jbuttons from "home" screen
+            {
+                Main main = new Main();
+                main.switchPanel(mainscreen, "FIRST");
+
             }
         });
 
@@ -69,9 +88,12 @@ public class ProfileScreen extends JPanel  {
         list.setFont(new Font("Arial", Font.BOLD,20));
         list.setSize(100, 500);
 
+
         firstpanel.setLayout(new BoxLayout(firstpanel, BoxLayout.Y_AXIS));
         firstpanel.setSize(800, 600);
+        firstpanel.add(label);
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backbtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         list.setAlignmentX(Component.CENTER_ALIGNMENT);
         message.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -84,9 +106,18 @@ public class ProfileScreen extends JPanel  {
         firstpanel.add(list);
         firstpanel.add(Box.createRigidArea(new Dimension(0,30)));
         firstpanel.add(btn);
+        firstpanel.add(Box.createRigidArea(new Dimension(0,30)));
+        firstpanel.add(backbtn);
+
+        cont.setLayout(layout);
 
 
-        this.add(firstpanel);
+        cont.add(firstpanel, "1");
+        this.add(cont);
+
+
+
+
 
 
 
@@ -96,13 +127,6 @@ public class ProfileScreen extends JPanel  {
         card.show(container, panelName);
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        String msg = "";
-//
-//        if (list.getSelectedIndex() != 1){
-//            msg = "you selected :" + list.getSelectedValue();
-//            label.setText(msg);
-//        }
-//    }
+
+
 }
