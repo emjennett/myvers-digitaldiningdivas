@@ -19,6 +19,8 @@ public class SignUpScreen extends JPanel {
     JTextField username = new JTextField(15);
     JPasswordField password = new JPasswordField(15);
     JPasswordField retypePassword = new JPasswordField(15);
+    JButton create;
+
     JButton cancel;
 
     CreateUserController controller;
@@ -50,13 +52,13 @@ public class SignUpScreen extends JPanel {
     }
 
     private JButton createCreateButton() {
-        cancel = new JButton("Create Account");
-        cancel.addActionListener(new ActionListener() {
+        create = new JButton("Create Account");
+        create.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.create(username.getText(), String.valueOf(password.getPassword()),
-                            String.valueOf(retypePassword.getPassword()));
+                            String.valueOf(retypePassword.getPassword()), "user");
                     JOptionPane.showMessageDialog(SignUpScreen.this,
                             "You have successfully created your account " + username.getText() + "!");
                     LoginUserGateway user;
@@ -81,7 +83,7 @@ public class SignUpScreen extends JPanel {
             }
 
         });
-        return cancel;
+        return create;
 
     }
         private JButton createCancelButton() {

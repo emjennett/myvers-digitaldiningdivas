@@ -45,7 +45,7 @@ public class TabPanel extends JPanel{
         DishInputBoundary dishInteractor = new DishInteractor(dish, dishPresenter, dishFactory);
         DishController dishController = new DishController(dishInteractor);
 
-        WelcomeScreen welcomeScreen = new WelcomeScreen(account, mainPanel);
+        WelcomeScreen welcomeScreen = new WelcomeScreen(account, mainPanel, restaurantController);
         RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController);
         DishScreen dishScreen = new DishScreen(dishController);
 
@@ -55,6 +55,6 @@ public class TabPanel extends JPanel{
         tabs.addTab("Dishes", dishScreen);
 
         this.add(tabs);
-        //JOptionPane.showMessageDialog(this, "Welcome " + account.getUsername() + "!");
+
     }
 }
