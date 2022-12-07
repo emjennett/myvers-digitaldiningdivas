@@ -1,5 +1,15 @@
 package Interface_and_Adapters.restaurant_screens;
 
+import APP_Business_Rules.CreateReviewUseCase.CreateReviewGateway;
+import APP_Business_Rules.CreateReviewUseCase.CreateReviewInputBoundary;
+import APP_Business_Rules.CreateReviewUseCase.CreateReviewInteractor;
+import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsInputBoundary;
+import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsInteractor;
+import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsGateway;
+import Frameworks_and_Drivers.ReviewFile;
+import Interface_and_Adapters.CreateReviewScreen.*;
+import Interface_and_Adapters.DisplayReviewsScreen.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,9 +21,11 @@ public class RestaurantPopUp extends JPanel{
     to create reviews based on this Restaurant.
      */
     RestaurantController restaurantController;
+
     RestaurantPopUp(String resName, String resCategory, String address, String starRating,
-                    RestaurantController restaurantController, JPanel mainPanel){
+                    String account, RestaurantController restaurantController, JPanel mainPanel){
         this.restaurantController = restaurantController;
+
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -38,7 +50,7 @@ public class RestaurantPopUp extends JPanel{
         backButton.addActionListener(new ActionListener() { //button brings user back into RestaurantScreen
             @Override
             public void actionPerformed(ActionEvent e) {
-                RestaurantScreen resScreen = new RestaurantScreen(restaurantController);
+                RestaurantScreen resScreen = new RestaurantScreen(restaurantController, account);
                 resScreen.switchPanel(mainPanel, "one"); //returns to first screen by button click
             }
 
@@ -69,17 +81,46 @@ public class RestaurantPopUp extends JPanel{
         c.gridy = 1;
         this.add(addressLabel, c);
 
-        JButton reviewResButton = new JButton("Add Your Review"); //Allows user to add review for this Restaurant
-        reviewResButton.addActionListener(new ActionListener() {
+        JButton resReviewsButton = new JButton("See reviews"); //Allows user to add review for this Restaurant
+        resReviewsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                DisplayReviewsGateway revGate = new ReviewFile();
+                DisplayReviewsPresenter disRev = new DisplayReviewsFormatted();
+                DisplayReviewsInputBoundary inBoundRev = new DisplayReviewsInteractor(revGate, disRev);
+                DisplayReviewsController disRevController = new DisplayReviewsController(inBoundRev);
+                DisplayReviewsScreenNew seeReviews = new DisplayReviewsScreenNew(disRevController,
+                        mainPanel, resName);
+                mainPanel.add(seeReviews, "seeReviews");
+                switchPanel(mainPanel, "seeReviews");
 
             }
         });
-        this.add(reviewResButton);
+        this.add(resReviewsButton);
+        this.setVisible(true);
+
+        JButton ReviewsButton = new JButton("new review"); //Allows user to add review for this Restaurant
+        ReviewsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreateReviewGateway revGate = new ReviewFile();
+                CreateReviewPresenter disRev = new CreateReviewFormatted();
+                CreateReviewInputBoundary inBoundRev = new CreateReviewInteractor(revGate, disRev);
+                CreateReviewController disRevController = new CreateReviewController(inBoundRev);
+                CreateReviewScreenNew writeReview = new CreateReviewScreenNew(disRevController,
+                        mainPanel, account, resName);
+                mainPanel.add(writeReview, "writeReview");
+                switchPanel(mainPanel, "writeReview");
+
+            }
+        });
+        this.add(ReviewsButton);
         this.setVisible(true);
     }
-
+    public void switchPanel(Container container, String panelName) {
+        CardLayout card = (CardLayout) (container.getLayout());
+        card.show(container, panelName);
+    }
 
 
 

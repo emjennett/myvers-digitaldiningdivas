@@ -1,14 +1,16 @@
 package APP_Business_Rules.DisplayReviewsUseCase;
 
+import Entities.ReviewableObject;
+
 public class DisplayReviewsRequestModel {
 
-    private Object reviewed;
+    private String reviewed;
 
-    public DisplayReviewsRequestModel(Object reviewed){
+    public DisplayReviewsRequestModel(String reviewed){
         this.reviewed = reviewed;
     }
 
-    public Object getReviewed() {
+    public String getReviewed() {
         return reviewed;
     }
 }

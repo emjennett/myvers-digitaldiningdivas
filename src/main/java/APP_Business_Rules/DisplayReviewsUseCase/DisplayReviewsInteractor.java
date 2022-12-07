@@ -7,11 +7,11 @@ import java.util.List;
 
 public class DisplayReviewsInteractor implements DisplayReviewsInputBoundary {
 
-    final LoadReviewsGateway gateway;
+    final DisplayReviewsGateway gateway;
 
     final DisplayReviewsPresenter presenter;
 
-    public DisplayReviewsInteractor(LoadReviewsGateway gateway, DisplayReviewsPresenter presenter){
+    public DisplayReviewsInteractor(DisplayReviewsGateway gateway, DisplayReviewsPresenter presenter){
         this.gateway = gateway;
         this.presenter = presenter;
     }

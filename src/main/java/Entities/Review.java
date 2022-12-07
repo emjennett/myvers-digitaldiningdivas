@@ -8,13 +8,13 @@ public class Review implements Serializable {
     //*A review of a restaurant or dish
     private boolean flagged = false; //Variable which shows if the review has been flagged for review.
     private String review; //The string which contains the review.
-    private AccountUser author; //The user account which posted the review.
+    private String author; //The user account which posted the review.
     private Date createdOn; //Date of the reviews' creation.
     private Integer upVotes = 0; //Number of up votes given to the review.
     private Integer  rating; //User given rating.
-    private ReviewableObject Reviewed; //The dish reviewed.
+    private String Reviewed; //The dish reviewed.
 
-    public Review(AccountUser author, String review, ReviewableObject reviewed, int rating){
+    public Review(String author, String review, String reviewed, int rating){
         //The constructor for the review class
         this.author = author;
         this.review = review;
@@ -25,7 +25,7 @@ public class Review implements Serializable {
 
     public String getAuthor(){
         //Returns the authors' username.
-        return this.author.getUserName();
+        return this.author;
     }
 
     public int getRating() {
@@ -67,7 +67,7 @@ public class Review implements Serializable {
         this.upVotes += 1;
     }
 
-    public ReviewableObject getReviewed() {
+    public String getReviewed() {
         return Reviewed;
     }
 

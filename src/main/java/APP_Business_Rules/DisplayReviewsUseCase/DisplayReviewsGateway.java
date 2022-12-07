@@ -4,7 +4,7 @@ import Entities.Review;
 
 import java.util.List;
 
-public interface LoadReviewsGateway {
+public interface DisplayReviewsGateway {
 
-    List<Review> retrieveReviews(Object dishOrRestaurant);
+    List<Review> retrieveReviews(String dishOrRestaurant);
 }

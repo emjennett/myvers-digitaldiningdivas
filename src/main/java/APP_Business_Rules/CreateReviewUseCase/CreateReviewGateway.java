@@ -1,8 +1,9 @@
 package APP_Business_Rules.CreateReviewUseCase;
 
 import Entities.Review;
+import Entities.ReviewableObject;
 
 public interface CreateReviewGateway {
 
-    void save(Object dishOrRestaurant, Review review);
+    void save(String dishOrRestaurant, Review review);
 }

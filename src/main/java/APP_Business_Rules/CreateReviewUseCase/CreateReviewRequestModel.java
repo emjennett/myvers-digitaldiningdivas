@@ -1,29 +1,30 @@
 package APP_Business_Rules.CreateReviewUseCase;
 
 import Entities.AccountUser;
+import Entities.ReviewableObject;
 
 public class CreateReviewRequestModel {
 
-    private AccountUser user;
+    private String user;
 
-    private Object reviewed;
+    private String reviewed;
 
     private String review;
 
     private Integer rating;
 
-    public CreateReviewRequestModel(AccountUser user, Object reviewed, String review, Integer rating){
+    public CreateReviewRequestModel(String user, String reviewed, String review, Integer rating){
          this.user = user;
          this.reviewed = reviewed;
          this.review = review;
          this.rating = rating;
     }
 
-    public AccountUser getUser() {
+    public String getUser() {
         return user;
     }
 
-    public Object getReviewed() {
+    public String getReviewed() {
         return reviewed;
     }
 

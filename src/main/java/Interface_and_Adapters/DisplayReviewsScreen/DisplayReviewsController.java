@@ -3,6 +3,7 @@ package Interface_and_Adapters.DisplayReviewsScreen;
 import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsInputBoundary;
 import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsRequestModel;
 import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsResponseModel;
+import Entities.ReviewableObject;
 
 public class DisplayReviewsController {
 
@@ -12,7 +13,7 @@ public class DisplayReviewsController {
         this.userInput = reviewsGateway;
     }
 
-    public DisplayReviewsResponseModel create(Object reviewed){
+    public DisplayReviewsResponseModel create(String reviewed){
         DisplayReviewsRequestModel requestModel = new DisplayReviewsRequestModel(reviewed);
 
         return userInput.create(requestModel);

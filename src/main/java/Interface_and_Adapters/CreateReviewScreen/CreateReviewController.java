@@ -10,11 +10,11 @@ public class CreateReviewController {
 
     final CreateReviewInputBoundary userInput;
 
-    public CreateReviewController(CreateReviewInputBoundary reviewGateway){
+    public CreateReviewController(CreateReviewInputBoundary reviewInteractor){
 
-        this.userInput = reviewGateway;
+        this.userInput = reviewInteractor;
     }
-    public CreateReviewResponseModel create(AccountUser user, ReviewableObject reviewed, String review, Integer rating){
+    public CreateReviewResponseModel create(String user, String reviewed, String review, Integer rating){
 
         CreateReviewRequestModel model = new CreateReviewRequestModel(user, reviewed, review, rating);
 

@@ -52,14 +52,14 @@ public class DishPopUp extends JPanel implements ActionListener {
         c.gridy = 0;
         this.add(dishCategory, c);
 
-        JButton reviewDishButton = new JButton("Add Your Review");
-        reviewDishButton.addActionListener(new ActionListener() {
+        JButton dishReviewsButton = new JButton("See Reviews");
+        dishReviewsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
-        this.add(reviewDishButton);
+        this.add(dishReviewsButton);
 
         this.setVisible(true);
     }
