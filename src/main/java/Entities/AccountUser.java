@@ -36,6 +36,11 @@ public class AccountUser extends Account implements Comparable<AccountUser>, Use
     }
 
     @Override
+    public String getType(){
+        return "user";
+    }
+
+    @Override
     public int compareTo(AccountUser o) {
         if (this.getScore() < o.getScore()){
             return -1;

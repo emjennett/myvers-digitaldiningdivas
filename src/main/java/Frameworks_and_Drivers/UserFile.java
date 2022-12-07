@@ -68,7 +68,7 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
      * @param password if password is linked to the username found return true otherwise false.
      */
     @Override
-    public boolean confirmAccountUser(String username, String password){
+    public String confirmAccountUser(String username, String password){
 
         List<CreateUserGatewayModel> users;
 
@@ -85,10 +85,10 @@ public class UserFile implements CreateUserGateway, LoginUserGateway {
         for (CreateUserGatewayModel found : users) {
             if (Objects.equals(found.getUsername(), username) &&
                     Objects.equals(found.getPassword(), password)) {
-                return true;
+                return found.getType();
             }
         }
-        return false;
+        return "no";
     }
     /**
      * A request to create a new user in the file.

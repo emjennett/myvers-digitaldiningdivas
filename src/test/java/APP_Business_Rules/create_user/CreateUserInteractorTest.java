@@ -21,7 +21,7 @@ class CreateUserInteractorTest {
             user, userFactory, presenter);
     CreateUserController controller = new CreateUserController(interactor);
 
-    CreateUserRequestModel request = new CreateUserRequestModel("pat", "pass", "pass");
+    //CreateUserRequestModel request = new CreateUserRequestModel("pat", "pass", "pass");
 
 
     @Test

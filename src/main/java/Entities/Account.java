@@ -12,6 +12,8 @@ public abstract class Account implements Serializable {
     private String password; //The password associated with the account.
     private Date createdOn; //Date of the accounts' creation.
 
+    private static final long serialVersionUID = 8843875467083141039L;
+
     public Account(String name, String pass){
         //Constructor for the account class.
         this.userName = name;

@@ -58,7 +58,7 @@ public class RestaurantFileReader implements RestaurantDataAccess {
         return restaurants.equals(identifier);
     }
 @Override
-    public RestaurantGatewayModel loadRestaurant(RestaurantGatewayModel model) {
+    public RestaurantGatewayModel save(RestaurantGatewayModel model) {
         List<String> restaurantInfo = new ArrayList<>();
         String resName = model.getResName();
         String resCategory = model.getResCategory();
@@ -75,8 +75,8 @@ public class RestaurantFileReader implements RestaurantDataAccess {
             for (String x : restaurantInfo) {
                 output.append(x);
                 output.append(",");
-                output.newLine();
             }
+            output.newLine();
             output.close();
 
 
