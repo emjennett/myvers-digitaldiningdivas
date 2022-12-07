@@ -49,9 +49,13 @@ public class TabPanel extends JPanel{
         DishInputBoundary dishInteractor = new DishInteractor(dish, dishPresenter, dishFactory);
         DishController dishController = new DishController(dishInteractor);
 
+
       
         ProfileScreen welcomeScreen = new ProfileScreen(account, mainPanel);
         RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController);
+
+       
+        RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController, account.getUsername());
         DishScreen dishScreen = new DishScreen(dishController);
 
 //        AnalyticsScreen analyticsScreen = new AnalyticsScreen();
