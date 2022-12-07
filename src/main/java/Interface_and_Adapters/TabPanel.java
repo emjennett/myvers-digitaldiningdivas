@@ -46,7 +46,7 @@ public class TabPanel extends JPanel{
         DishController dishController = new DishController(dishInteractor);
 
         WelcomeScreen welcomeScreen = new WelcomeScreen(account, mainPanel);
-        RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController);
+        RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController, account.getUsername());
         DishScreen dishScreen = new DishScreen(dishController);
 
         //adds windows with labels to tab layout. This is an example of what a Restaurant Owner would see.

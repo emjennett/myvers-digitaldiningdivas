@@ -5,9 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Dish implements Serializable {
+public class Dish extends ReviewableObject implements Serializable {
     //A class that holds all the information for a particular dish at a restaurant.
-
     private String name; //Name of the dish.
     private String category; //The category of the dish.
     private String restaurant; //The restaurant the dish belongs to
@@ -29,10 +28,6 @@ public class Dish implements Serializable {
         this.createdOn = new Date();
     }
 
-    public String getName() {
-        //returns name of dish.
-        return name;
-    }
 
     public String getCategory() {
         //Returns category of the dish.

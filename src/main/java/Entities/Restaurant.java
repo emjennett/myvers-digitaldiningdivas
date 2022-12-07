@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.Serializable;
 
-public class Restaurant implements Serializable {
+public class Restaurant extends ReviewableObject implements Serializable {
 
     /**
      * A class that represents a specific restaurant.
@@ -16,6 +16,7 @@ public class Restaurant implements Serializable {
      * menu: The restaurant menu.
      */
     private String resCategory;
+
     private Menu menu = null;
     private String name;
     private String location;
@@ -45,8 +46,6 @@ public class Restaurant implements Serializable {
         return rating;
     }
 
-    public String getName() {
-        return name;}
 
     public int getStars(){
         return stars;
