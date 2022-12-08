@@ -5,12 +5,14 @@ import java.util.HashMap;
 public class SearchRequestModel {
     private String search;
     private String type;
-    private HashMap<String, Object> filter;
+    private String category;
+    private int minRating;
 
-    public SearchRequestModel(String search, String type, HashMap<String, Object> filter) {
+    public SearchRequestModel(String search, String type, String category, int minRating) {
         this.search = search;
         this.type = type;
-        this.filter = filter;
+        this.category = category;
+        this.minRating = minRating;
     }
 
     public String getSearch() {
@@ -21,7 +23,11 @@ public class SearchRequestModel {
         return type;
     }
 
-    public HashMap<String, Object> getFilter() {
-        return filter;
+    public String getCategory() {
+        return category;
+    }
+
+    public int getMinRating() {
+        return minRating;
     }
 }

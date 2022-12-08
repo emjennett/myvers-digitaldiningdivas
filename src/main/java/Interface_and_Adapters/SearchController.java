@@ -12,23 +12,18 @@ public class SearchController {
     private SearchInputBoundary searchUserUseCase;
     private SearchInputBoundary searchRestaurantUseCase;
 
-    public SearchController(SearchInputBoundary searchDishUseCase, SearchInputBoundary searchUserUseCase, SearchInputBoundary searchRestaurantUseCase){
+    public SearchController(SearchInputBoundary searchDishUseCase, SearchInputBoundary searchRestaurantUseCase){
         this.searchRestaurantUseCase = searchRestaurantUseCase;
         this.searchDishUseCase = searchDishUseCase;
-        this.searchUserUseCase = searchUserUseCase;
     }
 
-    public void Search(String search, String type, HashMap<String, Object> filter){
-        filter.put("minRating", parseDouble((String) filter.get("minRating")));
+    public void Search(String search, String type, String category, int minRating){
         switch (type){
             case "Restaurant":
-                this.searchRestaurantUseCase.Search(new SearchRequestModel(search,type,filter));
+                this.searchRestaurantUseCase.Search(new SearchRequestModel(search,type,category, minRating));
                 break;
             case "Dish":
-                this.searchDishUseCase.Search(new SearchRequestModel(search,type,filter));
-                break;
-            case "User":
-                this.searchUserUseCase.Search(new SearchRequestModel(search,type,filter));
+                this.searchDishUseCase.Search(new SearchRequestModel(search,type,category, minRating));
                 break;
         }
     }
