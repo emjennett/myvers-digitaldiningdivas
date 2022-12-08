@@ -79,5 +79,6 @@ public class SearchPresenter implements SearchOutputBoundary {
 
     public void setView(UI view) {
         this.view = view;
+        view.defaultTable();
     }
 }
