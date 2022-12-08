@@ -1,4 +1,4 @@
-package Frameworks_and_Drivers;
+package Interface_and_Adapters;
 
 public interface UI {
     void updateRestaurantTable(String[][] data);

@@ -1,8 +1,14 @@
 package APP_Business_Rules.SearchUseCase;
 
-import java.util.HashMap;
 
 public class SearchRequestModel {
+    /**
+     *Object that contains information about the search made
+     * @param search String entered on the search bar
+     * @param type type of search that could be either "Dish" or "Restaurant"
+     * @param category category of the searched items
+     * @param minRating minimum rating or number of Michelin stars of the searhed items
+     */
     private String search;
     private String type;
     private String category;

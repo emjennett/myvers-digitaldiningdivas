@@ -1,4 +1,4 @@
-package Interface_and_Adapters;
+package Interface_and_Adapters.SearchScreen;
 
 import APP_Business_Rules.SearchUseCase.*;
 import Frameworks_and_Drivers.DataAccessStorage;

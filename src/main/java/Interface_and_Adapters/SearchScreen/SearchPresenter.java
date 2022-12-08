@@ -1,8 +1,8 @@
-package Interface_and_Adapters;
+package Interface_and_Adapters.SearchScreen;
 
-import APP_Business_Rules.SearchOutputBoundary;
+import APP_Business_Rules.SearchUseCase.SearchOutputBoundary;
 import APP_Business_Rules.SearchUseCase.SearchResponseModel;
-import Frameworks_and_Drivers.UI;
+import Interface_and_Adapters.UI;
 
 import java.util.ArrayList;
 import java.util.Collections;

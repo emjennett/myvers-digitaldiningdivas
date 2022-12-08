@@ -1,11 +1,8 @@
-package Interface_and_Adapters;
+package Interface_and_Adapters.SearchScreen;
 
 import APP_Business_Rules.RestaurantUseCase.RestaurantDataAccess;
 import APP_Business_Rules.RestaurantUseCase.RestaurantFileReader;
-import APP_Business_Rules.login_user.LoginUserResponseModel;
-import Frameworks_and_Drivers.UI;
-import Interface_and_Adapters.Main;
-import Interface_and_Adapters.SearchController;
+import Interface_and_Adapters.UI;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
