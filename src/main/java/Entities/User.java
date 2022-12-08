@@ -14,5 +14,4 @@ public interface User {
 
     public boolean confirmPassword(String pass);
 
-    String getType();
 }
