@@ -9,7 +9,6 @@ import APP_Business_Rules.create_user.*;
 
 import Entities.AccountFactory;
 import Entities.UserFactory;
-import Frameworks_and_Drivers.SearchScreen;
 import Frameworks_and_Drivers.UserFile;
 import Interface_and_Adapters.StartUpScreens.CreateUserResponse;
 import Interface_and_Adapters.StartUpScreens.SignUpScreen;
@@ -42,7 +41,7 @@ public class Main extends JFrame{
         SearchDishUseCase searchDishUseCase = new SearchDishUseCase(searchPresenter, dishFileReader);
         SearchRestaurantUseCase searchRestaurantUseCase = new SearchRestaurantUseCase(searchPresenter, restaurantFileReader);
         SearchController searchController = new SearchController(searchDishUseCase, searchRestaurantUseCase);
-        SearchScreen searchScreen = new SearchScreen(searchController, mainPanel);
+        SearchScreen searchScreen = new SearchScreen(searchController, mainPanel, null);
         searchPresenter.setView(searchScreen);
         //
 

@@ -1,8 +1,9 @@
-package Frameworks_and_Drivers;
+package Interface_and_Adapters;
 
 import APP_Business_Rules.RestaurantUseCase.RestaurantDataAccess;
 import APP_Business_Rules.RestaurantUseCase.RestaurantFileReader;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
+import Frameworks_and_Drivers.UI;
 import Interface_and_Adapters.Main;
 import Interface_and_Adapters.SearchController;
 
@@ -40,10 +41,10 @@ public class SearchScreen implements UI {
     private JSpinner dishRatingSpinner;
     private JLabel dishCategoryLabel;
     private JLabel dishRatingLabel;
-    private LoginUserResponseModel currentUser; //Variable that represents current user
+    private String currentUser; //Variable that represents current user
     private SearchController searchController;
 
-    public SearchScreen(SearchController searchController, JPanel mainPanel){
+    public SearchScreen(SearchController searchController, JPanel mainPanel, JPanel reviewPanel){
         this.searchController = searchController;
 
         //Show the search panel
@@ -70,6 +71,10 @@ public class SearchScreen implements UI {
         restaurantTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                int rowIndex = restaurantTable.getSelectedRow();
+                if(rowIndex != -1){
+                    //switch to review panel
+                }
             }
         });
 
@@ -77,6 +82,10 @@ public class SearchScreen implements UI {
         dishTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                int rowIndex = dishTable.getSelectedRow();
+                if(rowIndex != -1){
+                    //switch to review panel
+                }
             }
         });
     }
