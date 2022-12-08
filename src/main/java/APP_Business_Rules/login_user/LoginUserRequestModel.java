@@ -5,6 +5,7 @@ public class LoginUserRequestModel {
     private String username;
 
     private String password;
+    private String type;
 
     /**
      * The model needed from the user input to attempt a login.
@@ -16,9 +17,11 @@ public class LoginUserRequestModel {
 
         this.username = username;
         this.password = password;
+        this.type = type;
     }
 
     public String getUsername(){return this.username;}
 
     public String getPassword(){return this.password;}
+
 }

@@ -53,8 +53,8 @@ public class TabPanel extends JPanel{
       
         ProfileScreen welcomeScreen = new ProfileScreen(account, mainPanel);
 
-       
         RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController, account.getUsername());
+
         DishScreen dishScreen = new DishScreen(dishController);
 
 //        AnalyticsScreen analyticsScreen = new AnalyticsScreen();
@@ -68,6 +68,6 @@ public class TabPanel extends JPanel{
         tabs.addTab("Dishes", dishScreen);
 
         this.add(tabs);
-        //JOptionPane.showMessageDialog(this, "Welcome " + account.getUsername() + "!");
+
     }
 }

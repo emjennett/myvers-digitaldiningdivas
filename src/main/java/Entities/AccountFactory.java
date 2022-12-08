@@ -8,8 +8,14 @@ public class AccountFactory implements UserFactory{
      * @param password to allow the user to keep the account secure.
      */
     @Override
-    public User createUser(String username, String password) {
-        return new AccountUser(username, password);
+    public User createUser(String username, String password, String type) {
+        if(type == "owner"){
+            return new AccountOwner(username, password);
+        }
+        else{
+            return new AccountUser(username, password);
+        }
+
     }
 
     /**
@@ -18,8 +24,13 @@ public class AccountFactory implements UserFactory{
      * @param password to allow access to the users account.
      */
     @Override
-    public Loggable loginUser(String username, String password) {
-        return new AccountUser(username, password);
+    public Loggable loginUser(String username, String password, String type) {
+        if(type == "user") {
+            return new AccountUser(username, password);
+        }
+        else{
+            return new AccountOwner(username, password);
+        }
     }
 
 

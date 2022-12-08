@@ -8,11 +8,13 @@ public class RestaurantController {
     /* Retrieves user Input from Restaurant View and passes it to the Interactor to modify Restaurant
     private final RestaurantInputBoundary
      */
-    private final RestaurantInputBoundary userInput;
+    final RestaurantInputBoundary userInput;
     public RestaurantController(RestaurantInputBoundary restaurantGateway){
         this.userInput = restaurantGateway;
     }
-    RestaurantResponseModel create(RestaurantRequestModel requestModel){
-        return userInput.create(requestModel);
+    public RestaurantResponseModel create(String resTitle, String resCategory, String location, int stars){
+        RestaurantRequestModel restaurantRequestModel = new
+                RestaurantRequestModel(resTitle, resCategory, location, stars);
+        return userInput.create(restaurantRequestModel);
     }
 }

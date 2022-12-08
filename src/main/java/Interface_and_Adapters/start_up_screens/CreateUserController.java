@@ -23,9 +23,9 @@ public class CreateUserController {
      * @param password chosen by the user input.
      * @param dup_password chosen by the user input.
      */
-    public CreateUserResponseModel create(String username, String password, String dup_password) {
+    public CreateUserResponseModel create(String username, String password, String dup_password, String type) {
         CreateUserRequestModel model = new CreateUserRequestModel(
-                username, password, dup_password);
+                username, password, dup_password, type);
 
         return userInput.create(model);
     }

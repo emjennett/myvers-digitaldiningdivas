@@ -41,8 +41,8 @@ public class CreateUserInteractor implements CreateUserInputBoundary {
         } else if (model.getUsername().length() == 0 || model.getUsername().contains(" ")){
             return presenter.userCreatedFail("A Username must not contain the space character.");
         }
-        User newUser = factory.createUser(model.getUsername(), model.getPassword());
-        CreateUserGatewayModel userDataModel = new CreateUserGatewayModel(newUser.getUserName(), newUser.getPassword());
+        User newUser = factory.createUser(model.getUsername(), model.getPassword(), model.getType());
+        CreateUserGatewayModel userDataModel = new CreateUserGatewayModel(newUser.getUserName(), newUser.getPassword(), newUser.getType());
         gateway.save(userDataModel);
         CreateUserResponseModel createdUserModel = new CreateUserResponseModel(newUser.getUserName());
         return presenter.userCreated(createdUserModel);
