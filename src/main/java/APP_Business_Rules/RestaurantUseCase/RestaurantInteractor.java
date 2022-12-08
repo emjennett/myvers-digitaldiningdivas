@@ -21,13 +21,9 @@ public class RestaurantInteractor implements RestaurantInputBoundary{
                 requestModel.getResLocation(), requestModel.getStars());
         RestaurantGatewayModel gatewayModel= new RestaurantGatewayModel(restaurant.getName(), restaurant.getResCategory(),
                 restaurant.getLocation(), restaurant.getStars());
-        RestaurantGatewayModel saved = gateway.save(gatewayModel);
-        RestaurantResponseModel restaurantResponseModel = new RestaurantResponseModel(saved);
+        gateway.loadRestaurant(gatewayModel);
+        RestaurantResponseModel restaurantResponseModel = new RestaurantResponseModel(gateway.loadRestaurant(gatewayModel));
         return restaurantPresenter.prepareSuccessView(restaurantResponseModel);
     }
 
-    public Restaurant getRes(RestaurantRequestModel requestModel){
-        return restaurantFactory.create(requestModel.getResName(), requestModel.getResCategory(),
-                requestModel.getResLocation(), requestModel.getStars());
-    }
 }

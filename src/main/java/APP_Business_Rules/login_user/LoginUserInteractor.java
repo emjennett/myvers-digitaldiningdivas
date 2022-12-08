@@ -37,12 +37,11 @@ public class LoginUserInteractor implements LoginUserInputBoundary {
      */
     @Override
     public LoginUserResponseModel login(LoginUserRequestModel model) {
-        String type = loginGateway.confirmAccountUser(model.getUsername(), model.getPassword());
-        if (type.equals("no") ) {
+        if (!loginGateway.confirmAccountUser(model.getUsername(), model.getPassword())) {
             return presenter.userLoginFail("Your Username or Password are Incorrect!");
         }
-        Loggable loginUser = factory.loginUser(model.getUsername(), model.getPassword(), type);
-        LoginUserGatewayModel LoginDataModel = new LoginUserGatewayModel(loginUser.getUserName(), type);
+        Loggable loginUser = factory.loginUser(model.getUsername(), model.getPassword());
+        LoginUserGatewayModel LoginDataModel = new LoginUserGatewayModel(loginUser.getUserName());
         LoginUserResponseModel LoggedInUser = new LoginUserResponseModel(accountGateway.loadAccount(LoginDataModel));
         return presenter.userLoggedIn(LoggedInUser);
     }

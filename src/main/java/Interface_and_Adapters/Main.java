@@ -10,7 +10,6 @@ import Interface_and_Adapters.start_up_screens.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 
 public class Main extends JFrame{
@@ -26,21 +25,15 @@ public class Main extends JFrame{
         //
 
         this.setTitle("Digital Dining Divas");
-        this.setResizable(true);
+        this.setResizable(false);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new CardLayout());
-        try {
-            mainPanel.add(new StartUpScreen(mainPanel, "./bg.png"), "FIRST");
-        } catch(IOException e) {
-            System.out.println("Completed!");
-        }
-
+        mainPanel.add(new StartUpScreen(mainPanel), "FIRST");
         mainPanel.add(new SignUpScreen(controller, mainPanel), "SECOND");
-        mainPanel.add(new SignUpScreenOwner(controller, mainPanel), "FIFTH");
         this.setContentPane(mainPanel);
 
     }
