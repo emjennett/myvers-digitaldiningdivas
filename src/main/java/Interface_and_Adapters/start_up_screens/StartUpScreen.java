@@ -42,12 +42,15 @@ public class StartUpScreen extends JPanel {
         JLabel title = new JLabel();
         title.setText("Digital Dining Divas");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setForeground(new java.awt.Color(102, 166, 90));
 
         JPanel buttons = new JPanel();
         buttons.setBackground(new java.awt.Color(201, 250, 192));
-        buttons.add(createButton());
-        buttons.add(createLoginButton());
-        buttons.add(createOwnerButton());
+        ButtonHelper create = new ButtonHelper();
+        buttons.add(create.formatButton(createButton()));
+        buttons.add(create.formatButton(createLoginButton()));
+        buttons.add(create.formatButton(createOwnerButton()));
+
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         innerPanel.add(title);
         innerPanel.add(buttons);

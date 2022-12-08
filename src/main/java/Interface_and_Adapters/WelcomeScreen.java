@@ -33,7 +33,7 @@ public class WelcomeScreen extends JPanel {
         this.account = account;
         this.mainPanel = mainPanel;
         this.resController = resController;
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BorderLayout());
         this.add(Box.createVerticalGlue());
 
 
@@ -41,29 +41,50 @@ public class WelcomeScreen extends JPanel {
         title.setText("Welcome " + account.getType() + " " + account.getUsername()  + "!");
         title.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
         title.setFont(new Font("Arial", Font.PLAIN, 30));
-        this.add(title);
+        this.add(title, BorderLayout.PAGE_START);
 
         if(account.getType().equals("owner")) {
+            JPanel resPanel = new JPanel();
+            resPanel.setLayout(new GridBagLayout());
+            GridBagConstraints c = new GridBagConstraints();
+            GridBagConstraints d = new GridBagConstraints();
+            GridBagConstraints e = new GridBagConstraints();
+            GridBagConstraints f = new GridBagConstraints();
+            GridBagConstraints g = new GridBagConstraints();
+            GridBagConstraints h = new GridBagConstraints();
 
-            JLabel createResTitle = new JLabel("Create new Restaurant");
-            createResTitle.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+            resPanel.setPreferredSize(new Dimension(500, 500));
+            JLabel createResTitle = new JLabel("<html>To add your restaurant to Digital Dining Divas,<br/> please fill in the" +
+                    "text fields below and press the Create New Restaurant button<html>");
+            c.gridx = 3;
+            c.gridy = 0;
             LabelHelper resTitleBox = new LabelHelper(new JLabel("Input Restaurant Name"), resName);
+            d.gridx = 3;
+            d.gridy = 1;
             LabelHelper resCatBox = new LabelHelper(new JLabel("Input Restaurant Category"), resCat);
+            e.gridx = 3;
+            e.gridy = 2;
             LabelHelper resLocationBox = new LabelHelper(new JLabel("Input Restaurant Location"), location);
+            f.gridx = 3;
+            f.gridy = 3;
             LabelHelper resStarBox = new LabelHelper(new JLabel("Input Michelin Stars"), stars);
+            g.gridx = 3;
+            g.gridy = 4;
 
-            this.add(createResTitle);
+            h.gridx = 3;
+            h.gridy = 5;
 
-            this.add(resTitleBox);
-            this.add(resCatBox);
-            this.add(resLocationBox);
-            this.add(resStarBox);
-            this.add(createResButton());
+            resPanel.add(createResTitle, c);
 
+            resPanel.add(resTitleBox, d);
+            resPanel.add(resCatBox, e);
+            resPanel.add(resLocationBox, f);
+            resPanel.add(resStarBox, g);
+            resPanel.add(createResButton(), h);
+            this.add(resPanel, BorderLayout.LINE_END);
 
         }
-        this.add(Box.createVerticalGlue());
-        this.add(createLogoutButton());
+        this.add(createLogoutButton(), BorderLayout.PAGE_END);
     }
     private JButton createResButton() {
         JButton newRes = new JButton("Create New Restaurant");
