@@ -12,7 +12,7 @@ public class RestaurantController {
     public RestaurantController(RestaurantInputBoundary restaurantGateway){
         this.userInput = restaurantGateway;
     }
-    RestaurantResponseModel create(RestaurantRequestModel requestModel){
+    public RestaurantResponseModel create(RestaurantRequestModel requestModel){
         return userInput.create(requestModel);
     }
 }

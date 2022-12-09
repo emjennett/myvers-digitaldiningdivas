@@ -1,7 +1,4 @@
 package Interface_and_Adapters.SearchScreen;
-
-import APP_Business_Rules.RestaurantUseCase.RestaurantDataAccess;
-import APP_Business_Rules.RestaurantUseCase.RestaurantFileReader;
 import Interface_and_Adapters.UI;
 
 import javax.swing.*;
@@ -15,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchScreen implements UI {
-    RestaurantDataAccess restaurants = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
-    List<List<String>> rec = restaurants.getRes();
     String[] header = { "Name", "Category", "Address", "Rating" };
     private JTabbedPane tabbedPane;
     private JPanel ResearchPanel;

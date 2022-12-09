@@ -1,11 +1,6 @@
 package Interface_and_Adapters.SearchScreen;
 
 import APP_Business_Rules.SearchUseCase.*;
-import Frameworks_and_Drivers.DataAccessStorage;
-
-import java.util.HashMap;
-
-import static java.lang.Double.parseDouble;
 
 public class SearchController {
     private SearchInputBoundary searchDishUseCase;
@@ -17,14 +12,13 @@ public class SearchController {
         this.searchDishUseCase = searchDishUseCase;
     }
 
-    public void Search(String search, String type, String category, int minRating){
+    public SearchResponseModel Search(String search, String type, String category, int minRating){
         switch (type){
             case "Restaurant":
-                this.searchRestaurantUseCase.Search(new SearchRequestModel(search,type,category, minRating));
-                break;
+                return this.searchRestaurantUseCase.Search(new SearchRequestModel(search,type,category, minRating));
             case "Dish":
-                this.searchDishUseCase.Search(new SearchRequestModel(search,type,category, minRating));
-                break;
+                return this.searchDishUseCase.Search(new SearchRequestModel(search,type,category, minRating));
         }
+        return null;
     }
 }

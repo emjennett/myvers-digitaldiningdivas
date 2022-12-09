@@ -14,7 +14,6 @@ public class SearchResponseModel {
     private String type;
 
     public SearchResponseModel(List<List<String>> result, String type) {
-
         this.result = result;
         this.type = type;
     }
