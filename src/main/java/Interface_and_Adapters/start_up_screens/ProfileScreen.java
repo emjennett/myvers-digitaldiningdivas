@@ -6,12 +6,16 @@ import APP_Business_Rules.LoadAccountInfo.UserAccountInfoFile;
 import APP_Business_Rules.LoadAccountInfo.UserAccountInfoModel;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
 import Interface_and_Adapters.Main;
+import Interface_and_Adapters.TabPanel;
+import Interface_and_Adapters.WelcomeScreen;
+import Interface_and_Adapters.restaurant_screens.RestaurantController;
 
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ProfileScreen extends JPanel  {
 
@@ -28,14 +32,20 @@ public class ProfileScreen extends JPanel  {
 
     CardLayout layout = new CardLayout();
 
+    JPanel mainscreen;
+    JTextField resName = new JTextField(15);
+    JTextField resCat = new JTextField(15);
+    JTextField location = new JTextField(15);
+    JTextField stars = new JTextField(5);
 
+    RestaurantController resController;
+    LoginUserResponseModel account;
 
+    public ProfileScreen(LoginUserResponseModel account, JPanel mainscreen, RestaurantController resController){
 
-
-
-    public ProfileScreen(LoginUserResponseModel account, JPanel mainscreen){
-
-
+        this.resController = resController;
+        this.account = account;
+        this.mainscreen = mainscreen;
         PullAccountInfoController controller = new PullAccountInfoController(account.getUsername());
         String bio = controller.GetBio();
         String user = account.getUsername();
@@ -75,10 +85,29 @@ public class ProfileScreen extends JPanel  {
 
             }
         });
+        JPanel resPanel = new JPanel();
+        resPanel.setLayout(new BoxLayout(resPanel, BoxLayout.Y_AXIS));
+        resPanel.add(Box.createVerticalGlue());
+        if(account.getType().equals("owner")) {
+
+            JLabel createResTitle = new JLabel("Create new Restaurant");
+            createResTitle.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+            LabelHelper resTitleBox = new LabelHelper(new JLabel("Input Restaurant Name"), resName);
+            LabelHelper resCatBox = new LabelHelper(new JLabel("Input Restaurant Category"), resCat);
+            LabelHelper resLocationBox = new LabelHelper(new JLabel("Input Restaurant Location"), location);
+            LabelHelper resStarBox = new LabelHelper(new JLabel("Input Michelin Stars"), stars);
+
+            resPanel.add(createResTitle);
+
+            resPanel.add(resTitleBox);
+            resPanel.add(resCatBox);
+            resPanel.add(resLocationBox);
+            resPanel.add(resStarBox);
+            resPanel.add(createResButton());
 
 
-
-
+        }
+        resPanel.add(Box.createVerticalGlue());
 
         DefaultListModel<String> mylist = new DefaultListModel<>();
         mylist.addElement("Username: " + user);
@@ -115,7 +144,30 @@ public class ProfileScreen extends JPanel  {
 
         cont.add(firstpanel, "1");
         this.add(cont);
+        this.add(resPanel);
 
+
+    }
+
+    private JButton createResButton() {
+        JButton newRes = new JButton("Create New Restaurant");
+        newRes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resController.create(resName.getText(), resCat.getText(), location.getText(), Integer.parseInt(stars.getText()));
+                JOptionPane.showMessageDialog(ProfileScreen.this,
+                        "Your restaurant " + resName.getText() + " has successfully been created!");
+                Main main = new Main();
+                try {
+                    mainscreen.add(new TabPanel(mainscreen, account), "FOURTH");
+                    main.switchPanel(mainscreen, "FOURTH");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+        });
+        return newRes;
 
     }
 

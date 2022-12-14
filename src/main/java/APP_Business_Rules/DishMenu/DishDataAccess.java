@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface DishDataAccess {
     boolean dishExistsByName(String identifier);
-    HashMap<String, List<List<String>>> getDish(String file);
+    List<List<String>> getDish(String file);
 }

@@ -11,34 +11,33 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
-public class DishScreen extends JPanel implements ActionListener {
+public class DishScreen extends JPanel {
 
     DishController dishController;
+    String resName;
 
-    public DishScreen(DishController dishController) throws IOException {
+    public DishScreen(DishController dishController, String resName) {
+        this.resName = resName;
+        this.dishController = dishController;
+
         CardLayout cards = new CardLayout();
         this.setLayout(cards);
 
         JPanel subPanel = new JPanel(); //panel for button grid
 
         subPanel.setLayout(new GridLayout(0, 1, 10, 10));
-        subPanel.setBorder(new EmptyBorder(20,50,40,50));
+        subPanel.setBorder(new EmptyBorder(20, 50, 40, 50));
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
 
-        this.dishController = dishController;
-
         DishDataAccess dishes;
-        dishes = new DishFileReader("src/main/java/Frameworks_and_Drivers/Dishes.csv");
+        dishes = new DishFileReader("./Dishes.csv");
 
-        for(String key: dishes.getDish("src/main/java/Frameworks_and_Drivers/Dishes.csv").keySet()){
-            List<List<String>> dishList = dishes.getDish("src/main/java/Frameworks_and_Drivers/Dishes." +
-                    "csv").get(key);
-            for (List<String> element : dishList) {
-                JButton button = new JButton(element.get(0) + " (" + key + ")");
-                button.setBorderPainted(false);
-                subPanel.add(button, c);
+        for (List<String> element : dishes.getDish(resName)) {
+                    JButton button = new JButton(element.get(0) );
+                    button.setBorderPainted(false);
+                    subPanel.add(button, c);
 
                 button.addActionListener(new ActionListener() {
                     @Override
@@ -48,6 +47,8 @@ public class DishScreen extends JPanel implements ActionListener {
                         DishPopUp popUp = new DishPopUp(element.get(0), element.get(1), element.get(2), element.get(3),
                                 element.get(4));
                         DishScreen.this.add(popUp, "card1");
+                        CardLayout cl = (CardLayout)(DishScreen.this.getLayout());
+                        cl.show(DishScreen.this, "card1");
                         GridBagConstraints c = new GridBagConstraints();
                         JButton backButton = new JButton("Back");
                         popUp.add(backButton);
@@ -59,21 +60,21 @@ public class DishScreen extends JPanel implements ActionListener {
                             }
 
                         });
-                        cards.show(DishScreen.this, "card1");
-
                     }
+
+
                 });
-                c.gridy += 1;
-            }
+                                         
+            c.gridy += 1;
+
         }
         JScrollPane scroller = new JScrollPane(subPanel);
         scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         this.add(scroller);
+        this.setPreferredSize(new Dimension(500, 200));
+        this.setVisible(true);
 
 
-    }
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
     }
 }

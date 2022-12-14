@@ -5,6 +5,7 @@ import APP_Business_Rules.LoadAccountInfo.PullAccountInfoController;
 import APP_Business_Rules.LoadAccountInfo.UserAccountInfoFile;
 import APP_Business_Rules.LoadAccountInfo.UserAccountInfoModel;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
+import Interface_and_Adapters.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,8 +37,8 @@ public class ChangeBio extends JPanel {
 //                file.change(model.getUser(), newbio);
                 ChangeBioController controller = new ChangeBioController(account.getUsername(), newbio);
                 controller.UpdateBio();
-                ProfileScreen profile = new ProfileScreen(account, main);
-                profile.switchPanel(panel, "1");
+                Main main = new Main();
+                main.switchPanel(panel, "1");
 
             }
         });
@@ -47,8 +48,8 @@ public class ChangeBio extends JPanel {
             public void actionPerformed(ActionEvent e)
             //opens restaurant window with jbuttons from "home" screen
             {
-                ProfileScreen profile = new ProfileScreen(account, main);
-                profile.switchPanel(panel, "1");
+                Main main = new Main();
+                main.switchPanel(panel, "1");
 
             }
         });
@@ -62,14 +63,6 @@ public class ChangeBio extends JPanel {
 
 
     }
-
-
-
-
-
-
-
-
 
 
 }

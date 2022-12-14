@@ -51,6 +51,10 @@ public class Restaurant extends ReviewableObject implements Serializable {
         return stars;
     }
 
+    public String getName(){
+        return name;
+    }
+
     public String getLocation() {return location;}
 
     public void restaurantRating(){

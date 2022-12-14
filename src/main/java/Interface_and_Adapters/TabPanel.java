@@ -31,9 +31,9 @@ public class TabPanel extends JPanel{
         JTabbedPane tabs = new JTabbedPane();
 
         RestaurantDataAccess res;
-        res = new RestaurantFileReader("src/main/java/Frameworks_and_Drivers/Restaurant.csv");
+        res = new RestaurantFileReader("./Restaurant.csv");
 
-        DishDataAccess dish = new DishFileReader("src/main/java/Frameworks_and_Drivers/Dishes.csv");
+        DishDataAccess dish = new DishFileReader("./Dishes.csv");
 
 
         RestaurantPresenter presenter = new RestaurantFormatted();
@@ -51,11 +51,10 @@ public class TabPanel extends JPanel{
 
 
       
-        ProfileScreen welcomeScreen = new ProfileScreen(account, mainPanel);
+        ProfileScreen welcomeScreen = new ProfileScreen(account, mainPanel, restaurantController);
 
        
-        RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController, account.getUsername());
-        DishScreen dishScreen = new DishScreen(dishController);
+        RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController, account.getUsername(), dishController);
 
 //        AnalyticsScreen analyticsScreen = new AnalyticsScreen();
 //        RankingScreen rankingScreen = new RankingScreen();
@@ -65,7 +64,6 @@ public class TabPanel extends JPanel{
         tabs.addTab("Restaurant", restaurantScreen);
 //        tabs.addTab("Rankings", rankingScreen);
 //        tabs.addTab("Analytics", analyticsScreen);
-        tabs.addTab("Dishes", dishScreen);
 
         this.add(tabs);
         //JOptionPane.showMessageDialog(this, "Welcome " + account.getUsername() + "!");
