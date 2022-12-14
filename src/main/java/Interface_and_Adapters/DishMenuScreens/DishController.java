@@ -13,7 +13,7 @@ public class DishController {
     public DishController(DishInputBoundary dishGateway){
         this.userInput = dishGateway;
     }
-    public DishResponseModel create(DishRequestModel requestModel){
+    DishResponseModel create(DishRequestModel requestModel){
         return userInput.create(requestModel);
     }
 }

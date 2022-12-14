@@ -48,7 +48,7 @@ public class LoginScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main main = new Main();
-                //main.switchPanel(mainPanel, "FIRST"); generates error
+                main.switchPanel(mainPanel, "FIRST");
             }
 
         });
@@ -66,7 +66,7 @@ public class LoginScreen extends JPanel {
                             username.getText(), String.valueOf(password.getPassword()));
                     Main main = new Main();
                     mainPanel.add(new TabPanel(mainPanel, account), "FOURTH");
-                    //main.switchPanel(mainPanel, "FOURTH"); generates error
+                    main.switchPanel(mainPanel, "FOURTH");
 
 
                 } catch (Exception ex) {

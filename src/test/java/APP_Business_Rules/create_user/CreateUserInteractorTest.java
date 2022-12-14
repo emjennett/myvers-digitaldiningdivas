@@ -1,7 +1,6 @@
 package APP_Business_Rules.create_user;
 
 
-import APP_Business_Rules.CreateReviewUseCase.CreateReviewResponseModel;
 import Entities.AccountFactory;
 import Entities.UserFactory;
 import Frameworks_and_Drivers.UserFile;
@@ -9,7 +8,6 @@ import Interface_and_Adapters.start_up_screens.CreateUserController;
 import Interface_and_Adapters.start_up_screens.CreateUserResponse;
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
 
 
 class CreateUserInteractorTest {
@@ -23,11 +21,11 @@ class CreateUserInteractorTest {
             user, userFactory, presenter);
     CreateUserController controller = new CreateUserController(interactor);
 
+    //CreateUserRequestModel request = new CreateUserRequestModel("pat", "pass", "pass");
+
 
     @Test
-    void createNewUser() {
-        CreateUserResponseModel res = controller.create("John", "password", "password");
-        assert user.findAccountUser("John");
-        assert Objects.equals(res.getLogin(), "John");
+    void create() {
+
     }
 }

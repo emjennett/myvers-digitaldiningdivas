@@ -4,5 +4,5 @@ package APP_Business_Rules.SearchUseCase;
  * Interface implemented by search use case presenter
  */
 public interface SearchInputBoundary {
- public SearchResponseModel Search(SearchRequestModel searchRequestModel);
+ public void Search(SearchRequestModel searchRequestModel);
 }

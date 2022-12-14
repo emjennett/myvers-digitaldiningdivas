@@ -11,7 +11,7 @@ public class CreateUserResponse implements CreateUserPresenter {
      */
     @Override
     public CreateUserResponseModel userCreated(CreateUserResponseModel model) {
-        return model;
+        return null;
     }
 
     /**
