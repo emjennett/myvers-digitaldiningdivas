@@ -1,5 +1,7 @@
 package Entities;
 
+import java.time.LocalDate;
+
 public class AccountFactory implements UserFactory{
 
     /**
@@ -8,12 +10,12 @@ public class AccountFactory implements UserFactory{
      * @param password to allow the user to keep the account secure.
      */
     @Override
-    public User createUser(String username, String password, String type) {
+    public User createUser(String username, String password, String type, LocalDate date) {
         if(type == "owner"){
-            return new AccountOwner(username, password);
+            return new AccountOwner(username, password, date);
         }
         else{
-            return new AccountUser(username, password);
+            return new AccountUser(username, password, date);
         }
 
     }
@@ -24,12 +26,12 @@ public class AccountFactory implements UserFactory{
      * @param password to allow access to the users account.
      */
     @Override
-    public Loggable loginUser(String username, String password, String type) {
+    public Loggable loginUser(String username, String password, String type, LocalDate date) {
         if(type == "user") {
-            return new AccountUser(username, password);
+            return new AccountUser(username, password, date);
         }
         else{
-            return new AccountOwner(username, password);
+            return new AccountOwner(username, password, date);
         }
     }
 

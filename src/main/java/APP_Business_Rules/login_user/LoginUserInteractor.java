@@ -1,5 +1,9 @@
 package APP_Business_Rules.login_user;
 
+import APP_Business_Rules.LoadAccountInfo.UpdateRequestModel;
+import APP_Business_Rules.LoadAccountInfo.UserAccountInfoModel;
+import APP_Business_Rules.RestaurantUseCase.RestaurantGatewayModel;
+import APP_Business_Rules.create_user.CreateUserGatewayModel;
 import Entities.Loggable;
 import Entities.UserFactory;
 
@@ -37,13 +41,18 @@ public class LoginUserInteractor implements LoginUserInputBoundary {
      */
     @Override
     public LoginUserResponseModel login(LoginUserRequestModel model) {
-        String type = loginGateway.confirmAccountUser(model.getUsername(), model.getPassword());
-        if (type.equals("no") ) {
+        CreateUserGatewayModel gateway = loginGateway.confirmAccountUser(model.getUsername(), model.getPassword());
+        if (gateway == null) {
             return presenter.userLoginFail("Your Username or Password are Incorrect!");
         }
-        Loggable loginUser = factory.loginUser(model.getUsername(), model.getPassword(), type);
-        LoginUserGatewayModel LoginDataModel = new LoginUserGatewayModel(loginUser.getUserName(), type);
+        System.out.println(gateway.getDate() + "e");
+        Loggable loginUser = factory.loginUser(model.getUsername(), model.getPassword(), "user", gateway.getDate());
+        LoginUserGatewayModel LoginDataModel = new LoginUserGatewayModel(loginUser.getUserName(), "user", loginUser.getDate());
         LoginUserResponseModel LoggedInUser = new LoginUserResponseModel(accountGateway.loadAccount(LoginDataModel));
+        LoggedInUser.setDate(gateway.getDate());
+        System.out.println(loginUser.getDate() + "f");
         return presenter.userLoggedIn(LoggedInUser);
     }
+
+
 }

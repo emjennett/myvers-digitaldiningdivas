@@ -1,11 +1,16 @@
 package APP_Business_Rules.LoadAccountInfo;
 
+import APP_Business_Rules.RestaurantUseCase.RestaurantInputBoundary;
+import APP_Business_Rules.login_user.LoginUserResponseModel;
+
+import java.time.LocalDate;
+
 public class PullAccountInfoController {
-    private String username;
+    final PullAccountInputBoundary userInput;
 
 
-    public PullAccountInfoController(String username) {
-        this.username = username;
+    public PullAccountInfoController(PullAccountInputBoundary userInput) {
+        this.userInput = userInput;
     }
 
     /**
@@ -15,12 +20,12 @@ public class PullAccountInfoController {
      * @return whether the user exists
      */
 
-    public String GetBio(){
-        PullAccountInputBoundary User = new PullAcountInteractor(username);
-        return User.PullAccount(username);
 
+
+    public LoginUserResponseModel updateBio(String username, String bio, LocalDate date) {
+
+        System.out.println(bio + "1");
+        UpdateRequestModel requestModel = new UpdateRequestModel(username, bio, date);
+        return userInput.UpdateBio(requestModel);
     }
-
-
-
 }

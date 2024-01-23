@@ -1,13 +1,14 @@
 package Entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccountOwner extends Account implements User, Loggable{
     private final ArrayList<Review> userReviews;
 
-    public AccountOwner(String name, String pass) {
-        super(name, pass);
+    public AccountOwner(String name, String pass, LocalDate date) {
+        super(name, pass, date);
         this.userReviews = new ArrayList<>();
     }
     @Override

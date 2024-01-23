@@ -1,9 +1,10 @@
 package APP_Business_Rules.LoadAccountInfo;
 
+import APP_Business_Rules.login_user.LoginUserResponseModel;
+
 public interface PullAccountInputBoundary {
 
-    String PullAccount(String username);
 
-    void UpdateBio(String username, String newbio);
+    LoginUserResponseModel UpdateBio(UpdateRequestModel requestModel);
 }
 

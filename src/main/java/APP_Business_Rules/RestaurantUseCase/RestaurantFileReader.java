@@ -49,6 +49,7 @@ public class RestaurantFileReader implements RestaurantDataAccess {
     @Override
     public List<List<String>> getRes() {
         RestaurantFileReader fileReader = new RestaurantFileReader(file);
+        System.out.println(fileReader.createList(file));
         return fileReader.createList(file);
     }
 

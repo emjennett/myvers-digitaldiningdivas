@@ -6,7 +6,7 @@ import Entities.UserFactory;
 import Frameworks_and_Drivers.UserFile;
 import Interface_and_Adapters.start_up_screens.CreateUserController;
 import Interface_and_Adapters.start_up_screens.CreateUserResponse;
-import org.junit.jupiter.api.Test;
+
 
 
 
@@ -23,9 +23,4 @@ class CreateUserInteractorTest {
 
     //CreateUserRequestModel request = new CreateUserRequestModel("pat", "pass", "pass");
 
-
-    @Test
-    void create() {
-
-    }
 }

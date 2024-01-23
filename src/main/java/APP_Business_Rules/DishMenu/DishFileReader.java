@@ -54,6 +54,7 @@ public class DishFileReader implements DishDataAccess{
     public List<List<String>> getDish(String resName){
         DishFileReader fileReader = new DishFileReader(file);
         HashMap<String, List<List<String>>> allDishes = fileReader.createList();
+        System.out.println(allDishes.get(resName));
         return allDishes.get(resName);
     }
 

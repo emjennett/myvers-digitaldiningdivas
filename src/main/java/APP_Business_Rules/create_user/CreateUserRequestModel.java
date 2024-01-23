@@ -1,5 +1,8 @@
 package APP_Business_Rules.create_user;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class CreateUserRequestModel {
 
     private String username;
@@ -9,6 +12,8 @@ public class CreateUserRequestModel {
     private String dup_password;
 
     private String type;
+    private LocalDate date;
+
 
     /**
      * The model that will take the necessary information to create a user.
@@ -16,12 +21,14 @@ public class CreateUserRequestModel {
      * @param password chosen from input.
      * @param dup_password chosen from input.
      */
-    public CreateUserRequestModel(String username, String password, String dup_password, String type){
+    public CreateUserRequestModel(String username, String password, String dup_password, String type,LocalDate date){
 
         this.username = username.strip() ;
         this.password = password;
         this.dup_password = dup_password;
         this.type = type;
+        this.date = date;
+
     }
 
     public String getUsername(){return this.username;}
@@ -36,5 +43,6 @@ public class CreateUserRequestModel {
         return password.length() >= 6;
     }
 
-
+    public LocalDate getDate() { return this.date;
+    }
 }

@@ -17,7 +17,7 @@ public class RestaurantInteractor implements RestaurantInputBoundary{
     }
     @Override
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
-        Restaurant restaurant = restaurantFactory.create(requestModel.getResName(), requestModel.getResCategory(),
+        Restaurant restaurant = restaurantFactory.create(requestModel.getResName(),  requestModel.getResCategory(),
                 requestModel.getResLocation(), requestModel.getStars());
         RestaurantGatewayModel gatewayModel= new RestaurantGatewayModel(restaurant.getName(), restaurant.getResCategory(),
                 restaurant.getLocation(), restaurant.getStars());

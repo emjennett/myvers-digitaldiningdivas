@@ -7,4 +7,6 @@ public interface LoginUserPresenter {
     LoginUserResponseModel userLoggedIn(LoginUserResponseModel model);
 
     LoginUserResponseModel userLoginFail(String fail);
+
+    LoginUserResponseModel updateBio(LoginUserResponseModel model);
 }

@@ -1,8 +1,12 @@
 package APP_Business_Rules.login_user;
 
+import java.time.LocalDate;
+
 public class LoginUserResponseModel {
 
     LoginUserGatewayModel model;
+    private String bio;
+    private LocalDate date;
 
     /**
      * The result for when a user has attempted a login.
@@ -20,4 +24,17 @@ public class LoginUserResponseModel {
     }
 
 
+    public String getBio() {return this.model.getBio();
+    }
+
+    public void setBio(String newBio) {
+        this.bio = newBio;
+    }
+
+    public LocalDate getDate() {
+        return this.model.getDate();
+    }
+
+    public void setDate(LocalDate newDate) { this.date = newDate;
+    }
 }

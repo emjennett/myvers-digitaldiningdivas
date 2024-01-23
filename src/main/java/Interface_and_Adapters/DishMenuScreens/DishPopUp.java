@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class DishPopUp extends JPanel implements ActionListener {
 
-    DishPopUp(String dishName, String starRating, String description, String category, String price){
+    DishPopUp(String resName, String dishName, String starRating, String description, String category, String price){
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         JLabel name = new JLabel(dishName);

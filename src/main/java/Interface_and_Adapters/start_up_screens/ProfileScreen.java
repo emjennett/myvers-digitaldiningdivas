@@ -1,14 +1,21 @@
 package Interface_and_Adapters.start_up_screens;
 
 
-import APP_Business_Rules.LoadAccountInfo.PullAccountInfoController;
-import APP_Business_Rules.LoadAccountInfo.UserAccountInfoFile;
-import APP_Business_Rules.LoadAccountInfo.UserAccountInfoModel;
+import APP_Business_Rules.LoadAccountInfo.*;
+import APP_Business_Rules.RestaurantUseCase.RestaurantFactory;
+import APP_Business_Rules.RestaurantUseCase.RestaurantInputBoundary;
+import APP_Business_Rules.RestaurantUseCase.RestaurantInteractor;
+import APP_Business_Rules.login_user.AccountUserGateway;
+import APP_Business_Rules.login_user.LoginUserPresenter;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
+import Entities.AccountOwner;
+import Frameworks_and_Drivers.AccountUserFile;
 import Interface_and_Adapters.Main;
 import Interface_and_Adapters.TabPanel;
 import Interface_and_Adapters.WelcomeScreen;
 import Interface_and_Adapters.restaurant_screens.RestaurantController;
+import Interface_and_Adapters.restaurant_screens.RestaurantFormatted;
+import Interface_and_Adapters.restaurant_screens.RestaurantPresenter;
 
 
 import javax.swing.*;
@@ -16,6 +23,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class ProfileScreen extends JPanel  {
 
@@ -24,6 +32,8 @@ public class ProfileScreen extends JPanel  {
     JButton backbtn;
 
     JLabel label;
+    JLabel message;
+
 
     JPanel firstpanel = new JPanel();
 
@@ -37,6 +47,8 @@ public class ProfileScreen extends JPanel  {
     JTextField resCat = new JTextField(15);
     JTextField location = new JTextField(15);
     JTextField stars = new JTextField(5);
+    JTextField newBio = new JTextField(15);
+
 
     RestaurantController resController;
     LoginUserResponseModel account;
@@ -46,8 +58,8 @@ public class ProfileScreen extends JPanel  {
         this.resController = resController;
         this.account = account;
         this.mainscreen = mainscreen;
-        PullAccountInfoController controller = new PullAccountInfoController(account.getUsername());
-        String bio = controller.GetBio();
+
+        String bio = account.getBio();
         String user = account.getUsername();
 
 
@@ -58,8 +70,13 @@ public class ProfileScreen extends JPanel  {
         label = new JLabel("Profile");
 
         label.setFont(new Font("Arial", Font.BOLD, 20));
+        newBio.setVisible(false);
 
-        JLabel message = new JLabel("Please log out to view new Bio");
+        message = new JLabel(bio);
+        LoginUserPresenter presenter = new LoginUserResponse();
+        AccountUserGateway gateway = new AccountUserFile("./accounts.csv");
+        PullAccountInputBoundary interactor = new PullAcountInteractor(account, presenter, gateway);
+        PullAccountInfoController controller = new PullAccountInfoController(interactor);
 
 
         btn.addActionListener(new ActionListener() {
@@ -67,9 +84,21 @@ public class ProfileScreen extends JPanel  {
             public void actionPerformed(ActionEvent e)
             //opens restaurant window with jbuttons from "home" screen
             {
-                ChangeBio newscreen = new ChangeBio(account, cont, mainscreen);
-                cont.add(newscreen, "C1");
-                switchPanel(cont, "C1");
+                //un-hides bio text field for editing
+                newBio.setVisible(true);
+                LoginUserResponseModel response = controller.updateBio(account.getUsername(), newBio.getText(), account.getDate());
+                JOptionPane.showMessageDialog(ProfileScreen.this,
+                        "Your bio has successfully been updated!");
+
+
+                Main main = new Main();
+                message = new JLabel(response.getBio());
+                try {
+                    mainscreen.add(new TabPanel(mainscreen, response), "FOURTH");
+                    main.switchPanel(mainscreen, "FOURTH");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
 
 
             }
@@ -111,7 +140,8 @@ public class ProfileScreen extends JPanel  {
 
         DefaultListModel<String> mylist = new DefaultListModel<>();
         mylist.addElement("Username: " + user);
-        mylist.addElement("Bio:" + bio);
+        mylist.addElement("Bio:" + account.getBio());
+
 
 
         JList<String> list = new JList<>(mylist);
@@ -126,16 +156,24 @@ public class ProfileScreen extends JPanel  {
         backbtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         list.setAlignmentX(Component.CENTER_ALIGNMENT);
-        message.setAlignmentX(Component.CENTER_ALIGNMENT);
         firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
         firstpanel.add(Box.createVerticalGlue());
         firstpanel.add(label);
-        firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
         firstpanel.add(message);
         firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
+        firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
         firstpanel.add(list);
+        firstpanel.add(newBio);
         firstpanel.add(Box.createRigidArea(new Dimension(0,30)));
         firstpanel.add(btn);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+
+        String formattedate = account.getDate().format(formatter);
+        JLabel createdOn = new JLabel("account created on: " + formattedate);
+        firstpanel.add(createdOn);
+
+
+
         firstpanel.add(Box.createRigidArea(new Dimension(0,30)));
         firstpanel.add(backbtn);
 
@@ -157,6 +195,7 @@ public class ProfileScreen extends JPanel  {
                 resController.create(resName.getText(), resCat.getText(), location.getText(), Integer.parseInt(stars.getText()));
                 JOptionPane.showMessageDialog(ProfileScreen.this,
                         "Your restaurant " + resName.getText() + " has successfully been created!");
+
                 Main main = new Main();
                 try {
                     mainscreen.add(new TabPanel(mainscreen, account), "FOURTH");

@@ -1,53 +1,45 @@
 package APP_Business_Rules.LoadAccountInfo;
 
+import APP_Business_Rules.login_user.AccountUserGateway;
+import APP_Business_Rules.login_user.LoginUserGatewayModel;
+import APP_Business_Rules.login_user.LoginUserPresenter;
+import APP_Business_Rules.login_user.LoginUserResponseModel;
+
 public class PullAcountInteractor implements  PullAccountInputBoundary {
 
-    private String username;
+    private LoginUserPresenter presenter;
+    private LoginUserResponseModel responseModel;
+    private AccountUserGateway gateway;
 
-    public PullAcountInteractor(String username){
-        this.username = username;
+    public PullAcountInteractor(LoginUserResponseModel responseModel, LoginUserPresenter presenter, AccountUserGateway gateway){
+        this.presenter = presenter;
+        this.responseModel = responseModel;
+        this.gateway = gateway;
 
-
-    }
-
-    /**
-     * PullAccount:
-     * methold that accesses the UserAccountInfomodel in the csv file.
-     * if the user is logging in for the fist time,the UserAccountInfomodel won't exist and a
-     * new UserAccountInfomodel will be created and entered into the csv file.
-     *
-     * @param username the username of the account
-     *
-     * @return  the bio of the said account
-     */
-    public String PullAccount(String username){
-        UserAccountInfoFile test = new UserAccountInfoFile("./AccountInfo.csv");
-
-        if (!test.findAccountUser(username)){
-            test.save(new UserAccountInfoModel(username));
-        }
-
-        UserAccountInfoModel model = test.load(username);
-
-        return model.getBio();
 
     }
+
+
     /**
      * UpdateBio:
      * methold that accesses the UserAccountInfomodel in the csv file. and updates the bio of the UserAccountInfomodel
      * and saves it into the csv file
      *
-     * @param username the username of the account
-     * @param newbio the new bio that will be saved
      *
      */
 
 
-    public void UpdateBio(String username, String newbio){
-        UserAccountInfoFile file = new UserAccountInfoFile("./AccountInfo.csv");
-        UserAccountInfoModel model = file.load(username);
-        file.change(model.getUser(), newbio);
+    @Override
+    public LoginUserResponseModel UpdateBio(UpdateRequestModel model){
+        LoginUserGatewayModel gatewayModel = new LoginUserGatewayModel(model.getUsername(), "user", model.getDate());
+        gatewayModel.setBio(model.getBio());
+        LoginUserResponseModel LoggedInUser = new LoginUserResponseModel(gateway.updateBio(gatewayModel));
+        LoggedInUser.setBio(model.getBio());
 
+        System.out.println(gatewayModel.getBio()+ "2");
+        System.out.println(LoggedInUser.getBio()+ "3");
+
+        return presenter.updateBio(LoggedInUser);
     }
 
 

@@ -14,6 +14,11 @@ public class LoginUserResponse implements LoginUserPresenter {
         return model;
     }
 
+    @Override
+    public LoginUserResponseModel updateBio(LoginUserResponseModel model){
+        return model;
+    }
+
     /**
      * The unsuccessful account login attempt.
      * @param fail response for login attempt.

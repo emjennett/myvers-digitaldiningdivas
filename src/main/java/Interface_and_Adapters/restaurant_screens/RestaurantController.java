@@ -9,12 +9,13 @@ public class RestaurantController {
     private final RestaurantInputBoundary
      */
     final RestaurantInputBoundary userInput;
+
     public RestaurantController(RestaurantInputBoundary restaurantGateway){
         this.userInput = restaurantGateway;
     }
     public RestaurantResponseModel create(String resTitle, String resCategory, String location, int stars){
         RestaurantRequestModel restaurantRequestModel = new
-                RestaurantRequestModel(resTitle, resCategory, location, stars);
+                RestaurantRequestModel(resTitle,  resCategory, location, stars);
         return userInput.create(restaurantRequestModel);
     }
 }

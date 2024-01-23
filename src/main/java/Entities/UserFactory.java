@@ -1,7 +1,9 @@
 package Entities;
 
-public interface UserFactory {
-     User createUser(String username, String password, String type);
+import java.time.LocalDate;
 
-     Loggable loginUser(String username, String password, String type);
+public interface UserFactory {
+     User createUser(String username, String password, String type, LocalDate date);
+
+     Loggable loginUser(String username, String password, String type, LocalDate date);
 }

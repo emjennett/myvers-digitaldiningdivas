@@ -33,18 +33,28 @@ public class RestaurantPopUp extends JPanel{
         this.restaurantController = restaurantController;
         this.dishController = dishController;
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new FlowLayout());
+        JPanel firstPanel = new JPanel();
+        JPanel secondPanel = new JPanel();
+
+        BoxLayout boxLayout1 = new BoxLayout(firstPanel, BoxLayout.Y_AXIS);
+        firstPanel.setLayout(boxLayout1);
+        BoxLayout boxLayout2 = new BoxLayout(secondPanel, BoxLayout.Y_AXIS);
+        secondPanel.setLayout(boxLayout2);
+
         JPanel infoPanel = new JPanel();
+        infoPanel.setSize(200, 70);
+
         infoPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        JLabel name = new JLabel(resName);
+        JLabel restaurantLabel = new JLabel(resName);
         int starCount = Integer.parseInt(starRating); //turns star string into integer
 
         for (int i = 0; i < starCount; i++) { //creates multiple stars according to starCount
             c.fill = GridBagConstraints.CENTER;
             c.weightx = 0.5;
             c.weighty = 1.0;
-            c.gridx = 3;
+            c.gridx = 1;
             c.gridy = 1;
             JLabel imageLabel = new JLabel();
             ImageIcon imageIcon = new ImageIcon(new ImageIcon("./19-star-png-image.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -52,9 +62,7 @@ public class RestaurantPopUp extends JPanel{
             imageLabel.setHorizontalTextPosition(SwingConstants.LEFT);
             infoPanel.add(imageLabel, c);
             imageLabel.setText(imageLabel.getText()+ "Michelin Stars:");
-
         }
-
 
         JButton backButton = new JButton("Back");
         backButton.addActionListener(new ActionListener() { //button brings user back into RestaurantScreen
@@ -63,33 +71,31 @@ public class RestaurantPopUp extends JPanel{
                 RestaurantScreen resScreen = new RestaurantScreen(restaurantController, account, dishController);
                 resScreen.switchPanel(mainPanel, "one"); //returns to first screen by button click
             }
-
         });
 
-
-        name.setFont(new Font("Sans Serif", Font.BOLD, 20));
+        restaurantLabel.setFont(new Font("Sans Serif", Font.BOLD, 40));
         GridBagConstraints d = new GridBagConstraints();
         d.fill = GridBagConstraints.HORIZONTAL;
-        d.weightx = 0.5;
+        d.weightx = 0;
         d.weighty = 1.0;
-        d.gridx = 2;
+        d.gridx = 1;
         d.gridy = 0;
-        infoPanel.add(name, d);
+        infoPanel.add(restaurantLabel, d);
         GridBagConstraints e = new GridBagConstraints();
         JLabel category = new JLabel(resCategory);
         e.fill = GridBagConstraints.HORIZONTAL;
         e.weightx = 0.5;
-        e.weighty = 1.0;
-        e.gridx = 2;
-        e.gridy = 1;
+        e.weighty = 0.5;
+        e.gridx = 1;
+        e.gridy = 4;
         infoPanel.add(category, e);
         GridBagConstraints f = new GridBagConstraints();
         JLabel addressLabel = new JLabel(address);
         f.fill = GridBagConstraints.HORIZONTAL;
         f.weightx = 0.5;
-        f.weighty = 1.0;
+        f.weighty = 0.5;
         f.gridx = 1;
-        f.gridy = 1;
+        f.gridy = 2;
         infoPanel.add(addressLabel, f);
 
         JButton resReviewsButton = new JButton("See reviews"); //Allows user to add review for this Restaurant
@@ -107,9 +113,6 @@ public class RestaurantPopUp extends JPanel{
 
             }
         });
-        infoPanel.add(resReviewsButton);
-        this.setVisible(true);
-
         JButton ReviewsButton = new JButton("new review"); //Allows user to add review for this Restaurant
         ReviewsButton.addActionListener(new ActionListener() {
             @Override
@@ -125,18 +128,35 @@ public class RestaurantPopUp extends JPanel{
 
             }
         });
-        infoPanel.add(ReviewsButton);
+
+        GridBagConstraints  g= new GridBagConstraints();
+        g.fill = GridBagConstraints.HORIZONTAL;
+        g.weightx = 0.5;
+        g.weighty = 0.2;
+        g.gridx = 0;
+        g.gridy = 3;
+        infoPanel.add(ReviewsButton, g);
+
+        GridBagConstraints  h= new GridBagConstraints();
+        h.fill = GridBagConstraints.HORIZONTAL;
+        h.weightx = 0.5;
+        h.weighty = 0.2;
+        h.gridx = 2;
+        h.gridy = 3;
+        infoPanel.add(resReviewsButton, h);
+
         infoPanel.setVisible(true);
         this.setVisible(true);
-        infoPanel.setAlignmentY(Component.TOP_ALIGNMENT);
-        this.add(infoPanel);
+        firstPanel.add(infoPanel);
+        this.add(firstPanel);
+        //creates a new dish screen object which will serve as the clickable "menu"
         DishScreen screen = new DishScreen(dishController, resName);
-        screen.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        this.add(screen, "dishPopUp");
+        screen.setPreferredSize(new Dimension(600, 500));
 
-        backButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        infoPanel.add(backButton);
-        this.setPreferredSize(new Dimension(1000, 1000));
+        secondPanel.add(screen);
+        secondPanel.add(backButton);
+        this.add(secondPanel);
+        this.setPreferredSize(new Dimension(1000, 570));
     }
     public void switchPanel(Container container, String panelName) {
         CardLayout card = (CardLayout) (container.getLayout());

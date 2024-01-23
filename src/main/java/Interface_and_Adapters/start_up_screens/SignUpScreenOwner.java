@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+
 public class SignUpScreenOwner extends JPanel {
         JPanel mainPanel;
 
@@ -54,7 +56,7 @@ public class SignUpScreenOwner extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         controller.create(username.getText(), String.valueOf(password.getPassword()),
-                                String.valueOf(retypePassword.getPassword()), "owner");
+                                String.valueOf(retypePassword.getPassword()), "owner", LocalDate.now());
                         JOptionPane.showMessageDialog(SignUpScreenOwner.this,
                                 "You have successfully created your account " + username.getText() + "!");
                         LoginUserGateway user;

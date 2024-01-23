@@ -1,7 +1,7 @@
 Name,Cuisine,Address,Michelin Stars
 Aburi Hana,Japanese,102 Yorkville Ave,1
 Alo,French,163 Spadina Ave,1
-Alobar Yorkville,Seafood,162 Cumberland St,1
+Alobar,Seafood,162 Cumberland St,1
 Don Alfonso 1890,Italian,1 Harbour Square,1
 Edulis,Mediterranean,179 Niagara St,1
 Enigma Yorkville,Mediterranean,23 St. Thomas St,1
@@ -12,5 +12,3 @@ Quetzal,Mexican,419 College St,1
 Shousin,Japanese,3328 Yonge St,1
 Yukashi,Japanese,643A Mt Pleasant Rd,1
 Sushi Masaki Saito,Japanese,88 Avenue Rd,2
-Olive garden,italian,college st,2,
-hello,a,a,3,

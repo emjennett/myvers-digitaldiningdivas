@@ -9,7 +9,7 @@ public class UserAccountInfoModel implements Serializable {
 
     private String bio = "";
 
-    public UserAccountInfoModel(String username){
+    public UserAccountInfoModel(String username, String bio){
         this.username = username;
     }
     /**

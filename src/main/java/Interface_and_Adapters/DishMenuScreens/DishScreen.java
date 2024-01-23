@@ -15,7 +15,8 @@ public class DishScreen extends JPanel {
 
     DishController dishController;
     String resName;
-
+    //creates a screen that lists oll dishes for "resName". TO be displayed on the restaurant screen
+    // of resName.
     public DishScreen(DishController dishController, String resName) {
         this.resName = resName;
         this.dishController = dishController;
@@ -24,28 +25,43 @@ public class DishScreen extends JPanel {
         this.setLayout(cards);
 
         JPanel subPanel = new JPanel(); //panel for button grid
+        subPanel.setSize(new Dimension(200, 400));
+        JScrollPane scroller = new JScrollPane(subPanel);
+        scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroller.setPreferredSize(new Dimension( 150,300));
 
         subPanel.setLayout(new GridLayout(0, 1, 10, 10));
         subPanel.setBorder(new EmptyBorder(20, 50, 40, 50));
+
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
 
         DishDataAccess dishes;
         dishes = new DishFileReader("./Dishes.csv");
-
-        for (List<String> element : dishes.getDish(resName)) {
-                    JButton button = new JButton(element.get(0) );
-                    button.setBorderPainted(false);
-                    subPanel.add(button, c);
+        //if no dishes have been uploaded, say so!
+        System.out.println(dishes);
+        System.out.println(dishes);
+        if(dishes.getDish(resName)==null){
+            JLabel noDishes= new JLabel();
+            noDishes.setText("Stay tuned for dishes!");
+            subPanel.add(noDishes, c);
+        }
+        //here, there are dishes for this restaurant
+        else{
+            for (List<String> element : dishes.getDish(resName)) {
+                JButton button = new JButton(element.get(0) );
+                button.setSize(new Dimension(40, 40));
+                button.setBorderPainted(false);
+                subPanel.add(button, c);
 
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e)
-                    //opens restaurant window with jbuttons from "home" screen
+                    //opens dish popup that contains dish information based on which dish was clicked on
                     {
-                        DishPopUp popUp = new DishPopUp(element.get(0), element.get(1), element.get(2), element.get(3),
-                                element.get(4));
+                        DishPopUp popUp = new DishPopUp(resName, element.get(0), element.get(1), element.get(2),
+                                element.get(3), element.get(4));
                         DishScreen.this.add(popUp, "card1");
                         CardLayout cl = (CardLayout)(DishScreen.this.getLayout());
                         cl.show(DishScreen.this, "card1");
@@ -61,20 +77,18 @@ public class DishScreen extends JPanel {
 
                         });
                     }
-
-
                 });
-                                         
-            c.gridy += 1;
 
+                c.gridy += 1;
+
+            }
         }
-        JScrollPane scroller = new JScrollPane(subPanel);
-        scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        this.add(scroller);
+
+
+        this.add(subPanel);
         this.setPreferredSize(new Dimension(500, 200));
         this.setVisible(true);
-
 
     }
 }
