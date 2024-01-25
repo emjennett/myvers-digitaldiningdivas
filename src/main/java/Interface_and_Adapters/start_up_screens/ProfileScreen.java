@@ -25,15 +25,17 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-public class ProfileScreen extends JPanel  {
+public class ProfileScreen extends JPanel {
 
     JButton btn;
 
     JButton backbtn;
 
+    JButton imageBtn;
+
     JLabel label;
     JLabel message;
-
+    JLabel imageLabel;
 
     JPanel firstpanel = new JPanel();
 
@@ -48,6 +50,8 @@ public class ProfileScreen extends JPanel  {
     JTextField location = new JTextField(15);
     JTextField stars = new JTextField(5);
     JTextField newBio = new JTextField(15);
+    JTextField newPic = new JTextField(15);
+    JLabel userType = new JLabel();
 
 
     RestaurantController resController;
@@ -64,13 +68,13 @@ public class ProfileScreen extends JPanel  {
 
 
         btn = new JButton("ChangeBio");
+        imageBtn = new JButton("Change profile picture");
 
         backbtn = new JButton("Log Out");
 
         label = new JLabel("Profile");
 
         label.setFont(new Font("Arial", Font.BOLD, 20));
-        newBio.setVisible(false);
 
         message = new JLabel(bio);
         LoginUserPresenter presenter = new LoginUserResponse();
@@ -78,18 +82,31 @@ public class ProfileScreen extends JPanel  {
         PullAccountInputBoundary interactor = new PullAcountInteractor(account, presenter, gateway);
         PullAccountInfoController controller = new PullAccountInfoController(interactor);
 
+        imageBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginUserResponseModel response = controller.updateBio(account.getUsername(), newBio.getText(), account.getDate(), newPic.getText());
+                JOptionPane.showMessageDialog(ProfileScreen.this,
+                        "Your bio has successfully been updated!");
+                Main main = new Main();
+                DisplayImage("./"+response.getPic());
 
+                try {
+                    mainscreen.add(new TabPanel(mainscreen, response), "FOURTH");
+                    main.switchPanel(mainscreen, "FOURTH");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             //opens restaurant window with jbuttons from "home" screen
             {
-                //un-hides bio text field for editing
-                newBio.setVisible(true);
-                LoginUserResponseModel response = controller.updateBio(account.getUsername(), newBio.getText(), account.getDate());
+                LoginUserResponseModel response = controller.updateBio(account.getUsername(), newBio.getText(), account.getDate(), newPic.getText());
                 JOptionPane.showMessageDialog(ProfileScreen.this,
                         "Your bio has successfully been updated!");
-
 
                 Main main = new Main();
                 message = new JLabel(response.getBio());
@@ -99,7 +116,6 @@ public class ProfileScreen extends JPanel  {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-
 
             }
         });
@@ -118,6 +134,7 @@ public class ProfileScreen extends JPanel  {
         resPanel.setLayout(new BoxLayout(resPanel, BoxLayout.Y_AXIS));
         resPanel.add(Box.createVerticalGlue());
         if(account.getType().equals("owner")) {
+            userType.setText("Restaurant Owner");
 
             JLabel createResTitle = new JLabel("Create new Restaurant");
             createResTitle.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
@@ -134,14 +151,19 @@ public class ProfileScreen extends JPanel  {
             resPanel.add(resStarBox);
             resPanel.add(createResButton());
 
+        }
+
+        //case where user is a regular user
+        else{
+            userType.setText("Foodie");
 
         }
+
         resPanel.add(Box.createVerticalGlue());
 
         DefaultListModel<String> mylist = new DefaultListModel<>();
         mylist.addElement("Username: " + user);
         mylist.addElement("Bio:" + account.getBio());
-
 
 
         JList<String> list = new JList<>(mylist);
@@ -159,6 +181,11 @@ public class ProfileScreen extends JPanel  {
         firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
         firstpanel.add(Box.createVerticalGlue());
         firstpanel.add(label);
+
+        JLabel imagee = DisplayImage("./face.jpg");
+
+        firstpanel.add(imagee);
+        firstpanel.add(userType);
         firstpanel.add(message);
         firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
         firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
@@ -172,19 +199,22 @@ public class ProfileScreen extends JPanel  {
         JLabel createdOn = new JLabel("account created on: " + formattedate);
         firstpanel.add(createdOn);
 
-
-
         firstpanel.add(Box.createRigidArea(new Dimension(0,30)));
         firstpanel.add(backbtn);
 
         cont.setLayout(layout);
-
-
         cont.add(firstpanel, "1");
         this.add(cont);
         this.add(resPanel);
 
 
+    }
+
+    private JLabel DisplayImage(String url) {
+        JLabel imagee = new JLabel();
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(url).getImage().getScaledInstance(100, 70, Image.SCALE_DEFAULT));
+        imagee.setIcon(imageIcon);
+        return imagee;
     }
 
     private JButton createResButton() {
@@ -207,8 +237,8 @@ public class ProfileScreen extends JPanel  {
 
         });
         return newRes;
-
     }
+
 
     /**
      * switchPanel:

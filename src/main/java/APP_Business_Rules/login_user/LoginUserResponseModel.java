@@ -7,6 +7,7 @@ public class LoginUserResponseModel {
     LoginUserGatewayModel model;
     private String bio;
     private LocalDate date;
+    private String pic;
 
     /**
      * The result for when a user has attempted a login.
@@ -36,5 +37,11 @@ public class LoginUserResponseModel {
     }
 
     public void setDate(LocalDate newDate) { this.date = newDate;
+    }
+
+    public void setPic(String newPic) { this.pic = newPic;
+    }
+
+    public String getPic() { return this.model.getPic();
     }
 }

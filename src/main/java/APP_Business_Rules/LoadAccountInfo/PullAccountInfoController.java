@@ -22,10 +22,10 @@ public class PullAccountInfoController {
 
 
 
-    public LoginUserResponseModel updateBio(String username, String bio, LocalDate date) {
+    public LoginUserResponseModel updateBio(String username, String bio, LocalDate date, String pic) {
 
-        System.out.println(bio + "1");
-        UpdateRequestModel requestModel = new UpdateRequestModel(username, bio, date);
+        UpdateRequestModel requestModel = new UpdateRequestModel(username, bio, date, pic);
         return userInput.UpdateBio(requestModel);
     }
+
 }

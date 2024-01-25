@@ -9,6 +9,7 @@ public class LoginUserGatewayModel implements Serializable {
 
     private final String type;
     private String bio;
+    private String pic;
     private LocalDate date;
 
     private static final long serialVersionUID = 62817323539602193L;
@@ -37,6 +38,11 @@ public class LoginUserGatewayModel implements Serializable {
     public String getBio(){return this.bio;}
     public void setBio(String newBio){
         this.bio = newBio;
+    }
+
+    public String getPic(){return this.pic;}
+    public void setPic(String newPic){
+        this.pic = newPic;
     }
 
     public LocalDate getDate() {

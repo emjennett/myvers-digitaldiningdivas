@@ -9,4 +9,5 @@ public interface LoginUserPresenter {
     LoginUserResponseModel userLoginFail(String fail);
 
     LoginUserResponseModel updateBio(LoginUserResponseModel model);
+
 }

@@ -6,5 +6,6 @@ public interface PullAccountInputBoundary {
 
 
     LoginUserResponseModel UpdateBio(UpdateRequestModel requestModel);
+
 }
 

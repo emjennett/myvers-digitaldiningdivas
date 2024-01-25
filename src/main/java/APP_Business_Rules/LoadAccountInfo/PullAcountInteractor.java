@@ -19,7 +19,6 @@ public class PullAcountInteractor implements  PullAccountInputBoundary {
 
     }
 
-
     /**
      * UpdateBio:
      * methold that accesses the UserAccountInfomodel in the csv file. and updates the bio of the UserAccountInfomodel
@@ -33,14 +32,14 @@ public class PullAcountInteractor implements  PullAccountInputBoundary {
     public LoginUserResponseModel UpdateBio(UpdateRequestModel model){
         LoginUserGatewayModel gatewayModel = new LoginUserGatewayModel(model.getUsername(), "user", model.getDate());
         gatewayModel.setBio(model.getBio());
+        gatewayModel.setPic(model.getPic());
         LoginUserResponseModel LoggedInUser = new LoginUserResponseModel(gateway.updateBio(gatewayModel));
         LoggedInUser.setBio(model.getBio());
-
-        System.out.println(gatewayModel.getBio()+ "2");
-        System.out.println(LoggedInUser.getBio()+ "3");
+        LoggedInUser.setPic(model.getPic());
 
         return presenter.updateBio(LoggedInUser);
     }
+
 
 
 }

@@ -16,10 +16,11 @@ public class CreateUserGatewayModel implements Serializable {
 
     /**
      * The model representation to be stored for a created user
+     *
      * @param username chosen username.
      * @param password chosen password.
      */
-    CreateUserGatewayModel(String username, String password, String type, LocalDate date){
+    CreateUserGatewayModel(String username, String password, String type, LocalDate date) {
 
         this.username = username;
         this.password = password;
@@ -27,12 +28,20 @@ public class CreateUserGatewayModel implements Serializable {
         this.date = date;
 
     }
-    public String getUsername() {return username;}
 
-    public String getPassword() {return password;}
+    public String getUsername() {
+        return username;
+    }
 
-    public String getType() {return type;}
+    public String getPassword() {
+        return password;
+    }
 
-    public LocalDate getDate() {return date;
+    public String getType() {
+        return type;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 }
