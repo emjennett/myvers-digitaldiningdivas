@@ -8,16 +8,28 @@ import APP_Business_Rules.DishMenu.DishFileReader;
 import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsInputBoundary;
 import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsInteractor;
 import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsGateway;
+import APP_Business_Rules.LoadAccountInfo.PullAccountInfoController;
+import APP_Business_Rules.LoadAccountInfo.PullAccountInputBoundary;
+import APP_Business_Rules.LoadAccountInfo.PullAcountInteractor;
+import APP_Business_Rules.login_user.AccountUserGateway;
+import APP_Business_Rules.login_user.LoginUserPresenter;
+import APP_Business_Rules.login_user.LoginUserResponseModel;
+import Frameworks_and_Drivers.AccountUserFile;
 import Frameworks_and_Drivers.ReviewFile;
 import Interface_and_Adapters.CreateReviewScreen.*;
 import Interface_and_Adapters.DishMenuScreens.DishController;
 import Interface_and_Adapters.DishMenuScreens.DishScreen;
 import Interface_and_Adapters.DisplayReviewsScreen.*;
+import Interface_and_Adapters.Main;
+import Interface_and_Adapters.TabPanel;
+import Interface_and_Adapters.start_up_screens.LoginUserResponse;
+import Interface_and_Adapters.start_up_screens.ProfileScreen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 
 public class RestaurantPopUp extends JPanel{
@@ -27,15 +39,18 @@ public class RestaurantPopUp extends JPanel{
      */
     RestaurantController restaurantController;
     DishController dishController;
+    JPanel mainScreen;
 
-    RestaurantPopUp(String resName, String resCategory, String address, String starRating,
-                    String account, RestaurantController restaurantController, JPanel mainPanel, DishController dishController){
+    RestaurantPopUp(JPanel mainScreen , String resName, String resCategory, String address, String starRating,
+                    LoginUserResponseModel account, RestaurantController restaurantController, JPanel mainPanel, DishController dishController, int likes){
         this.restaurantController = restaurantController;
         this.dishController = dishController;
+        this.mainScreen = mainScreen;
 
         this.setLayout(new FlowLayout());
         JPanel firstPanel = new JPanel();
         JPanel secondPanel = new JPanel();
+        JLabel likeLabel = new JLabel();
 
         BoxLayout boxLayout1 = new BoxLayout(firstPanel, BoxLayout.Y_AXIS);
         firstPanel.setLayout(boxLayout1);
@@ -62,13 +77,38 @@ public class RestaurantPopUp extends JPanel{
             imageLabel.setHorizontalTextPosition(SwingConstants.LEFT);
             infoPanel.add(imageLabel, c);
             imageLabel.setText(imageLabel.getText()+ "Michelin Stars:");
+
         }
 
         JButton backButton = new JButton("Back");
+        JButton like = new JButton("Like");
+        LoginUserPresenter presenter = new LoginUserResponse();
+        AccountUserGateway gateway = new AccountUserFile("./accounts.csv");
+        PullAccountInputBoundary interactor = new PullAcountInteractor(account, presenter, gateway);
+        PullAccountInfoController controller = new PullAccountInfoController(interactor);
+        like.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginUserResponseModel response = controller.updateBio(account.getUsername(), account.getBio(), account.getDate(), account.getPic(), account.getFavRestaurants(), resName);
+                likeLabel.setText(Integer.toString(likes + 1));
+                Main main = new Main();
+
+                try {
+                    mainScreen.add(new TabPanel(mainScreen, response), "FOURTH");
+                    main.switchPanel(mainScreen, "FOURTH");
+
+                    main.switchPanel(mainScreen, "card1");
+                }catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+
+        });
         backButton.addActionListener(new ActionListener() { //button brings user back into RestaurantScreen
             @Override
             public void actionPerformed(ActionEvent e) {
-                RestaurantScreen resScreen = new RestaurantScreen(restaurantController, account, dishController);
+                RestaurantScreen resScreen = new RestaurantScreen(mainScreen, restaurantController, account, dishController, false);
                 resScreen.switchPanel(mainPanel, "one"); //returns to first screen by button click
             }
         });
@@ -122,7 +162,7 @@ public class RestaurantPopUp extends JPanel{
                 CreateReviewInputBoundary inBoundRev = new CreateReviewInteractor(revGate, disRev);
                 CreateReviewController disRevController = new CreateReviewController(inBoundRev);
                 CreateReviewScreenNew writeReview = new CreateReviewScreenNew(disRevController,
-                        mainPanel, account, resName);
+                        mainPanel, account.getUsername(), resName);
                 mainPanel.add(writeReview, "writeReview");
                 switchPanel(mainPanel, "writeReview");
 
@@ -145,18 +185,34 @@ public class RestaurantPopUp extends JPanel{
         h.gridy = 3;
         infoPanel.add(resReviewsButton, h);
 
+        likeLabel.setText(Integer.toString(likes));
+
+        GridBagConstraints  i= new GridBagConstraints();
+        i.fill = GridBagConstraints.HORIZONTAL;
+        i.weightx = 0.5;
+        i.weighty = 0.2;
+        i.gridx = 2;
+        i.gridy = 4;
+        infoPanel.add(like, i);
+
+        GridBagConstraints  j= new GridBagConstraints();
+        j.fill = GridBagConstraints.HORIZONTAL;
+        j.weightx = 0.5;
+        j.weighty = 0.2;
+        j.gridx = 3;
+        j.gridy = 4;
+        infoPanel.add(likeLabel, j);
+
         infoPanel.setVisible(true);
         this.setVisible(true);
         firstPanel.add(infoPanel);
         this.add(firstPanel);
         //creates a new dish screen object which will serve as the clickable "menu"
         DishScreen screen = new DishScreen(dishController, resName);
-        screen.setPreferredSize(new Dimension(600, 500));
 
         secondPanel.add(screen);
         secondPanel.add(backButton);
         this.add(secondPanel);
-        this.setPreferredSize(new Dimension(1000, 570));
     }
     public void switchPanel(Container container, String panelName) {
         CardLayout card = (CardLayout) (container.getLayout());

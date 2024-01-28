@@ -5,12 +5,14 @@ public class RestaurantGatewayModel {
         private final String resCategory;
         private final String resLocation;
         private final int stars;
+        private int likes;
 
-        public RestaurantGatewayModel(String resName, String resCategory, String resLocation, int stars){
+        public RestaurantGatewayModel(String resName, String resCategory, String resLocation, int stars, int likes){
             this.resName = resName;
             this.resCategory = resCategory;
             this.resLocation = resLocation;
             this.stars = stars;
+            this.likes = likes;
         }
 
         public String getResCategory(){
@@ -30,4 +32,7 @@ public class RestaurantGatewayModel {
         }
 
 
+        public int getLikes() {
+            return likes;
+        }
 }

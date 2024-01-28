@@ -6,6 +6,7 @@ import APP_Business_Rules.create_user.CreateUserRequestModel;
 import APP_Business_Rules.create_user.CreateUserResponseModel;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class CreateUserController {
 
@@ -25,10 +26,12 @@ public class CreateUserController {
      * @param username     chosen by the user input.
      * @param password     chosen by the user input.
      * @param dup_password chosen by the user input.
+     * @param img
      */
-    public CreateUserResponseModel create(String username, String password, String dup_password, String type, LocalDate date) {
+    public CreateUserResponseModel create(String username, String password, String dup_password, String type, LocalDate date, String img,
+                                          List<String> favRestaurants) {
         CreateUserRequestModel model = new CreateUserRequestModel(
-                username, password, dup_password, type, date);
+                username, password, dup_password, type, date, img, favRestaurants);
 
         return userInput.create(model);
     }

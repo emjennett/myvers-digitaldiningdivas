@@ -1,8 +1,10 @@
 package Interface_and_Adapters.start_up_screens;
 
 
+import APP_Business_Rules.DishMenu.*;
 import APP_Business_Rules.LoadAccountInfo.*;
 import APP_Business_Rules.RestaurantUseCase.RestaurantFactory;
+import APP_Business_Rules.RestaurantUseCase.RestaurantFileReader;
 import APP_Business_Rules.RestaurantUseCase.RestaurantInputBoundary;
 import APP_Business_Rules.RestaurantUseCase.RestaurantInteractor;
 import APP_Business_Rules.login_user.AccountUserGateway;
@@ -10,12 +12,13 @@ import APP_Business_Rules.login_user.LoginUserPresenter;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
 import Entities.AccountOwner;
 import Frameworks_and_Drivers.AccountUserFile;
+import Interface_and_Adapters.DishMenuScreens.DishController;
+import Interface_and_Adapters.DishMenuScreens.DishFormatted;
+import Interface_and_Adapters.DishMenuScreens.DishPresenter;
 import Interface_and_Adapters.Main;
 import Interface_and_Adapters.TabPanel;
 import Interface_and_Adapters.WelcomeScreen;
-import Interface_and_Adapters.restaurant_screens.RestaurantController;
-import Interface_and_Adapters.restaurant_screens.RestaurantFormatted;
-import Interface_and_Adapters.restaurant_screens.RestaurantPresenter;
+import Interface_and_Adapters.restaurant_screens.*;
 
 
 import javax.swing.*;
@@ -35,6 +38,7 @@ public class ProfileScreen extends JPanel {
 
     JLabel label;
     JLabel message;
+    JLabel imagee;
     JLabel imageLabel;
 
     JPanel firstpanel = new JPanel();
@@ -65,6 +69,7 @@ public class ProfileScreen extends JPanel {
 
         String bio = account.getBio();
         String user = account.getUsername();
+        String url = account.getPic();
 
 
         btn = new JButton("ChangeBio");
@@ -76,7 +81,16 @@ public class ProfileScreen extends JPanel {
 
         label.setFont(new Font("Arial", Font.BOLD, 20));
 
+        imagee = DisplayImage(url);
+
+
         message = new JLabel(bio);
+
+        btn.setVisible(false);
+        newBio.setVisible(false);
+        newPic.setVisible(false);
+        imageBtn.setVisible(false);
+
         LoginUserPresenter presenter = new LoginUserResponse();
         AccountUserGateway gateway = new AccountUserFile("./accounts.csv");
         PullAccountInputBoundary interactor = new PullAcountInteractor(account, presenter, gateway);
@@ -85,11 +99,11 @@ public class ProfileScreen extends JPanel {
         imageBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginUserResponseModel response = controller.updateBio(account.getUsername(), newBio.getText(), account.getDate(), newPic.getText());
+                LoginUserResponseModel response = controller.updateBio(account.getUsername(), account.getBio(), account.getDate(), newPic.getText(), account.getFavRestaurants(), account.getNewRes());
                 JOptionPane.showMessageDialog(ProfileScreen.this,
-                        "Your bio has successfully been updated!");
+                        "Your pfp has successfully been updated!");
                 Main main = new Main();
-                DisplayImage("./"+response.getPic());
+                imagee = DisplayImage("./"+response.getPic());
 
                 try {
                     mainscreen.add(new TabPanel(mainscreen, response), "FOURTH");
@@ -104,7 +118,7 @@ public class ProfileScreen extends JPanel {
             public void actionPerformed(ActionEvent e)
             //opens restaurant window with jbuttons from "home" screen
             {
-                LoginUserResponseModel response = controller.updateBio(account.getUsername(), newBio.getText(), account.getDate(), newPic.getText());
+                LoginUserResponseModel response = controller.updateBio(account.getUsername(), newBio.getText(), account.getDate(), account.getPic(), account.getFavRestaurants(), account.getNewRes());
                 JOptionPane.showMessageDialog(ProfileScreen.this,
                         "Your bio has successfully been updated!");
 
@@ -171,6 +185,14 @@ public class ProfileScreen extends JPanel {
         list.setSize(100, 500);
 
 
+        JPanel wrapper = new JPanel();
+        DishPresenter dishPresenter = new DishFormatted();
+        DishFactory dishFactory = new DishFactory();
+        DishDataAccess dish = new DishFileReader("./Dishes.csv");
+        DishInputBoundary dishInteractor = new DishInteractor(dish, dishPresenter, dishFactory);
+        DishController dishController = new DishController(dishInteractor);
+
+
         firstpanel.setLayout(new BoxLayout(firstpanel, BoxLayout.Y_AXIS));
         firstpanel.setSize(800, 600);
         firstpanel.add(label);
@@ -180,30 +202,52 @@ public class ProfileScreen extends JPanel {
         list.setAlignmentX(Component.CENTER_ALIGNMENT);
         firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
         firstpanel.add(Box.createVerticalGlue());
-        firstpanel.add(label);
-
-        JLabel imagee = DisplayImage("./face.jpg");
 
         firstpanel.add(imagee);
+        imagee.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         firstpanel.add(userType);
-        firstpanel.add(message);
+        userType.setAlignmentX(Component.CENTER_ALIGNMENT);
         firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
         firstpanel.add(Box.createRigidArea(new Dimension(0,13)));
         firstpanel.add(list);
+        firstpanel.add(createEditProfile(firstpanel));
         firstpanel.add(newBio);
+        newBio.setAlignmentX(Component.CENTER_ALIGNMENT);
+        firstpanel.add(newPic);
+        newPic.setAlignmentX(Component.CENTER_ALIGNMENT);
         firstpanel.add(Box.createRigidArea(new Dimension(0,30)));
         firstpanel.add(btn);
+        firstpanel.add(imageBtn);
+        imageBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
 
         String formattedate = account.getDate().format(formatter);
         JLabel createdOn = new JLabel("account created on: " + formattedate);
         firstpanel.add(createdOn);
+        createdOn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         firstpanel.add(Box.createRigidArea(new Dimension(0,30)));
         firstpanel.add(backbtn);
+        RestaurantFileReader res = new RestaurantFileReader("./Restaurant.csv");
+        RestaurantPresenter respresenter = new RestaurantFormatted();
+        RestaurantFactory restaurantFactory = new RestaurantFactory();
+        RestaurantInputBoundary resinteractor = new RestaurantInteractor(
+                res, respresenter, restaurantFactory);
+        RestaurantController restaurantController = new RestaurantController(
+                resinteractor);
+        wrapper.setLayout(new BorderLayout());
+        System.out.println(account.getFavRestaurants().get(0)+"8");
+        JPanel resScreen = new RestaurantScreen(mainscreen, restaurantController, account, dishController, true);
+        resScreen.setPreferredSize(new Dimension(800, 500));
+        wrapper.add(resScreen, BorderLayout.CENTER);
+
+
+
+        wrapper.add(firstpanel, BorderLayout.WEST);
 
         cont.setLayout(layout);
-        cont.add(firstpanel, "1");
+        cont.add(wrapper, "1");
         this.add(cont);
         this.add(resPanel);
 
@@ -217,12 +261,46 @@ public class ProfileScreen extends JPanel {
         return imagee;
     }
 
+    private JButton createEditProfile(JPanel panel){
+        JButton editProfile = new JButton("Edit Profile");
+        editProfile.setAlignmentX(Component.CENTER_ALIGNMENT);
+        editProfile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btn.setVisible(true);
+                newBio.setVisible(true);
+                newPic.setVisible(true);
+                imageBtn.setVisible(true);
+                editProfile.setVisible(false);
+                panel.add(createCancelButton(editProfile));
+            }
+        });
+        return editProfile;
+    }
+
+    private JButton createCancelButton(JButton editProfile){
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btn.setVisible(false);
+                newBio.setVisible(false);
+                newPic.setVisible(false);
+                imageBtn.setVisible(false);
+                editProfile.setVisible(true);
+                cancelButton.setVisible(false);
+            }
+        });
+        return cancelButton;
+    }
+
     private JButton createResButton() {
         JButton newRes = new JButton("Create New Restaurant");
         newRes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resController.create(resName.getText(), resCat.getText(), location.getText(), Integer.parseInt(stars.getText()));
+                resController.create(resName.getText(), resCat.getText(), location.getText(), Integer.parseInt(stars.getText()), 0);
                 JOptionPane.showMessageDialog(ProfileScreen.this,
                         "Your restaurant " + resName.getText() + " has successfully been created!");
 

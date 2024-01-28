@@ -1,14 +1,14 @@
-Name,Cuisine,Address,Michelin Stars
-Aburi Hana,Japanese,102 Yorkville Ave,1
-Alo,French,163 Spadina Ave,1
-Alobar,Seafood,162 Cumberland St,1
-Don Alfonso 1890,Italian,1 Harbour Square,1
-Edulis,Mediterranean,179 Niagara St,1
-Enigma Yorkville,Mediterranean,23 St. Thomas St,1
-FRILU,Canadian,7713 Yonge St,1
-Kaiseki Yu-zen Hashimoto,Japanese,6 Garamand Ct,1
-Osteria Giulia,Italian,134 Avenue Rd,1
-Quetzal,Mexican,419 College St,1
-Shousin,Japanese,3328 Yonge St,1
-Yukashi,Japanese,643A Mt Pleasant Rd,1
-Sushi Masaki Saito,Japanese,88 Avenue Rd,2
+Name,Cuisine,Address,Michelin Stars Likes
+Aburi Hana,Japanese,102 Yorkville Ave,1,0,
+Alo,French,163 Spadina Ave,1,0
+Alobar,Seafood,162 Cumberland St,1,0
+Don Alfonso 1890,Italian,1 Harbour Square,1,0
+Edulis,Mediterranean,179 Niagara St,1,0
+Enigma Yorkville,Mediterranean,23 St. Thomas St,1,0
+FRILU,Canadian,7713 Yonge St,1,0
+Kaiseki Yu-zen Hashimoto,Japanese,6 Garamand Ct,1,0
+Osteria Giulia,Italian,134 Avenue Rd,1,0
+Quetzal,Mexican,419 College St,1,0
+Shousin,Japanese,3328 Yonge St,1,0
+Yukashi,Japanese,643A Mt Pleasant Rd,1,0
+Sushi Masaki Saito,Japanese,88 Avenue Rd,2,0

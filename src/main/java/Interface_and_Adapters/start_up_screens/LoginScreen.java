@@ -64,8 +64,6 @@ public class LoginScreen extends JPanel {
                 try {
                     LoginUserResponseModel account = controller.login(
                             username.getText(), String.valueOf(password.getPassword()));
-                    System.out.println(account.getBio() +"10");
-                    System.out.println(account.getUsername()+"hehe");
                     Main main = new Main();
                     mainPanel.add(new TabPanel(mainPanel, account), "FOURTH");
                     main.switchPanel(mainPanel, "FOURTH");

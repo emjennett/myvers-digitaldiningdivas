@@ -23,11 +23,13 @@ public class Restaurant extends ReviewableObject implements Serializable {
     private int stars;
     private Double rating;
     private ArrayList<Dish> dishRatings = new ArrayList<Dish>();
-    public Restaurant(String name, String resCategory, String location, int stars){
+    private int likes;
+    public Restaurant(String name, String resCategory, String location, int stars, int likes){
         this.resCategory = resCategory;
         this.name = name;
         this.location = location;
         this.stars = stars;
+        this.likes = likes;
 
 
     }
@@ -66,4 +68,7 @@ public class Restaurant extends ReviewableObject implements Serializable {
         this.rating = sum/dishRatings.size();
     }
 
+    public int getLikes() {
+        return likes;
+    }
 }

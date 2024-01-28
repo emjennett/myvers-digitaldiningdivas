@@ -70,7 +70,7 @@ public class WelcomeScreen extends JPanel {
         newRes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resController.create(resName.getText(), resCat.getText(), location.getText(), Integer.parseInt(stars.getText()));
+                resController.create(resName.getText(), resCat.getText(), location.getText(), Integer.parseInt(stars.getText()), 0);
                 JOptionPane.showMessageDialog(WelcomeScreen.this,
                         "Your restaurant " + resName.getText() + " has successfully been created!");
                 Main main = new Main();

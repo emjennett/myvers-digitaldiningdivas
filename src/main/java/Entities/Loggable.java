@@ -1,6 +1,7 @@
 package Entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface Loggable {
 
@@ -8,4 +9,5 @@ public interface Loggable {
 
     String getType();
     LocalDate getDate();
+    List<String> getFavRestaurants();
 }

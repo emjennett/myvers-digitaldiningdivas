@@ -1,6 +1,7 @@
 package APP_Business_Rules.login_user;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class LoginUserResponseModel {
 
@@ -8,6 +9,8 @@ public class LoginUserResponseModel {
     private String bio;
     private LocalDate date;
     private String pic;
+    private List<String> favRestaurants;
+    private String newRes;
 
     /**
      * The result for when a user has attempted a login.
@@ -43,5 +46,22 @@ public class LoginUserResponseModel {
     }
 
     public String getPic() { return this.model.getPic();
+    }
+
+
+    public List<String> getFavRestaurants() { return this.model.getFavRestaurants();
+    }
+
+    public void setFavRestaurants(List<String> list) {
+        list.add(getNewRes());
+        this.favRestaurants = list;
+    }
+
+    public String getNewRes() {return this.model.getNewRes();
+
+    }
+
+    public void setNewRes(String rezzy) {
+        this.newRes = rezzy;
     }
 }

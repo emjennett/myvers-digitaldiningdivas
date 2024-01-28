@@ -54,7 +54,7 @@ public class TabPanel extends JPanel{
         ProfileScreen welcomeScreen = new ProfileScreen(account, mainPanel, restaurantController);
 
         //opens the restaurant tab
-        RestaurantScreen restaurantScreen = new RestaurantScreen(restaurantController, account.getUsername(), dishController);
+        RestaurantScreen restaurantScreen = new RestaurantScreen(mainPanel, restaurantController, account, dishController, false);
 
 //        AnalyticsScreen analyticsScreen = new AnalyticsScreen();
 //        RankingScreen rankingScreen = new RankingScreen();

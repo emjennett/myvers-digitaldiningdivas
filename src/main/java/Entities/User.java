@@ -2,6 +2,7 @@ package Entities;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public interface User {
@@ -17,4 +18,8 @@ public interface User {
     String getType();
 
     LocalDate getDate();
+
+    String getImg();
+
+    List<String> getFavRestaurants();
 }

@@ -46,11 +46,17 @@ public class LoginUserInteractor implements LoginUserInputBoundary {
             return presenter.userLoginFail("Your Username or Password are Incorrect!");
         }
         System.out.println(gateway.getDate() + "e");
-        Loggable loginUser = factory.loginUser(model.getUsername(), model.getPassword(), "user", gateway.getDate());
-        LoginUserGatewayModel LoginDataModel = new LoginUserGatewayModel(loginUser.getUserName(), "user", loginUser.getDate());
+        Loggable loginUser = factory.loginUser(model.getUsername(), model.getPassword(), "user", gateway.getDate(), gateway.getImg(), gateway.getFavRestaurants());
+
+        System.out.println(loginUser.getFavRestaurants().get(0)+"5");
+        System.out.println(gateway.getFavRestaurants().get(0)+"6");
+        LoginUserGatewayModel LoginDataModel = new LoginUserGatewayModel(loginUser.getUserName(), "user", loginUser.getDate(), gateway.getImg(), gateway.getFavRestaurants(), gateway.getNewRes());
         LoginUserResponseModel LoggedInUser = new LoginUserResponseModel(accountGateway.loadAccount(LoginDataModel));
         LoggedInUser.setDate(gateway.getDate());
-        System.out.println(loginUser.getDate() + "f");
+        LoggedInUser.setPic(gateway.getImg());
+        LoggedInUser.setFavRestaurants(gateway.getFavRestaurants());
+        LoggedInUser.setNewRes(gateway.getNewRes());
+        System.out.println(LoggedInUser.getFavRestaurants().get(0)+"7");
         return presenter.userLoggedIn(LoggedInUser);
     }
 

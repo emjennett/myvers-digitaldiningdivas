@@ -2,6 +2,7 @@ package APP_Business_Rules.create_user;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 public class CreateUserGatewayModel implements Serializable {
 
@@ -11,6 +12,8 @@ public class CreateUserGatewayModel implements Serializable {
 
     private final String type;
     private final LocalDate date;
+    private String img;
+    private List<String> favRestaurants;
 
     private static final long serialVersionUID = 6699369025684807396L;
 
@@ -20,12 +23,14 @@ public class CreateUserGatewayModel implements Serializable {
      * @param username chosen username.
      * @param password chosen password.
      */
-    CreateUserGatewayModel(String username, String password, String type, LocalDate date) {
+    CreateUserGatewayModel(String username, String password, String type, LocalDate date, String img, List<String> favRestaurants) {
 
         this.username = username;
         this.password = password;
         this.type = type;
         this.date = date;
+        this.img = img;
+        this.favRestaurants = favRestaurants;
 
     }
 
@@ -43,5 +48,15 @@ public class CreateUserGatewayModel implements Serializable {
 
     public LocalDate getDate() {
         return date;
+    }
+    public String getImg(){
+        return img;
+    }
+
+    public List<String> getFavRestaurants() {
+        return favRestaurants;
+    }
+
+    public String getNewRes() { return "Alo";
     }
 }

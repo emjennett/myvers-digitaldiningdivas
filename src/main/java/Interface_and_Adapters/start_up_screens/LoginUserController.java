@@ -22,7 +22,6 @@ public class LoginUserController {
      */
     public LoginUserResponseModel login(String username, String password){
         LoginUserRequestModel model = new LoginUserRequestModel(username, password);
-
         return userInput.login(model);
 
     }

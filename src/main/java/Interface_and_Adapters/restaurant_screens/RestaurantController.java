@@ -13,9 +13,11 @@ public class RestaurantController {
     public RestaurantController(RestaurantInputBoundary restaurantGateway){
         this.userInput = restaurantGateway;
     }
-    public RestaurantResponseModel create(String resTitle, String resCategory, String location, int stars){
+    public RestaurantResponseModel create(String resTitle, String resCategory, String location, int stars, int likes){
         RestaurantRequestModel restaurantRequestModel = new
-                RestaurantRequestModel(resTitle,  resCategory, location, stars);
+                RestaurantRequestModel(resTitle,  resCategory, location, stars, likes);
         return userInput.create(restaurantRequestModel);
     }
+
+
 }

@@ -1,12 +1,8 @@
 package APP_Business_Rules.RestaurantUseCase;
 
-import APP_Business_Rules.create_user.CreateUserGatewayModel;
-import APP_Business_Rules.login_user.LoginUserGatewayModel;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RestaurantFileReader implements RestaurantDataAccess {
     /*
@@ -65,10 +61,12 @@ public class RestaurantFileReader implements RestaurantDataAccess {
         String resCategory = model.getResCategory();
         String resLocation = model.getResLocation();
         int stars = model.getStars();
+        int likes = model.getLikes();
         restaurantInfo.add(resName);
         restaurantInfo.add(resCategory);
         restaurantInfo.add(resLocation);
         restaurantInfo.add(Integer.toString(stars));
+        restaurantInfo.add(Integer.toString(likes));
 
         try {
             String filename = file;
@@ -84,6 +82,6 @@ public class RestaurantFileReader implements RestaurantDataAccess {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return new RestaurantGatewayModel(resName, resCategory, resLocation, stars);
+        return new RestaurantGatewayModel(resName, resCategory, resLocation, stars, likes);
     }
 }

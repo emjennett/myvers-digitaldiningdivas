@@ -1,6 +1,7 @@
 package Entities;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class AccountUser extends Account implements Comparable<AccountUser>, User, Loggable{
@@ -14,8 +15,9 @@ public class AccountUser extends Account implements Comparable<AccountUser>, Use
     private int score;
 
 
-    public AccountUser(String name, String pass, LocalDate date) {
-        super(name, pass, date);
+    public AccountUser(String name, String pass, LocalDate date, String img,
+                       List<String> favRestaurants) {
+        super(name, pass, date, img, favRestaurants);
         this.score = 0;
         this.userReviews = new ArrayList<>();
     }
@@ -31,6 +33,7 @@ public class AccountUser extends Account implements Comparable<AccountUser>, Use
     public int getScore(){
         return this.score;
     }
+
 
     public ArrayList<Review> getUserReviews() {
         return userReviews;

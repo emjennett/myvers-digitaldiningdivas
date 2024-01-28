@@ -8,10 +8,12 @@ import Frameworks_and_Drivers.UserFile;
 import Interface_and_Adapters.Main;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignUpScreenOwner extends JPanel {
         JPanel mainPanel;
@@ -55,8 +57,10 @@ public class SignUpScreenOwner extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        List<String> list = new ArrayList<>();
+                        list.add("Quetzal");
                         controller.create(username.getText(), String.valueOf(password.getPassword()),
-                                String.valueOf(retypePassword.getPassword()), "owner", LocalDate.now());
+                                String.valueOf(retypePassword.getPassword()), "owner", LocalDate.now(), "face.jpg", list);
                         JOptionPane.showMessageDialog(SignUpScreenOwner.this,
                                 "You have successfully created your account " + username.getText() + "!");
                         LoginUserGateway user;

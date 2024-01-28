@@ -2,6 +2,7 @@ package APP_Business_Rules.create_user;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 public class CreateUserRequestModel {
 
@@ -12,7 +13,10 @@ public class CreateUserRequestModel {
     private String dup_password;
 
     private String type;
+
+    private String img;
     private LocalDate date;
+    private List<String> favRestaurants;
 
 
     /**
@@ -21,13 +25,15 @@ public class CreateUserRequestModel {
      * @param password chosen from input.
      * @param dup_password chosen from input.
      */
-    public CreateUserRequestModel(String username, String password, String dup_password, String type,LocalDate date){
+    public CreateUserRequestModel(String username, String password, String dup_password, String type,LocalDate date, String img, List<String> favRestaurants){
 
         this.username = username.strip() ;
         this.password = password;
         this.dup_password = dup_password;
         this.type = type;
         this.date = date;
+        this.img = img;
+        this.favRestaurants = favRestaurants;
 
     }
 
@@ -44,5 +50,12 @@ public class CreateUserRequestModel {
     }
 
     public LocalDate getDate() { return this.date;
+    }
+
+    public String getImg(){
+        return this.img;
+    }
+
+    public List<String> getFavRestaurants() { return this.favRestaurants;
     }
 }
