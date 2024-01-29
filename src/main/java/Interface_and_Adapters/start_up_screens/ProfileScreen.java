@@ -3,21 +3,16 @@ package Interface_and_Adapters.start_up_screens;
 
 import APP_Business_Rules.DishMenu.*;
 import APP_Business_Rules.LoadAccountInfo.*;
-import APP_Business_Rules.RestaurantUseCase.RestaurantFactory;
-import APP_Business_Rules.RestaurantUseCase.RestaurantFileReader;
-import APP_Business_Rules.RestaurantUseCase.RestaurantInputBoundary;
-import APP_Business_Rules.RestaurantUseCase.RestaurantInteractor;
+import APP_Business_Rules.RestaurantUseCase.*;
 import APP_Business_Rules.login_user.AccountUserGateway;
 import APP_Business_Rules.login_user.LoginUserPresenter;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
-import Entities.AccountOwner;
 import Frameworks_and_Drivers.AccountUserFile;
 import Interface_and_Adapters.DishMenuScreens.DishController;
 import Interface_and_Adapters.DishMenuScreens.DishFormatted;
 import Interface_and_Adapters.DishMenuScreens.DishPresenter;
 import Interface_and_Adapters.Main;
 import Interface_and_Adapters.TabPanel;
-import Interface_and_Adapters.WelcomeScreen;
 import Interface_and_Adapters.restaurant_screens.*;
 
 
@@ -56,16 +51,18 @@ public class ProfileScreen extends JPanel {
     JTextField newBio = new JTextField(15);
     JTextField newPic = new JTextField(15);
     JLabel userType = new JLabel();
+    private RestaurantScreen resScreen;
 
 
     RestaurantController resController;
     LoginUserResponseModel account;
 
-    public ProfileScreen(LoginUserResponseModel account, JPanel mainscreen, RestaurantController resController){
+    public ProfileScreen(LoginUserResponseModel account, JPanel mainscreen, RestaurantController resController, RestaurantScreen resScreen){
 
         this.resController = resController;
         this.account = account;
         this.mainscreen = mainscreen;
+        this.resScreen = resScreen;
 
         String bio = account.getBio();
         String user = account.getUsername();
@@ -106,7 +103,7 @@ public class ProfileScreen extends JPanel {
                 imagee = DisplayImage("./"+response.getPic());
 
                 try {
-                    mainscreen.add(new TabPanel(mainscreen, response), "FOURTH");
+                    mainscreen.add(new TabPanel(mainscreen, resScreen, ProfileScreen.this), "FOURTH");
                     main.switchPanel(mainscreen, "FOURTH");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -125,7 +122,7 @@ public class ProfileScreen extends JPanel {
                 Main main = new Main();
                 message = new JLabel(response.getBio());
                 try {
-                    mainscreen.add(new TabPanel(mainscreen, response), "FOURTH");
+                    mainscreen.add(new TabPanel(mainscreen, resScreen, ProfileScreen.this), "FOURTH");
                     main.switchPanel(mainscreen, "FOURTH");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -237,10 +234,10 @@ public class ProfileScreen extends JPanel {
         RestaurantController restaurantController = new RestaurantController(
                 resinteractor);
         wrapper.setLayout(new BorderLayout());
-        System.out.println(account.getFavRestaurants().get(0)+"8");
-        JPanel resScreen = new RestaurantScreen(mainscreen, restaurantController, account, dishController, true);
-        resScreen.setPreferredSize(new Dimension(800, 500));
-        wrapper.add(resScreen, BorderLayout.CENTER);
+        RestaurantResponseModel resResponse = restaurantController.create(null, null, null, 0, 0);
+        JPanel resScreen2 = new RestaurantScreen(mainscreen, resResponse, restaurantController, account, dishController, true);
+        resScreen2.setPreferredSize(new Dimension(800, 500));
+        wrapper.add(resScreen2, BorderLayout.CENTER);
 
 
 
@@ -306,7 +303,7 @@ public class ProfileScreen extends JPanel {
 
                 Main main = new Main();
                 try {
-                    mainscreen.add(new TabPanel(mainscreen, account), "FOURTH");
+                    mainscreen.add(new TabPanel(mainscreen, resScreen, ProfileScreen.this), "FOURTH");
                     main.switchPanel(mainscreen, "FOURTH");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);

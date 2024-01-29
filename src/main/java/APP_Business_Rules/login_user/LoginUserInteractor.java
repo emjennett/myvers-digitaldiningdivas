@@ -48,15 +48,12 @@ public class LoginUserInteractor implements LoginUserInputBoundary {
         System.out.println(gateway.getDate() + "e");
         Loggable loginUser = factory.loginUser(model.getUsername(), model.getPassword(), "user", gateway.getDate(), gateway.getImg(), gateway.getFavRestaurants());
 
-        System.out.println(loginUser.getFavRestaurants().get(0)+"5");
-        System.out.println(gateway.getFavRestaurants().get(0)+"6");
         LoginUserGatewayModel LoginDataModel = new LoginUserGatewayModel(loginUser.getUserName(), "user", loginUser.getDate(), gateway.getImg(), gateway.getFavRestaurants(), gateway.getNewRes());
         LoginUserResponseModel LoggedInUser = new LoginUserResponseModel(accountGateway.loadAccount(LoginDataModel));
         LoggedInUser.setDate(gateway.getDate());
         LoggedInUser.setPic(gateway.getImg());
         LoggedInUser.setFavRestaurants(gateway.getFavRestaurants());
-        LoggedInUser.setNewRes(gateway.getNewRes());
-        System.out.println(LoggedInUser.getFavRestaurants().get(0)+"7");
+
         return presenter.userLoggedIn(LoggedInUser);
     }
 

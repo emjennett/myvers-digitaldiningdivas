@@ -3,14 +3,13 @@ package Interface_and_Adapters.restaurant_screens;
 import APP_Business_Rules.CreateReviewUseCase.CreateReviewGateway;
 import APP_Business_Rules.CreateReviewUseCase.CreateReviewInputBoundary;
 import APP_Business_Rules.CreateReviewUseCase.CreateReviewInteractor;
-import APP_Business_Rules.DishMenu.DishDataAccess;
-import APP_Business_Rules.DishMenu.DishFileReader;
 import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsInputBoundary;
 import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsInteractor;
 import APP_Business_Rules.DisplayReviewsUseCase.DisplayReviewsGateway;
 import APP_Business_Rules.LoadAccountInfo.PullAccountInfoController;
 import APP_Business_Rules.LoadAccountInfo.PullAccountInputBoundary;
 import APP_Business_Rules.LoadAccountInfo.PullAcountInteractor;
+import APP_Business_Rules.RestaurantUseCase.RestaurantResponseModel;
 import APP_Business_Rules.login_user.AccountUserGateway;
 import APP_Business_Rules.login_user.LoginUserPresenter;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
@@ -30,7 +29,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.List;
 
 public class RestaurantPopUp extends JPanel{
     /*
@@ -40,13 +38,17 @@ public class RestaurantPopUp extends JPanel{
     RestaurantController restaurantController;
     DishController dishController;
     JPanel mainScreen;
+    RestaurantResponseModel resResponse;
 
-    RestaurantPopUp(JPanel mainScreen , String resName, String resCategory, String address, String starRating,
-                    LoginUserResponseModel account, RestaurantController restaurantController, JPanel mainPanel, DishController dishController, int likes){
+    RestaurantPopUp(JPanel mainScreen , RestaurantResponseModel resResponse, String resName, String resCategory, String address, String starRating,
+                    LoginUserResponseModel account, RestaurantController restaurantController, JPanel outerPanel, DishController dishController, int likes, boolean favourites){
         this.restaurantController = restaurantController;
         this.dishController = dishController;
         this.mainScreen = mainScreen;
-
+        this.resResponse = resResponse;
+        
+        //outerpanel is cardlayout, and is added to RestaurantScreen. RestaurantScreen is then added to tabpanel
+        JPanel flipPanel = new JPanel();
         this.setLayout(new FlowLayout());
         JPanel firstPanel = new JPanel();
         JPanel secondPanel = new JPanel();
@@ -90,14 +92,18 @@ public class RestaurantPopUp extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 LoginUserResponseModel response = controller.updateBio(account.getUsername(), account.getBio(), account.getDate(), account.getPic(), account.getFavRestaurants(), resName);
+                RestaurantResponseModel resResponse = restaurantController.updateRestaurant(resName, resCategory, address, starCount, likes+1);
                 likeLabel.setText(Integer.toString(likes + 1));
+                restaurantController.create(resName, resCategory, address, starCount, likes+1);
                 Main main = new Main();
 
-                try {
-                    mainScreen.add(new TabPanel(mainScreen, response), "FOURTH");
-                    main.switchPanel(mainScreen, "FOURTH");
 
-                    main.switchPanel(mainScreen, "card1");
+                try {
+                    RestaurantScreen resScreen = new RestaurantScreen(mainScreen, resResponse, restaurantController, response, dishController, false);
+                    ProfileScreen profileScreen = new ProfileScreen(response, mainScreen, restaurantController, resScreen);
+                    mainScreen.add(new TabPanel(mainScreen,  resScreen, profileScreen), "FOURTH");
+
+                    main.switchPanel(mainScreen, "FOURTH");
                 }catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -108,8 +114,8 @@ public class RestaurantPopUp extends JPanel{
         backButton.addActionListener(new ActionListener() { //button brings user back into RestaurantScreen
             @Override
             public void actionPerformed(ActionEvent e) {
-                RestaurantScreen resScreen = new RestaurantScreen(mainScreen, restaurantController, account, dishController, false);
-                resScreen.switchPanel(mainPanel, "one"); //returns to first screen by button click
+                RestaurantScreen resScreen = new RestaurantScreen(mainScreen, resResponse, restaurantController, account, dishController, favourites);
+                resScreen.switchPanel(outerPanel, "one"); //returns to first screen by button click
             }
         });
 
@@ -147,9 +153,9 @@ public class RestaurantPopUp extends JPanel{
                 DisplayReviewsInputBoundary inBoundRev = new DisplayReviewsInteractor(revGate, disRev);
                 DisplayReviewsController disRevController = new DisplayReviewsController(inBoundRev);
                 DisplayReviewsScreenNew seeReviews = new DisplayReviewsScreenNew(disRevController,
-                        mainPanel, resName);
-                mainPanel.add(seeReviews, "seeReviews");
-                switchPanel(mainPanel, "seeReviews");
+                        flipPanel, resName);
+                flipPanel.add(seeReviews, "seeReviews");
+                switchPanel(flipPanel, "seeReviews");
 
             }
         });
@@ -162,9 +168,9 @@ public class RestaurantPopUp extends JPanel{
                 CreateReviewInputBoundary inBoundRev = new CreateReviewInteractor(revGate, disRev);
                 CreateReviewController disRevController = new CreateReviewController(inBoundRev);
                 CreateReviewScreenNew writeReview = new CreateReviewScreenNew(disRevController,
-                        mainPanel, account.getUsername(), resName);
-                mainPanel.add(writeReview, "writeReview");
-                switchPanel(mainPanel, "writeReview");
+                        outerPanel, account.getUsername(), resName);
+                outerPanel.add(writeReview, "writeReview");
+                switchPanel(outerPanel, "writeReview");
 
             }
         });

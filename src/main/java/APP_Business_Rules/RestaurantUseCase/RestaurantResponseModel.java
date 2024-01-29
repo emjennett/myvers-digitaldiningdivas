@@ -3,6 +3,8 @@ package APP_Business_Rules.RestaurantUseCase;
 public class RestaurantResponseModel {
     RestaurantGatewayModel model;
 
+    private int likes;
+
     public RestaurantResponseModel(RestaurantGatewayModel model) {
         this.model = model;
     }
@@ -23,4 +25,11 @@ public class RestaurantResponseModel {
         return this.model.getStars();
     }
 
+    public int getLikes(){
+        return this.model.getLikes();
+    }
+
+    public void setLikes(int newLikes) {
+        this.likes = newLikes;
+    }
 }

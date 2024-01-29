@@ -13,4 +13,5 @@ public interface RestaurantDataAccess {
     RestaurantGatewayModel save(RestaurantGatewayModel model);
     List<List<String>> getRes();
 
+    RestaurantGatewayModel updateRes(RestaurantGatewayModel model);
 }

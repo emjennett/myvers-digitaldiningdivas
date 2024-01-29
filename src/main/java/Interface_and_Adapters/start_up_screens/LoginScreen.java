@@ -1,8 +1,17 @@
 package Interface_and_Adapters.start_up_screens;
 
+import APP_Business_Rules.DishMenu.*;
+import APP_Business_Rules.RestaurantUseCase.*;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
+import Interface_and_Adapters.DishMenuScreens.DishController;
+import Interface_and_Adapters.DishMenuScreens.DishFormatted;
+import Interface_and_Adapters.DishMenuScreens.DishPresenter;
 import Interface_and_Adapters.Main;
 import Interface_and_Adapters.TabPanel;
+import Interface_and_Adapters.restaurant_screens.RestaurantController;
+import Interface_and_Adapters.restaurant_screens.RestaurantFormatted;
+import Interface_and_Adapters.restaurant_screens.RestaurantPresenter;
+import Interface_and_Adapters.restaurant_screens.RestaurantScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,10 +71,34 @@ public class LoginScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    RestaurantDataAccess res;
+                    res = new RestaurantFileReader("./Restaurant.csv");
+
+                    DishDataAccess dish = new DishFileReader("./Dishes.csv");
+                    RestaurantPresenter presenter = new RestaurantFormatted();
+                    RestaurantFactory restaurantFactory = new RestaurantFactory();
+                    RestaurantInputBoundary interactor = new RestaurantInteractor(
+                            res, presenter, restaurantFactory);
+                    RestaurantController restaurantController = new RestaurantController(
+                            interactor);
+
+
+                    DishPresenter dishPresenter = new DishFormatted();
+                    DishFactory dishFactory = new DishFactory();
+                    DishInputBoundary dishInteractor = new DishInteractor(dish, dishPresenter, dishFactory);
+                    DishController dishController = new DishController(dishInteractor);
+
                     LoginUserResponseModel account = controller.login(
                             username.getText(), String.valueOf(password.getPassword()));
+
+
+                    RestaurantResponseModel resResponse = restaurantController.create(null, null, null, 0, 0);
+
+                    RestaurantScreen resScreen = new RestaurantScreen(mainPanel, resResponse, restaurantController, account, dishController, false);
+                    ProfileScreen profileScreen = new ProfileScreen(account, mainPanel,restaurantController, resScreen);
+
                     Main main = new Main();
-                    mainPanel.add(new TabPanel(mainPanel, account), "FOURTH");
+                    mainPanel.add(new TabPanel(mainPanel, resScreen, profileScreen), "FOURTH");
                     main.switchPanel(mainPanel, "FOURTH");
 
 

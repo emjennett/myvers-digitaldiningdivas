@@ -19,5 +19,11 @@ public class RestaurantController {
         return userInput.create(restaurantRequestModel);
     }
 
+    public RestaurantResponseModel updateRestaurant(String resTitle, String resCategory, String location, int stars, int likes){
+        RestaurantRequestModel restaurantRequestModel = new
+                RestaurantRequestModel(resTitle,  resCategory, location, stars, likes);
+        return userInput.updateRestaurant(restaurantRequestModel);
+    }
+
 
 }

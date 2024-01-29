@@ -61,8 +61,7 @@ public class SignUpScreen extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     List<String> list =new ArrayList<>();
-                    list.add("Quetzal");
-
+                    list.add("no favourites yet!");
                     controller.create(username.getText(), String.valueOf(password.getPassword()),
                             String.valueOf(retypePassword.getPassword()), "user", LocalDate.now(), "face.jpg", list);
                     JOptionPane.showMessageDialog(SignUpScreen.this,

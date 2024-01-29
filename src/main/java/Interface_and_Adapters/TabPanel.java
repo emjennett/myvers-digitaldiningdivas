@@ -22,12 +22,14 @@ import java.io.IOException;
 
 public class TabPanel extends JPanel{
     private JPanel mainPanel;
-    private LoginUserResponseModel account;
+    private RestaurantScreen restaurantScreen;
+    private ProfileScreen profileScreen;
 
-    public TabPanel(JPanel mainPanel, LoginUserResponseModel account) throws IOException {
+
+    public TabPanel(JPanel mainPanel, RestaurantScreen restaurantScreen, ProfileScreen profileScreen) throws IOException {
         this.mainPanel = mainPanel;
-        this.account = account;
-
+        this.restaurantScreen = restaurantScreen;
+        this.profileScreen = profileScreen;
         JTabbedPane tabs = new JTabbedPane();
 
         RestaurantDataAccess res;
@@ -49,18 +51,11 @@ public class TabPanel extends JPanel{
         DishInputBoundary dishInteractor = new DishInteractor(dish, dishPresenter, dishFactory);
         DishController dishController = new DishController(dishInteractor);
 
-
-      
-        ProfileScreen welcomeScreen = new ProfileScreen(account, mainPanel, restaurantController);
-
-        //opens the restaurant tab
-        RestaurantScreen restaurantScreen = new RestaurantScreen(mainPanel, restaurantController, account, dishController, false);
-
 //        AnalyticsScreen analyticsScreen = new AnalyticsScreen();
 //        RankingScreen rankingScreen = new RankingScreen();
 
         //adds windows with labels to tab layout. This is an example of what a Restaurant Owner would see.
-        tabs.addTab("Home", welcomeScreen);
+        tabs.addTab("Home", profileScreen);
         tabs.addTab("Restaurant", restaurantScreen);
 //        tabs.addTab("Rankings", rankingScreen);
 //        tabs.addTab("Analytics", analyticsScreen);
