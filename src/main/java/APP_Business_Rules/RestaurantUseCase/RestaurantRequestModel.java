@@ -2,19 +2,23 @@ package APP_Business_Rules.RestaurantUseCase;
 
 import Entities.AccountOwner;
 
+import java.util.List;
+
 public class RestaurantRequestModel {
     private String resName;
     private String resCategory;
     private String resLocation;
     private int stars;
-    private int likes;
+    private List<String> likeList;
+    private String newLike;
 
-    public RestaurantRequestModel(String resName, String resCategory, String resLocation, int stars, int likes) {
+    public RestaurantRequestModel(String resName, String resCategory, String resLocation, int stars, List<String> likeList, String newLike) {
         this.resName = resName;
         this.resCategory = resCategory;
         this.resLocation = resLocation;
         this.stars = stars;
-        this.likes = likes;
+        this.likeList = likeList;
+        this.newLike = newLike;
 
     }
 
@@ -34,7 +38,10 @@ public class RestaurantRequestModel {
         return stars;
     }
 
-    public int getLikes(){
-        return likes;
+
+    public String getNewLike() { return newLike;
+    }
+
+    public List<String> getLikeList() { return likeList;
     }
 }

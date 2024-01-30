@@ -57,7 +57,6 @@ public class AccountUserFile implements AccountUserGateway {
             throw new RuntimeException(e);
         }
         if (accounts.containsKey(model.getUsername())) {
-            System.out.println(model.getBio() + "6");
             return accounts.get(model.getUsername());
         }
 
@@ -76,7 +75,6 @@ public class AccountUserFile implements AccountUserGateway {
 
     @Override
     public LoginUserGatewayModel updateBio(LoginUserGatewayModel model) {
-        System.out.println(model.getBio() + "5");
         Map<String, LoginUserGatewayModel> accounts;
 
         try {
@@ -91,7 +89,7 @@ public class AccountUserFile implements AccountUserGateway {
             // Update the existing model with the new bio
         accounts.remove(model.getUsername());
         accounts.put(model.getUsername(), model);
-        System.out.println(model.getBio());
+
 
         try {
             FileOutputStream file = new FileOutputStream(csvFile);

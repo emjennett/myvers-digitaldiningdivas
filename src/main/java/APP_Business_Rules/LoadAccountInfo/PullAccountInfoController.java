@@ -1,6 +1,5 @@
 package APP_Business_Rules.LoadAccountInfo;
 
-import APP_Business_Rules.RestaurantUseCase.RestaurantInputBoundary;
 import APP_Business_Rules.login_user.LoginUserResponseModel;
 
 import java.time.LocalDate;
@@ -23,10 +22,14 @@ public class PullAccountInfoController {
 
 
 
-    public LoginUserResponseModel updateBio(String username, String bio, LocalDate date, String pic, List<String> favRestaurants, String newRes) {
+    public LoginUserResponseModel updateAccount(String username, String bio, String type, LocalDate date, String pic, List<String> favRestaurants, String resName) {
 
-        UpdateRequestModel requestModel = new UpdateRequestModel(username, bio, date, pic, favRestaurants, newRes);
+        UpdateRequestModel requestModel = new UpdateRequestModel(username, bio, type, date, pic, favRestaurants, resName);
         return userInput.UpdateBio(requestModel);
     }
 
+    public LoginUserResponseModel removeFav(String username, String bio, String type, LocalDate date, String pic, List<String> favRestaurants, String resName) {
+        UpdateRequestModel requestModel = new UpdateRequestModel(username, bio, type, date, pic, favRestaurants, resName);
+        return userInput.removeFav(requestModel);
+    }
 }

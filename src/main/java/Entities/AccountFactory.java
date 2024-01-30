@@ -16,7 +16,7 @@ public class AccountFactory implements UserFactory{
     public User createUser(String username, String password, String type, LocalDate date, String img,
                            List<String> favRestaurants
     ) {
-        if(type == "owner"){
+        if(type.equals("owner")){
             return new AccountOwner(username, password, date, img, favRestaurants);
         }
         else{
@@ -32,7 +32,7 @@ public class AccountFactory implements UserFactory{
      */
     @Override
     public Loggable loginUser(String username, String password, String type, LocalDate date, String img, List<String> favRestaurants) {
-        if(type == "user") {
+        if(type.equals("user")) {
             return new AccountUser(username, password, date, img, favRestaurants);
         }
         else{

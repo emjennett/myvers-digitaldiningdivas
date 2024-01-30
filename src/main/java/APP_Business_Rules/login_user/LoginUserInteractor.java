@@ -45,10 +45,13 @@ public class LoginUserInteractor implements LoginUserInputBoundary {
         if (gateway == null) {
             return presenter.userLoginFail("Your Username or Password are Incorrect!");
         }
-        System.out.println(gateway.getDate() + "e");
-        Loggable loginUser = factory.loginUser(model.getUsername(), model.getPassword(), "user", gateway.getDate(), gateway.getImg(), gateway.getFavRestaurants());
 
-        LoginUserGatewayModel LoginDataModel = new LoginUserGatewayModel(loginUser.getUserName(), "user", loginUser.getDate(), gateway.getImg(), gateway.getFavRestaurants(), gateway.getNewRes());
+        Loggable loginUser = factory.loginUser(model.getUsername(), model.getPassword(), gateway.getType(), gateway.getDate(), gateway.getImg(), gateway.getFavRestaurants());
+
+
+
+        LoginUserGatewayModel LoginDataModel = new LoginUserGatewayModel(loginUser.getUserName(), loginUser.getType(), loginUser.getDate(), gateway.getImg(), gateway.getFavRestaurants(), gateway.getNewRes());
+
         LoginUserResponseModel LoggedInUser = new LoginUserResponseModel(accountGateway.loadAccount(LoginDataModel));
         LoggedInUser.setDate(gateway.getDate());
         LoggedInUser.setPic(gateway.getImg());

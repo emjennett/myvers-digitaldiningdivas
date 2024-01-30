@@ -7,5 +7,6 @@ public interface PullAccountInputBoundary {
 
     LoginUserResponseModel UpdateBio(UpdateRequestModel requestModel);
 
+    LoginUserResponseModel removeFav(UpdateRequestModel requestModel);
 }
 

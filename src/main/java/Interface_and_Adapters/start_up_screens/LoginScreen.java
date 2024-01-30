@@ -91,10 +91,10 @@ public class LoginScreen extends JPanel {
                     LoginUserResponseModel account = controller.login(
                             username.getText(), String.valueOf(password.getPassword()));
 
+                    java.util.List<String> resList = new java.util.ArrayList<String>();
+                    RestaurantResponseModel resResponse = restaurantController.updateRestaurant(" ", " ", " ", 0, resList, null);
 
-                    RestaurantResponseModel resResponse = restaurantController.create(null, null, null, 0, 0);
-
-                    RestaurantScreen resScreen = new RestaurantScreen(mainPanel, resResponse, restaurantController, account, dishController, false);
+                    RestaurantScreen resScreen = new RestaurantScreen(mainPanel, resResponse, restaurantController, account, dishController, true);
                     ProfileScreen profileScreen = new ProfileScreen(account, mainPanel,restaurantController, resScreen);
 
                     Main main = new Main();

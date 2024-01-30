@@ -17,6 +17,7 @@ import Interface_and_Adapters.restaurant_screens.*;
 
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +35,6 @@ public class ProfileScreen extends JPanel {
     JLabel label;
     JLabel message;
     JLabel imagee;
-    JLabel imageLabel;
 
     JPanel firstpanel = new JPanel();
 
@@ -48,8 +48,8 @@ public class ProfileScreen extends JPanel {
     JTextField resCat = new JTextField(15);
     JTextField location = new JTextField(15);
     JTextField stars = new JTextField(5);
-    JTextField newBio = new JTextField(15);
-    JTextField newPic = new JTextField(15);
+    JTextField newBio = new JTextField(25);
+    JTextField newPic = new JTextField(25);
     JLabel userType = new JLabel();
     private RestaurantScreen resScreen;
 
@@ -63,10 +63,13 @@ public class ProfileScreen extends JPanel {
         this.account = account;
         this.mainscreen = mainscreen;
         this.resScreen = resScreen;
+        newBio.setText("Type your new bio here!");
+        newPic.setText("Type in your filename");
 
         String bio = account.getBio();
         String user = account.getUsername();
         String url = account.getPic();
+
 
 
         btn = new JButton("ChangeBio");
@@ -74,7 +77,7 @@ public class ProfileScreen extends JPanel {
 
         backbtn = new JButton("Log Out");
 
-        label = new JLabel("Profile");
+        label = new JLabel("Home");
 
         label.setFont(new Font("Arial", Font.BOLD, 20));
 
@@ -88,6 +91,12 @@ public class ProfileScreen extends JPanel {
         newPic.setVisible(false);
         imageBtn.setVisible(false);
 
+        DishPresenter dishPresenter = new DishFormatted();
+        DishFactory dishFactory = new DishFactory();
+        DishDataAccess dish = new DishFileReader("./Dishes.csv");
+        DishInputBoundary dishInteractor = new DishInteractor(dish, dishPresenter, dishFactory);
+        DishController dishController = new DishController(dishInteractor);
+
         LoginUserPresenter presenter = new LoginUserResponse();
         AccountUserGateway gateway = new AccountUserFile("./accounts.csv");
         PullAccountInputBoundary interactor = new PullAcountInteractor(account, presenter, gateway);
@@ -96,15 +105,16 @@ public class ProfileScreen extends JPanel {
         imageBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginUserResponseModel response = controller.updateBio(account.getUsername(), account.getBio(), account.getDate(), newPic.getText(), account.getFavRestaurants(), account.getNewRes());
+                LoginUserResponseModel response = controller.updateAccount(account.getUsername(), account.getBio(), account.getType(), account.getDate(), newPic.getText(), account.getFavRestaurants(), account.getNewRes());
                 JOptionPane.showMessageDialog(ProfileScreen.this,
                         "Your pfp has successfully been updated!");
                 Main main = new Main();
                 imagee = DisplayImage("./"+response.getPic());
 
                 try {
-                    mainscreen.add(new TabPanel(mainscreen, resScreen, ProfileScreen.this), "FOURTH");
-                    main.switchPanel(mainscreen, "FOURTH");
+                    ProfileScreen profileScreen = new ProfileScreen(response, mainscreen, resController, resScreen);
+                    mainscreen.add(new TabPanel(mainscreen, resScreen, profileScreen), "SIXTH");
+                    main.switchPanel(mainscreen, "SIXTH");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -113,16 +123,16 @@ public class ProfileScreen extends JPanel {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
-            //opens restaurant window with jbuttons from "home" screen
             {
-                LoginUserResponseModel response = controller.updateBio(account.getUsername(), newBio.getText(), account.getDate(), account.getPic(), account.getFavRestaurants(), account.getNewRes());
+                LoginUserResponseModel response = controller.updateAccount(account.getUsername(), newBio.getText(), account.getType(),account.getDate(), account.getPic(), account.getFavRestaurants(), account.getNewRes());
                 JOptionPane.showMessageDialog(ProfileScreen.this,
                         "Your bio has successfully been updated!");
 
                 Main main = new Main();
                 message = new JLabel(response.getBio());
                 try {
-                    mainscreen.add(new TabPanel(mainscreen, resScreen, ProfileScreen.this), "FOURTH");
+                    ProfileScreen profileScreen = new ProfileScreen(response, mainscreen, resController, resScreen);
+                    mainscreen.add(new TabPanel(mainscreen, resScreen, profileScreen), "FOURTH");
                     main.switchPanel(mainscreen, "FOURTH");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -170,8 +180,6 @@ public class ProfileScreen extends JPanel {
 
         }
 
-        resPanel.add(Box.createVerticalGlue());
-
         DefaultListModel<String> mylist = new DefaultListModel<>();
         mylist.addElement("Username: " + user);
         mylist.addElement("Bio:" + account.getBio());
@@ -183,15 +191,10 @@ public class ProfileScreen extends JPanel {
 
 
         JPanel wrapper = new JPanel();
-        DishPresenter dishPresenter = new DishFormatted();
-        DishFactory dishFactory = new DishFactory();
-        DishDataAccess dish = new DishFileReader("./Dishes.csv");
-        DishInputBoundary dishInteractor = new DishInteractor(dish, dishPresenter, dishFactory);
-        DishController dishController = new DishController(dishInteractor);
 
 
+        label.setFont(new Font("Home", 1, 40));
         firstpanel.setLayout(new BoxLayout(firstpanel, BoxLayout.Y_AXIS));
-        firstpanel.setSize(800, 600);
         firstpanel.add(label);
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
         backbtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -233,20 +236,39 @@ public class ProfileScreen extends JPanel {
                 res, respresenter, restaurantFactory);
         RestaurantController restaurantController = new RestaurantController(
                 resinteractor);
-        wrapper.setLayout(new BorderLayout());
-        RestaurantResponseModel resResponse = restaurantController.create(null, null, null, 0, 0);
+        wrapper.setLayout(new BorderLayout(20, 20));
+        java.util.List<String> resList2 = new java.util.ArrayList<String>();
+        RestaurantResponseModel resResponse = restaurantController.updateRestaurant(" ", " ", " ", 0, resList2, null);
+
+        JPanel wrapper2 = new JPanel(); //jpanel wrapper that holds label & restaurant favourites
+        wrapper2.setLayout(new BoxLayout(wrapper2, BoxLayout.Y_AXIS));
+
+        JLabel favLabel = new JLabel("My Favs"); //label for resScreen2
+        favLabel.setFont(new Font("Arial", 1, 25));
+        wrapper2.add(favLabel);
+        favLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JPanel resScreen2 = new RestaurantScreen(mainscreen, resResponse, restaurantController, account, dishController, true);
-        resScreen2.setPreferredSize(new Dimension(800, 500));
-        wrapper.add(resScreen2, BorderLayout.CENTER);
+        resScreen2.setPreferredSize(new Dimension(500, 700));
 
+        JScrollPane scroller = new JScrollPane(resScreen2);
+        scroller.setPreferredSize(new Dimension(600, 400));
+        scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        wrapper2.add(scroller);
+        if(account.getType().equals("owner")){
+            wrapper2.add(resPanel);
+        }
 
+        wrapper2.setPreferredSize(new Dimension(600, 600));
 
+        firstpanel.setPreferredSize(new Dimension(600, 500));
+
+        wrapper.add(wrapper2, BorderLayout.EAST);
         wrapper.add(firstpanel, BorderLayout.WEST);
 
         cont.setLayout(layout);
         cont.add(wrapper, "1");
         this.add(cont);
-        this.add(resPanel);
 
 
     }
@@ -297,12 +319,21 @@ public class ProfileScreen extends JPanel {
         newRes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resController.create(resName.getText(), resCat.getText(), location.getText(), Integer.parseInt(stars.getText()), 0);
+
+                DishPresenter dishPresenter = new DishFormatted();
+                DishFactory dishFactory = new DishFactory();
+                DishDataAccess dish = new DishFileReader("./Dishes.csv");
+                DishInputBoundary dishInteractor = new DishInteractor(dish, dishPresenter, dishFactory);
+                DishController dishController = new DishController(dishInteractor);
+
+                java.util.List<String> resList = new java.util.ArrayList<String>();
+                RestaurantResponseModel newRes = resController.updateRestaurant(resName.getText(), resCat.getText(), location.getText(), Integer.parseInt(stars.getText()), resList, null);
                 JOptionPane.showMessageDialog(ProfileScreen.this,
                         "Your restaurant " + resName.getText() + " has successfully been created!");
 
                 Main main = new Main();
                 try {
+                    RestaurantScreen resScreen = new RestaurantScreen(mainscreen, newRes, resController, account, dishController, false);
                     mainscreen.add(new TabPanel(mainscreen, resScreen, ProfileScreen.this), "FOURTH");
                     main.switchPanel(mainscreen, "FOURTH");
                 } catch (IOException ex) {

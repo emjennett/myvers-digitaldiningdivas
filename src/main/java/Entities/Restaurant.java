@@ -3,6 +3,7 @@ package Entities;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.Serializable;
+import java.util.List;
 
 public class Restaurant extends ReviewableObject implements Serializable {
 
@@ -23,14 +24,16 @@ public class Restaurant extends ReviewableObject implements Serializable {
     private int stars;
     private Double rating;
     private ArrayList<Dish> dishRatings = new ArrayList<Dish>();
-    private int likes;
-    public Restaurant(String name, String resCategory, String location, int stars, int likes){
+    private List<String> likeList;
+    private String newLike;
+    private static final long serialVersionUID = 8843875683983141039L;
+    public Restaurant(String name, String resCategory, String location, int stars, List<String> likeList, String newLike){
         this.resCategory = resCategory;
         this.name = name;
         this.location = location;
         this.stars = stars;
-        this.likes = likes;
-
+        this.likeList = likeList;
+        this.newLike = newLike;
 
     }
     public void storeMenu(Menu menu){
@@ -68,7 +71,11 @@ public class Restaurant extends ReviewableObject implements Serializable {
         this.rating = sum/dishRatings.size();
     }
 
-    public int getLikes() {
-        return likes;
+    public String getNewLike() {
+        return newLike;
     }
+
+    public List<String> getLikeList() { return likeList;
+    }
+
 }

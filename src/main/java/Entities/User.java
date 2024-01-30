@@ -22,4 +22,5 @@ public interface User {
     String getImg();
 
     List<String> getFavRestaurants();
+
 }

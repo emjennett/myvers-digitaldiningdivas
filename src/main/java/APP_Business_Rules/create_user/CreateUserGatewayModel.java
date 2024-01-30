@@ -57,6 +57,7 @@ public class CreateUserGatewayModel implements Serializable {
         return favRestaurants;
     }
 
-    public String getNewRes() { return "Alo";
+    //TODO: get rid of random initializer restaurant and do it properly
+    public String getNewRes() { return null;
     }
 }

@@ -71,4 +71,9 @@ public class LoginUserGatewayModel implements Serializable {
         list.add(getNewRes());
         this.favRestaurants = list;
     }
+
+    public void removeFavRestaurant(List<String> favRestaurants) {
+        favRestaurants.remove(getNewRes());
+        this.favRestaurants = favRestaurants;
+    }
 }

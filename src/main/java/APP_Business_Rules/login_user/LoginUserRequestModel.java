@@ -9,6 +9,7 @@ public class LoginUserRequestModel {
 
     /**
      * The model needed from the user input to attempt a login.
+     *
      * @param username chosen account to access.
      * @param password chosen password to access the account.
      */
@@ -24,4 +25,7 @@ public class LoginUserRequestModel {
 
     public String getPassword(){return this.password;}
 
+    public String getType() {
+        return this.type;
+    }
 }

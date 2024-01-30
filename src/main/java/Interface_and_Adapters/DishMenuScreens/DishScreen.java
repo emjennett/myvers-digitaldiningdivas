@@ -40,8 +40,7 @@ public class DishScreen extends JPanel {
         DishDataAccess dishes;
         dishes = new DishFileReader("./Dishes.csv");
         //if no dishes have been uploaded, say so!
-        System.out.println(dishes);
-        System.out.println(dishes);
+
         if(dishes.getDish(resName)==null){
             JLabel noDishes= new JLabel();
             noDishes.setText("Stay tuned for dishes!");

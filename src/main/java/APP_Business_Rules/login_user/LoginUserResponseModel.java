@@ -53,8 +53,10 @@ public class LoginUserResponseModel {
     }
 
     public void setFavRestaurants(List<String> list) {
-        list.add(getNewRes());
-        this.favRestaurants = list;
+        if(getNewRes()!=null) {
+            list.add(getNewRes());
+            this.favRestaurants = list;
+        }
     }
 
     public String getNewRes() {return this.model.getNewRes();
@@ -64,4 +66,5 @@ public class LoginUserResponseModel {
     public void setNewRes(String rezzy) {
         this.newRes = rezzy;
     }
+
 }

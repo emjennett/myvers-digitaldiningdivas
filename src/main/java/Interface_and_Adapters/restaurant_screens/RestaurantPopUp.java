@@ -49,7 +49,7 @@ public class RestaurantPopUp extends JPanel{
         
         //outerpanel is cardlayout, and is added to RestaurantScreen. RestaurantScreen is then added to tabpanel
         JPanel flipPanel = new JPanel();
-        this.setLayout(new FlowLayout());
+        this.setLayout(new CardLayout());
         JPanel firstPanel = new JPanel();
         JPanel secondPanel = new JPanel();
         JLabel likeLabel = new JLabel();
@@ -91,19 +91,34 @@ public class RestaurantPopUp extends JPanel{
         like.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginUserResponseModel response = controller.updateBio(account.getUsername(), account.getBio(), account.getDate(), account.getPic(), account.getFavRestaurants(), resName);
-                RestaurantResponseModel resResponse = restaurantController.updateRestaurant(resName, resCategory, address, starCount, likes+1);
-                likeLabel.setText(Integer.toString(likes + 1));
-                restaurantController.create(resName, resCategory, address, starCount, likes+1);
+
+                LoginUserResponseModel accountResponse;
+                RestaurantResponseModel resResponse2;
+                //if this user is present in this restaurants like list, remove this restaurant from this profile,
+                // and remove this profile from this restaurant
+                if(resResponse.getLikeList().contains(account.getUsername())){
+                    accountResponse = controller.removeFav(account.getUsername(), account.getBio(), account.getType(),account.getDate(), account.getPic(), account.getFavRestaurants(), resName);
+                    resResponse2 = restaurantController.removeFav(resName, resCategory, address, starCount, resResponse.getLikeList(), account.getUsername());
+                    likeLabel.setText(Integer.toString(resResponse.getLikeList().size()));
+                }
+                //if this user isn't present in this restaurants like list, add this restaurant to this profile,
+                // and add this profile to this restaurant
+                else{
+                    accountResponse = controller.updateAccount(account.getUsername(), account.getBio(), account.getType(),account.getDate(), account.getPic(), account.getFavRestaurants(), resName);
+                    resResponse2 = restaurantController.updateRestaurant(resName, resCategory, address, starCount, resResponse.getLikeList(), account.getUsername());
+                    likeLabel.setText(Integer.toString(resResponse.getLikeList().size()));
+
+                }
                 Main main = new Main();
 
 
                 try {
-                    RestaurantScreen resScreen = new RestaurantScreen(mainScreen, resResponse, restaurantController, response, dishController, false);
-                    ProfileScreen profileScreen = new ProfileScreen(response, mainScreen, restaurantController, resScreen);
+                    RestaurantScreen resScreen = new RestaurantScreen(mainScreen, resResponse2, restaurantController, accountResponse, dishController, false);
+                    ProfileScreen profileScreen = new ProfileScreen(accountResponse, mainScreen, restaurantController, resScreen);
+                    RestaurantPopUp popUp = new RestaurantPopUp(mainScreen, resResponse2, resName, resCategory, address, starRating, accountResponse, restaurantController, outerPanel, dishController, likes, false);
                     mainScreen.add(new TabPanel(mainScreen,  resScreen, profileScreen), "FOURTH");
 
-                    main.switchPanel(mainScreen, "FOURTH");
+                    main.switchPanel(popUp, "THIRD");
                 }catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

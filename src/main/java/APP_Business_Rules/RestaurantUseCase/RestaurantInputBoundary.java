@@ -1,7 +1,8 @@
 package APP_Business_Rules.RestaurantUseCase;
 
 public interface RestaurantInputBoundary {
-    RestaurantResponseModel create(RestaurantRequestModel requestModel);
 
     RestaurantResponseModel updateRestaurant(RestaurantRequestModel restaurantRequestModel);
+
+    RestaurantResponseModel removeFav(RestaurantRequestModel restaurantRequestModel);
 }

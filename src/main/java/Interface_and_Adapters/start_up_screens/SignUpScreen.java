@@ -33,7 +33,7 @@ public class SignUpScreen extends JPanel {
         this.mainPanel = mainPanel;
 
         this.add(Box.createVerticalGlue());
-        JLabel title = new JLabel("Sign-Up");
+        JLabel title = new JLabel("Sign-Up as User");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         LabelHelper usernameBox = new LabelHelper(new JLabel("Select Username"), username);
         LabelHelper passwordBox = new LabelHelper(new JLabel("Choose Password"), password);

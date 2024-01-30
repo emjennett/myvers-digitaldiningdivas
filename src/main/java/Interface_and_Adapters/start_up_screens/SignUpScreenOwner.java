@@ -30,7 +30,7 @@ public class SignUpScreenOwner extends JPanel {
             this.mainPanel = mainPanel;
 
             this.add(Box.createVerticalGlue());
-            JLabel title = new JLabel("Sign-Up");
+            JLabel title = new JLabel("Sign-Up As Owner");
             title.setAlignmentX(Component.CENTER_ALIGNMENT);
             LabelHelper usernameBox = new LabelHelper(new JLabel("Select Username"), username);
             LabelHelper passwordBox = new LabelHelper(new JLabel("Choose Password"), password);
